@@ -9,7 +9,8 @@ alwaysApply: true
 ## 1) Sources of truth (priority)
 
 1. **Architecture decisions** — ADR files under `adr/` plus the index in `registry/adr-registry.md`.
-2. **Delivery / project materials** — `HCC/` (charters, phases, design exports, runbooks, etc.).
+2. **Operational requests** — ticket files under `tickets/` plus the index in `registry/ticket-registry.md`.
+3. **Delivery / project materials** — `HCC/` (charters, phases, design exports, runbooks, etc.).
 
 If an ADR and an `HCC/` document disagree, **do not silently merge**. Prefer the ADR for *decisions* made after the ADR exists; otherwise flag the conflict and ask a human which wins.
 
@@ -24,3 +25,10 @@ If an ADR and an `HCC/` document disagree, **do not silently merge**. Prefer the
 ## 4) Registries
 
 - `registry/adr-registry.md` is the **only** ADR index. Do not create another ADR list file.
+- `registry/ticket-registry.md` is the **only** ticket index. Do not create another ticket list file.
+
+## 5) Ticket ID assignment guardrail
+
+- When creating a ticket, the agent must assign `ticket-id` from `registry/ticket-registry.md` using:
+  - `TKT-` + next 3-digit running number.
+  - Start from `TKT-001` if no existing ticket row is present.
