@@ -1,0 +1,168 @@
+%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'12px'}}}%%
+flowchart TD
+    START([Start Migration]) --> RECEIVE[Receive Extracted Files<br/>from ECC Team]
+    
+    RECEIVE --> CHECK_FILES{All required<br/>files received?}
+    CHECK_FILES -->|No| REQUEST[Request missing files]
+    REQUEST --> RECEIVE
+    CHECK_FILES -->|Yes| STAGE1[<b>STAGE 1: POST-EXTRACTION</b>]
+    
+    STAGE1 --> V11[<b>Validation 1.1</b><br/>Header Data Quality<br/>Missing vendor/material/unit]
+    V11 --> V11D{Issues<br/>found?}
+    V11D -->|Yes - Critical| FAIL1[STOP: Send to ECC team]
+    FAIL1 --> RECEIVE
+    
+    V11D -->|No| V12[<b>Validation 1.2</b><br/>Purch Org Data Quality<br/>Prices, currency, price unit]
+    V12 --> V12D{Missing<br/>currency?}
+    V12D -->|Yes| FAIL1
+    V12D -->|No| V12D2{Zero<br/>prices?}
+    V12D2 -->|Yes| BUS_REV1[Business Review]
+    BUS_REV1 --> APPROVE1{Approved?}
+    APPROVE1 -->|No| FAIL1
+    
+    V12D2 -->|No| V13[<b>Validation 1.3</b><br/>Master Data Existence<br/>Vendors & Materials exist?]
+    APPROVE1 -->|Yes| V13
+    
+    V13 --> V13D{Missing<br/>vendors or<br/>materials?}
+    V13D -->|Yes| FAIL2[CRITICAL STOP:<br/>Request master data]
+    FAIL2 --> RECEIVE
+    
+    V13D -->|No| V14[<b>Validation 1.4</b><br/>Orphaned Records<br/>EINE without EINA]
+    V14 --> V14D{Orphans<br/>found?}
+    V14D -->|Yes| FIX1[Request re-extraction]
+    FIX1 --> RECEIVE
+    
+    V14D -->|No| V15[<b>Validation 1.5</b><br/>Duplicate Info Records<br/>Same vendor+material+org+plant]
+    V15 --> V15D{Duplicates<br/>found?}
+    V15D -->|Yes| BUS_REV2[Business Review:<br/>Keep which record?]
+    BUS_REV2 --> V16[<b>Validation 1.6</b><br/>Invalid Purch Groups]
+    
+    V15D -->|No| V16
+    V16 --> V16D{Invalid<br/>groups?}
+    V16D -->|Yes| PC_PREP1[Send to PC team:<br/>Create groups]
+    PC_PREP1 --> V17[<b>Validation 1.7</b><br/>Tax Codes Inventory<br/>List all codes]
+    
+    V16D -->|No| V17
+    V17 --> V17A[Create tax code<br/>mapping template]
+    V17A --> PC_PREP2[Send to PC team:<br/>Configure codes]
+    PC_PREP2 --> V18[<b>Validation 1.8</b><br/>Price Date Issues<br/>Expired/future prices]
+    
+    V18 --> V18D{Expired<br/>prices?}
+    V18D -->|Yes| BUS_REV3[Business Review]
+    BUS_REV3 --> V19[<b>Validation 1.9</b><br/>Tolerance Settings<br/>Min/max quantities]
+    
+    V18D -->|No| V19
+    V19 --> V19D{Min > Max<br/>qty?}
+    V19D -->|Yes| FAIL1
+    
+    V19D -->|No| STAGE1_SUM[Generate Stage 1<br/>Summary Report]
+    STAGE1_SUM --> STAGE1_CHECK{Stage 1<br/>PASS?}
+    STAGE1_CHECK -->|No| FAIL1
+    
+    STAGE1_CHECK -->|Yes| STAGE2[<b>STAGE 2: TEMPLATE</b>]
+    STAGE2 --> TRANSFORM[Transform data<br/>to PC template]
+    
+    TRANSFORM --> V21[<b>Validation 2.1</b><br/>Required Fields Check]
+    V21 --> V21D{Missing<br/>required?}
+    V21D -->|Yes| TRANSFORM
+    
+    V21D -->|No| V22[<b>Validation 2.2</b><br/>Data Format Check]
+    V22 --> V22D{Format<br/>errors?}
+    V22D -->|Yes| TRANSFORM
+    
+    V22D -->|No| V23[<b>Validation 2.3</b><br/>Duplicate Records]
+    V23 --> V23D{Duplicates<br/>in template?}
+    V23D -->|Yes| TRANSFORM
+    
+    V23D -->|No| V24[<b>Validation 2.4</b><br/>Master Data Exists in PC]
+    V24 --> V24D{Missing in<br/>PC?}
+    V24D -->|Yes| WAIT_PC[Wait for PC team<br/>to migrate master data]
+    WAIT_PC --> V24
+    
+    V24D -->|No| V25[<b>Validation 2.5-2.8</b><br/>Business Logic, Currency,<br/>UoM, Record Count]
+    V25 --> V25D{All<br/>passed?}
+    V25D -->|No| TRANSFORM
+    
+    V25D -->|Yes| STAGE2_PASS[Template Ready]
+    STAGE2_PASS --> STAGE3[<b>STAGE 3: POST-IMPORT</b>]
+    
+    STAGE3 --> UPLOAD[Upload to<br/>Public Cloud Test]
+    UPLOAD --> IMPORT[Execute Import]
+    IMPORT --> V31[<b>Validation 3.1</b><br/>Import Success Rate]
+    
+    V31 --> V31D{Success rate<br/>>= 95%?}
+    V31D -->|No| ERROR_REVIEW[Review import errors]
+    ERROR_REVIEW --> FIX_TEMPLATE[Fix issues]
+    FIX_TEMPLATE --> TRANSFORM
+    
+    V31D -->|Yes| V32[<b>Validation 3.2-3.8</b><br/>Record Count, Prices,<br/>Vendor-Material Links,<br/>Critical Records]
+    
+    V32 --> V32D{All checks<br/>passed?}
+    V32D -->|No| ERROR_REVIEW
+    
+    V32D -->|Yes| STAGE4[<b>STAGE 4: RECONCILIATION</b>]
+    STAGE4 --> V41[<b>Reconciliation 4.1</b><br/>Record Count Comparison]
+    
+    V41 --> V41D{Variance<br/>< 1%?}
+    V41D -->|No| INVESTIGATE[Investigate variance]
+    INVESTIGATE --> V42[<b>Reconciliation 4.2-4.5</b><br/>Sample Records, Prices,<br/>Missing/Extra Records]
+    
+    V41D -->|Yes| V42
+    V42 --> V42D{All recon<br/>passed?}
+    V42D -->|No| BUS_APPROVE[Business approval<br/>for variances]
+    BUS_APPROVE --> V42D2{Approved?}
+    V42D2 -->|No| FIX_TEMPLATE
+    
+    V42D -->|Yes| UAT[User Acceptance<br/>Testing]
+    V42D2 -->|Yes| UAT
+    
+    UAT --> UAT_D{UAT<br/>passed?}
+    UAT_D -->|No| FIX_TEMPLATE
+    
+    UAT_D -->|Yes| FINAL_REPORT[Generate Final<br/>Documentation]
+    FINAL_REPORT --> GOLIVE[<b>GO-LIVE APPROVAL</b>]
+    GOLIVE --> PROD[Production<br/>Migration]
+    PROD --> END([Migration Complete])
+    
+    style START fill:#90EE90,stroke:#2e7d32,stroke-width:3px
+    style END fill:#90EE90,stroke:#2e7d32,stroke-width:3px
+    style STAGE1 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style STAGE2 fill:#fff3e0,stroke:#f57c00,stroke-width:3px
+    style STAGE3 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
+    style STAGE4 fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
+    
+    style FAIL1 fill:#ffcdd2,stroke:#c62828,stroke-width:2px
+    style FAIL2 fill:#ffcdd2,stroke:#c62828,stroke-width:2px
+    
+    style V11 fill:#bbdefb
+    style V12 fill:#bbdefb
+    style V13 fill:#bbdefb
+    style V14 fill:#bbdefb
+    style V15 fill:#bbdefb
+    style V16 fill:#bbdefb
+    style V17 fill:#bbdefb
+    style V18 fill:#bbdefb
+    style V19 fill:#bbdefb
+    
+    style V21 fill:#ffe0b2
+    style V22 fill:#ffe0b2
+    style V23 fill:#ffe0b2
+    style V24 fill:#ffe0b2
+    style V25 fill:#ffe0b2
+    
+    style V31 fill:#e1bee7
+    style V32 fill:#e1bee7
+    
+    style V41 fill:#c8e6c9
+    style V42 fill:#c8e6c9
+    
+    style BUS_REV1 fill:#fff59d
+    style BUS_REV2 fill:#fff59d
+    style BUS_REV3 fill:#fff59d
+    style BUS_APPROVE fill:#fff59d
+    
+    style PC_PREP1 fill:#b2dfdb
+    style PC_PREP2 fill:#b2dfdb
+    
+    style GOLIVE fill:#4caf50,stroke:#2e7d32,stroke-width:3px
+

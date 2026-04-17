@@ -1,0 +1,352 @@
+%% Wave 3: Transactional Data & Open Items - Dependencies Flow Diagram
+%% SAP ECC to S/4HANA Data Migration - Home Control Project
+
+graph TB
+    %% ============================================================================
+    %% WAVE 1 & 2 PREREQUISITES (shown as inputs)
+    %% ============================================================================
+    subgraph PREREQ[" WAVE 1 & 2 PREREQUISITES (Must be 100% Complete)"]
+        W1_GL[Wave 1:<br/>GL Accounts<br/>Cost Centers<br/>Profit Centers]
+        W2_VENDOR[Wave 2:<br/>Vendors]
+        W2_CUSTOMER[Wave 2:<br/>Customers]
+        W2_MATERIAL[Wave 2:<br/>Material Master]
+        W2_INFO[Wave 2:<br/>Info Records<br/>Pricing]
+    end
+
+    %% ============================================================================
+    %% PHASE 1: FINANCIAL BALANCES (CRITICAL PATH - DAY 1 MORNING)
+    %% ============================================================================
+    subgraph PHASE1[" PHASE 1: FINANCIAL BALANCES (Day 1 Morning - CRITICAL)"]
+        GL_BAL[25. GL Account Balances<br/>ACDOCA / FI_BALANCE<br/>2-3 hours<br/><br/>⚠️ ZERO VARIANCE TOLERANCE<br/>Trial Balance MUST match ECC]
+        GL_OPEN[26. GL Open Line Items<br/>FI_GL_OPEN_ITEMS<br/>1-2 hours<br/><br/>Open item managed accounts]
+    end
+
+    %% ============================================================================
+    %% PHASE 2: SUB-LEDGER OPEN ITEMS (CRITICAL PATH - DAY 1 AFTERNOON)
+    %% ============================================================================
+    subgraph PHASE2[" PHASE 2: SUB-LEDGER OPEN ITEMS (Day 1 Afternoon - CRITICAL)"]
+        AP_OPEN[27. AP Open Items<br/>FI_AP_OPEN_ITEMS<br/>2-3 hours<br/>Volume: TBD<br/><br/>⚠️ ZERO VARIANCE TOLERANCE<br/>AP Aging MUST match ECC]
+        AR_OPEN[28. AR Open Items<br/>FI_AR_OPEN_ITEMS<br/>2-3 hours<br/>Volume: TBD<br/><br/>⚠️ ZERO VARIANCE TOLERANCE<br/>AR Aging MUST match ECC]
+    end
+
+    %% ============================================================================
+    %% PHASE 3: ASSET BALANCES (DAY 1 EVENING - CAN OVERLAP)
+    %% ============================================================================
+    subgraph PHASE3[" PHASE 3: ASSET BALANCES (Day 1 Evening)"]
+        ASSET_BAL[29. Fixed Asset Balances<br/>FI_ASSET_TRANSACTIONS<br/>3-4 hours<br/>Volume: TBD<br/><br/>Tolerance: Within $100<br/>Net Book Value MUST equal GL]
+    end
+
+    %% ============================================================================
+    %% PHASE 4: INVENTORY BALANCES (CRITICAL PATH - DAY 2 MORNING)
+    %% ============================================================================
+    subgraph PHASE4[" PHASE 4: INVENTORY BALANCES (Day 2 Morning - CRITICAL)"]
+        INV_STOCK[30. Inventory Stock Balances<br/>MM_STOCK<br/>4-5 hours<br/>Volume: TBD<br/><br/>⚠️ Tolerance: Within $100<br/>Physical count MUST be complete]
+        SUBCON_STOCK[31. Stock at Subcontractor<br/>MM_SUBCON_STOCK<br/>1 hour<br/>Volume: TBD]
+        PHYS_INV[32. Physical Inventory Counts<br/>MM_PHYSICAL_INVENTORY<br/>30 min<br/>Volume: Should be ZERO<br/>All counts should be closed]
+    end
+
+    %% ============================================================================
+    %% PHASE 5: OPEN PROCUREMENT DOCUMENTS (DAY 2 AFTERNOON)
+    %% ============================================================================
+    subgraph PHASE5[" PHASE 5: OPEN PROCUREMENT DOCUMENTS (Day 2 Afternoon)"]
+        OPEN_PO[33. Open Purchase Orders<br/>MM_PURCHASE_ORDER<br/>2-3 hours<br/>Volume: TBD<br/>Open delivery quantity]
+        OPEN_PR[34. Open Purchase Requisitions<br/>MM_PURCHASE_REQ<br/>1 hour<br/>Volume: TBD<br/>Not converted to PO]
+    end
+
+    %% ============================================================================
+    %% PHASE 6: OPEN SALES DOCUMENTS (DAY 2 AFTERNOON - PARALLEL)
+    %% ============================================================================
+    subgraph PHASE6[" PHASE 6: OPEN SALES DOCUMENTS (Day 2 Afternoon - PARALLEL)"]
+        OPEN_SO[35. Open Sales Orders<br/>SD_SALES_ORDER<br/>2-3 hours<br/>Volume: TBD<br/>Open delivery quantity]
+        CONTRACTS[36. Sales Contracts<br/>SD_CONTRACT<br/>1 hour<br/>Volume: TBD<br/>Active contracts only]
+    end
+
+    %% ============================================================================
+    %% DEPENDENCIES FROM WAVE 1 & 2 TO PHASE 1
+    %% ============================================================================
+    W1_GL ==>|Required| GL_BAL
+    W1_GL ==>|Required| GL_OPEN
+    
+    %% ============================================================================
+    %% DEPENDENCIES FROM PHASE 1 TO PHASE 2
+    %% ============================================================================
+    GL_BAL ==>|Must complete first<br/>Balance sheet foundation| AP_OPEN
+    GL_BAL ==>|Must complete first<br/>Balance sheet foundation| AR_OPEN
+    W2_VENDOR ==>|Required| AP_OPEN
+    W2_CUSTOMER ==>|Required| AR_OPEN
+    GL_OPEN ==>|Sequential| AP_OPEN
+    
+    %% ============================================================================
+    %% DEPENDENCIES FROM PHASE 1 & 2 TO PHASE 3
+    %% ============================================================================
+    GL_BAL ==>|Must complete first| ASSET_BAL
+    W1_GL -.->|Asset master from Wave 1| ASSET_BAL
+    
+    %% ============================================================================
+    %% DEPENDENCIES FROM WAVE 2 TO PHASE 4
+    %% ============================================================================
+    W2_MATERIAL ==>|Must complete first| INV_STOCK
+    W2_MATERIAL ==>|Must complete first| SUBCON_STOCK
+    W2_MATERIAL ==>|Must complete first| PHYS_INV
+    W2_VENDOR ==>|Subcontractor vendors| SUBCON_STOCK
+    
+    %% ============================================================================
+    %% DEPENDENCIES FROM WAVE 2 TO PHASE 5
+    %% ============================================================================
+    W2_VENDOR ==>|Required| OPEN_PO
+    W2_MATERIAL ==>|Required| OPEN_PO
+    W2_INFO ==>|Info records needed| OPEN_PO
+    W2_MATERIAL ==>|Required| OPEN_PR
+    
+    %% ============================================================================
+    %% DEPENDENCIES FROM WAVE 2 TO PHASE 6
+    %% ============================================================================
+    W2_CUSTOMER ==>|Required| OPEN_SO
+    W2_MATERIAL ==>|Required| OPEN_SO
+    W2_INFO ==>|Pricing conditions| OPEN_SO
+    W2_CUSTOMER ==>|Required| CONTRACTS
+    
+    %% ============================================================================
+    %% PARALLEL PROCESSING OPPORTUNITIES
+    %% ============================================================================
+    AP_OPEN -.->|Can run in parallel| AR_OPEN
+    ASSET_BAL -.->|Can overlap with Phase 2| AR_OPEN
+    INV_STOCK -.->|Can start after Phase 1-2 complete| SUBCON_STOCK
+    SUBCON_STOCK -.->|Parallel| PHYS_INV
+    OPEN_PO -.->|Can run in parallel| OPEN_PR
+    OPEN_SO -.->|Can run in parallel| CONTRACTS
+    PHASE5 -.->|Can run in parallel with Phase 6| PHASE6
+    
+    %% ============================================================================
+    %% FINAL VALIDATION & GO-LIVE
+    %% ============================================================================
+    VALIDATION[FINAL VALIDATION<br/>===========================<br/>✓ Trial Balance: Zero variance<br/>✓ AP Aging: Zero variance<br/>✓ AR Aging: Zero variance<br/>✓ Inventory Value: Within $100<br/>✓ Asset NBV: Within $100<br/>✓ All documents reconciled<br/><br/>GO-LIVE READY]
+    
+    GL_BAL ==> VALIDATION
+    GL_OPEN ==> VALIDATION
+    AP_OPEN ==> VALIDATION
+    AR_OPEN ==> VALIDATION
+    ASSET_BAL ==> VALIDATION
+    INV_STOCK ==> VALIDATION
+    SUBCON_STOCK ==> VALIDATION
+    OPEN_PO ==> VALIDATION
+    OPEN_PR ==> VALIDATION
+    OPEN_SO ==> VALIDATION
+    CONTRACTS ==> VALIDATION
+    
+    GOLIVE([🚀 GO-LIVE<br/>S/4HANA Production Cutover])
+    
+    VALIDATION ==>|Go/No-Go Decision| GOLIVE
+
+    %% ============================================================================
+    %% STYLING
+    %% ============================================================================
+    
+    %% Wave 1 & 2 Prerequisites (Light Blue)
+    classDef prereqStyle fill:#E3F2FD,stroke:#1976D2,stroke-width:2px,color:#000
+    class W1_GL,W2_VENDOR,W2_CUSTOMER,W2_MATERIAL,W2_INFO prereqStyle
+
+    %% Financial Balances - CRITICAL (Red with thick border)
+    classDef financialCritical fill:#FFCDD2,stroke:#C62828,stroke-width:5px,color:#000,font-weight:bold
+    class GL_BAL,AP_OPEN,AR_OPEN financialCritical
+
+    %% GL Open Items (Light Red)
+    classDef glOpenStyle fill:#FFEBEE,stroke:#D32F2F,stroke-width:3px,color:#000
+    class GL_OPEN glOpenStyle
+
+    %% Asset Balances (Purple)
+    classDef assetStyle fill:#E1BEE7,stroke:#7B1FA2,stroke-width:3px,color:#000
+    class ASSET_BAL assetStyle
+
+    %% Inventory Balances - CRITICAL (Orange with thick border)
+    classDef inventoryCritical fill:#FFE0B2,stroke:#E65100,stroke-width:5px,color:#000,font-weight:bold
+    class INV_STOCK inventoryCritical
+
+    %% Inventory Related (Light Orange)
+    classDef inventoryStyle fill:#FFF3E0,stroke:#F57C00,stroke-width:2px,color:#000
+    class SUBCON_STOCK,PHYS_INV inventoryStyle
+
+    %% Open Procurement Documents (Green)
+    classDef procurementStyle fill:#C8E6C9,stroke:#388E3C,stroke-width:2px,color:#000
+    class OPEN_PO,OPEN_PR procurementStyle
+
+    %% Open Sales Documents (Teal)
+    classDef salesStyle fill:#B2DFDB,stroke:#00796B,stroke-width:2px,color:#000
+    class OPEN_SO,CONTRACTS salesStyle
+
+    %% Validation (Yellow - Warning)
+    classDef validationStyle fill:#FFF9C4,stroke:#F57F17,stroke-width:4px,color:#000,font-weight:bold
+    class VALIDATION validationStyle
+
+    %% Go-Live (Green Success)
+    classDef goliveStyle fill:#4CAF50,stroke:#2E7D32,stroke-width:5px,color:#fff,font-weight:bold
+    class GOLIVE goliveStyle
+
+    %% Subgraph Styling
+    style PREREQ fill:#FAFAFA,stroke:#1976D2,stroke-width:2px
+    style PHASE1 fill:#FFEBEE,stroke:#C62828,stroke-width:4px
+    style PHASE2 fill:#FFEBEE,stroke:#C62828,stroke-width:4px
+    style PHASE3 fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+    style PHASE4 fill:#FFF3E0,stroke:#E65100,stroke-width:4px
+    style PHASE5 fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+    style PHASE6 fill:#E0F2F1,stroke:#00796B,stroke-width:2px
+
+%% ============================================================================
+%% NOTES SECTION
+%% ============================================================================
+
+%% CRITICAL PATH OBJECTS (marked with thick red/orange borders):
+%% Phase 1: GL Account Balances (25) - FOUNDATION - Zero variance tolerance
+%% Phase 2: AP Open Items (27) - CRITICAL - Zero variance tolerance
+%% Phase 2: AR Open Items (28) - CRITICAL - Zero variance tolerance
+%% Phase 4: Inventory Stock Balances (30) - CRITICAL - Tolerance within $100
+
+%% TIMING OVERVIEW:
+%% - Wave 3 Timing: T-1 week (Mock Cutover) and Go-Live Weekend
+%% - Mock Cutover Duration: 2 days (full rehearsal)
+%% - Final Cutover Duration: 8-12 hours (production)
+%% 
+%% DAY 1 SCHEDULE:
+%% - Morning (4-6 hrs): Phase 1 - Financial Balances (GL Balances, GL Open Items)
+%% - Afternoon (4-6 hrs): Phase 2 - Sub-Ledger Open Items (AP, AR)
+%% - Evening (3-4 hrs): Phase 3 - Asset Balances (can overlap with Phase 2)
+%% 
+%% DAY 2 SCHEDULE:
+%% - Morning (4-6 hrs): Phase 4 - Inventory Balances (Stock, Subcontractor, Physical Inv)
+%% - Afternoon (3-4 hrs): Phase 5 - Open Procurement Documents (PO, PR)
+%% - Afternoon (3-4 hrs): Phase 6 - Open Sales Documents (SO, Contracts) - Parallel with Phase 5
+%% - Evening (2-3 hrs): Final Validation & Go-Live Preparation
+
+%% PARALLEL PROCESSING OPPORTUNITIES:
+%% 1. AP Open Items and AR Open Items can load in parallel (both depend on GL Balances)
+%% 2. Asset Balances can overlap with Phase 2 (separate team members)
+%% 3. Inventory types (Stock, Subcontractor, Physical Inv) can partially overlap
+%% 4. Open PO and Open PR can run in parallel
+%% 5. Open SO and Contracts can run in parallel
+%% 6. Phase 5 (Procurement) and Phase 6 (Sales) can run in parallel
+
+%% PREREQUISITES:
+%% - Wave 1: 100% complete and validated (GL Accounts, Cost Centers, Profit Centers, Asset Master)
+%% - Wave 2: 100% complete and validated (Vendors, Customers, Materials, Info Records, Pricing)
+%% - Physical inventory count completed 48 hours before cutoff
+%% - Data freeze in effect (no new transactions in ECC)
+%% - All ECC closing activities complete through cutoff date
+%% - ECC reconciliation reports generated and saved (Trial Balance, AP/AR Aging, Stock Value)
+
+%% DATA CUTOFF RULES:
+%% - Financial Data: Cutoff as of last day of month preceding Go-Live
+%% - Inventory: Physical inventory count freeze 48 hours before cutover
+%% - Open Documents: No new PO/SO creation during freeze period (24 hours)
+%% - AP/AR: All invoices posted through final cutoff date
+%% - Month-end closing activities must be complete before cutoff
+
+%% MOCK CUTOVER VS FINAL CUTOVER:
+%% Mock Cutover (T-2 weeks):
+%% - Full Wave 3 execution in sandbox/QA system
+%% - Data as of practice cutoff date (e.g., prior month-end)
+%% - Complete validation and reconciliation
+%% - Timing validation (can we complete in 2 days?)
+%% - Issue identification and remediation planning
+%% - Team training and readiness verification
+%% 
+%% Final Cutover (Go-Live Weekend):
+%% - Production system (locked for migration)
+%% - Final cutoff date (typically last day of month)
+%% - All lessons learned from mock cutover applied
+%% - Compressed timeline (8-12 hours vs. 2 days for mock)
+%% - Real-time monitoring and issue resolution
+%% - Go/No-Go decision at completion
+
+%% SUCCESS CRITERIA (Go-Live Readiness):
+%% MUST HAVE (Zero tolerance):
+%% - GL Account Balances: Trial Balance matches ECC exactly (Debit = Credit, zero variance)
+%% - AP Open Items: AP Aging matches ECC exactly (total and by aging bucket)
+%% - AR Open Items: AR Aging matches ECC exactly (total and by aging bucket)
+%% - Sub-ledger to GL reconciliation: AP sub-ledger = GL recon account, AR sub-ledger = GL recon account
+%% 
+%% CRITICAL (Minimal tolerance):
+%% - Inventory Stock Balances: Stock value matches ECC (variance within $100 total)
+%% - Fixed Asset Balances: Net Book Value matches ECC (variance within $100 total)
+%% - Inventory value = GL Inventory Accounts
+%% - Asset Net Book Value = GL Asset Accounts
+%% 
+%% IMPORTANT (Operational):
+%% - Open PO count and value match ECC
+%% - Open SO count and value match ECC
+%% - Open PR count matches ECC
+%% - Sales Contracts loaded and accurate
+%% - All functional testing passed (posting, clearing, goods movement, delivery creation)
+%% - No critical errors in migration logs
+%% - All functional leads have signed off
+
+%% BALANCE RECONCILIATION EMPHASIS:
+%% Wave 3 is BALANCE-CRITICAL. The following reconciliations are MANDATORY with ZERO variance tolerance:
+%% 1. Trial Balance reconciliation (Debit = Credit in both ECC and S/4HANA)
+%% 2. AP Aging reconciliation (Total AP = ECC, all aging buckets match)
+%% 3. AR Aging reconciliation (Total AR = ECC, all aging buckets match)
+%% 4. Sub-ledger to GL reconciliation (AP sub-ledger = GL account 21000, AR sub-ledger = GL account 11000)
+%% 5. Inventory value reconciliation (Stock value = GL inventory accounts 14000, 14100, 14200)
+%% 6. Asset value reconciliation (Net Book Value = GL asset account, Accumulated Depr = GL accum depr account)
+%% 
+%% If ANY of these reconciliations fail, DO NOT proceed to Go-Live. Resolve all variances first.
+
+%% OPEN ITEM ACCURACY:
+%% - AP/AR open items must maintain aging accuracy (document dates, due dates, baseline dates)
+%% - Assignment field (ZUONR) must be populated for future clearing
+%% - Payment terms must be accurate for due date calculation
+%% - Partial payments must be reflected correctly
+%% - Special GL indicators (down payments, guarantees) must be retained
+%% - Payment blocks and dunning blocks must be migrated correctly
+
+%% LEGEND:
+%% - Solid arrows (==>) = Sequential dependency (must wait for completion)
+%% - Dotted arrows (-..->) = Parallel processing possible (can overlap)
+%% - Thick red borders (5px) = Critical path - ZERO variance tolerance (Financial balances)
+%% - Thick orange borders (5px) = Critical path - Minimal variance ($100) tolerance (Inventory)
+%% - Thick borders (3-4px) = Important for operations or moderate complexity
+%% - Thin borders (2px) = Standard complexity
+%% - Colors:
+%%   * Light Blue = Wave 1 & 2 Prerequisites
+%%   * Red (FFCDD2) = Financial Balances - CRITICAL (GL, AP, AR)
+%%   * Light Red (FFEBEE) = GL Open Items
+%%   * Purple (E1BEE7) = Asset Balances
+%%   * Orange (FFE0B2) = Inventory Balances - CRITICAL
+%%   * Light Orange (FFF3E0) = Inventory Related (Subcontractor, Physical Inv)
+%%   * Green (C8E6C9) = Open Procurement Documents (PO, PR)
+%%   * Teal (B2DFDB) = Open Sales Documents (SO, Contracts)
+%%   * Yellow (FFF9C4) = Final Validation (Warning - Critical checkpoint)
+%%   * Green Success (4CAF50) = Go-Live
+
+%% ROLLBACK PLAN:
+%% If critical issues are identified during Wave 3 that cannot be resolved within the cutover window:
+%% 1. STOP all migration activities immediately
+%% 2. Do NOT open S/4HANA to users
+%% 3. Activate ECC rollback (restore from backup if needed)
+%% 4. Communicate No-Go decision to all stakeholders
+%% 5. Schedule remediation activities
+%% 6. Reschedule Go-Live after issues resolved
+%% 
+%% Rollback triggers:
+%% - Trial Balance variance > zero
+%% - AP or AR Aging variance > zero
+%% - Critical system errors preventing posting
+%% - Data corruption or integrity issues
+%% - Major functional testing failures
+%% - Inability to complete Wave 3 within cutover window
+
+%% KEY CONTACTS (24/7 during Wave 3):
+%% - Data Migration Lead: Primary escalation
+%% - FI Lead (Frey Zheng): Financial balances, AP/AR, Asset reconciliation
+%% - MM Lead (Meos Xu): Inventory balances, Open PO/PR
+%% - SD Lead (Warner Yu): Open SO, Contracts
+%% - Project Manager: Go/No-Go decisions, timeline management
+%% - SAP Basis Support: System issues, performance, backups
+%% - Executive Sponsor: Final Go-Live approval
+
+%% COMMUNICATION PLAN:
+%% - Hourly status updates during cutover (posted to Teams channel)
+%% - Immediate escalation of any critical issues
+%% - Go/No-Go decision meeting at completion of validation
+%% - Go-Live communication to business users after Go decision
+%% - Hypercare support plan activated post Go-Live
+

@@ -1,0 +1,172 @@
+%% Wave 1 Data Objects - Entity Relationship Diagram
+%% SAP ECC to S/4HANA - Home Control
+%% Foundation Master Data - 14 Objects
+
+erDiagram
+
+    %% ========================================
+    %% 1.1 ORGANIZATIONAL STRUCTURE
+    %% ========================================
+    
+    CHART_OF_ACCOUNTS {
+        string KTOPL PK "Chart of Accounts"
+        string KTPLT "Description"
+    }
+    
+    COMPANY_CODE {
+        string BUKRS PK "Company Code"
+        string BUTXT "Company Name"
+        string KTOPL FK "Chart of Accounts"
+        string WAERS "Currency"
+        string PERIV "Fiscal Year Variant"
+        string LAND1 "Country"
+    }
+    
+    %% ========================================
+    %% 1.2 FI FOUNDATION
+    %% ========================================
+    
+    GL_ACCOUNT {
+        string KTOPL PK,FK "Chart of Accounts"
+        string SAKNR PK "GL Account Number"
+        string TXT50 "Short Text"
+        string KTOKS "Account Group"
+        string XBILK "Balance Sheet Indicator"
+        boolean XOPVW "Reconciliation Account"
+    }
+    
+    BANK_MASTER {
+        string BANKS PK "Bank Country"
+        string BANKL PK "Bank Key"
+        string BANKA "Bank Name"
+        string SWIFT "SWIFT Code"
+        string STRAS "Street Address"
+    }
+    
+    TAX_CODE {
+        string MWSKZ PK "Tax Code"
+        string BUKRS FK "Company Code"
+        string TEXT1 "Description"
+        decimal TAX_RATE "Tax Rate"
+        string KTOSL "Tax GL Account"
+        string KALSM "Tax Procedure"
+    }
+    
+    PAYMENT_TERMS {
+        string ZTERM PK "Payment Term Key"
+        string TEXT1 "Description"
+        integer DAYS "Payment Days"
+        decimal DISCOUNT_PCT "Discount Percentage"
+        integer ZBD1T "Discount Days"
+    }
+    
+    %% ========================================
+    %% 1.3 CO FOUNDATION
+    %% ========================================
+    
+    COST_CENTER {
+        string KOKRS PK,FK "Controlling Area"
+        string KOSTL PK "Cost Center"
+        string KTEXT "Description"
+        string PRCTR FK "Profit Center"
+        date DATAB "Valid From"
+        date DATBI "Valid To"
+        string VERAK "Person Responsible"
+        string KOSAR "Cost Center Category"
+    }
+    
+    COST_CENTER_HIERARCHY {
+        string KOKRS PK,FK "Controlling Area"
+        string SETNAME PK "Hierarchy Name"
+        string SETID "Set ID"
+        string KOSTL FK "Cost Center"
+        string PARENT_NODE "Parent Node"
+    }
+    
+    PROFIT_CENTER {
+        string KOKRS PK,FK "Controlling Area"
+        string PRCTR PK "Profit Center"
+        string KTEXT "Description"
+        string SEGMENT "Segment"
+        date DATAB "Valid From"
+        date DATBI "Valid To"
+        string VERAK "Person Responsible"
+    }
+    
+    PROFIT_CENTER_HIERARCHY {
+        string KOKRS PK,FK "Controlling Area"
+        string SETNAME PK "Hierarchy Name"
+        string SETID "Set ID"
+        string PRCTR FK "Profit Center"
+        string PARENT_NODE "Parent Node"
+    }
+    
+    PRIMARY_COST_ELEMENT {
+        string KOKRS PK,FK "Controlling Area"
+        string KSTAR PK "Cost Element"
+        string SAKNR FK "GL Account Number"
+        string KTEXT "Description"
+        string KOART "Cost Element Category"
+    }
+    
+    SECONDARY_COST_ELEMENT {
+        string KOKRS PK,FK "Controlling Area"
+        string KSTAR PK "Cost Element"
+        string KTEXT "Description"
+        string KOART "Cost Element Category"
+    }
+    
+    STATISTICAL_KEY_FIGURE {
+        string KOKRS PK,FK "Controlling Area"
+        string STAGR PK "Key Figure"
+        string TEXT "Description"
+        string MEINS "Unit of Measure"
+        string KZFIX "Fixed/Total Value"
+    }
+    
+    %% ========================================
+    %% 1.4 ASSET ACCOUNTING
+    %% ========================================
+    
+    FIXED_ASSET {
+        string BUKRS PK,FK "Company Code"
+        string ANLN1 PK "Asset Number"
+        string TXT50 "Description"
+        string ANLKL FK "Asset Class"
+        string KOSTL FK "Cost Center"
+        string PRCTR FK "Profit Center"
+        date ZUGDT "Capitalization Date"
+        string AFABE "Depreciation Area"
+    }
+    
+    %% ========================================
+    %% WAVE 1 RELATIONSHIPS
+    %% ========================================
+    
+    %% Chart of Accounts is the foundation
+    CHART_OF_ACCOUNTS ||--o{ COMPANY_CODE : "assigned to"
+    CHART_OF_ACCOUNTS ||--o{ GL_ACCOUNT : "contains"
+    
+    %% Company Code relationships
+    COMPANY_CODE ||--o{ GL_ACCOUNT : "company code data"
+    COMPANY_CODE ||--o{ TAX_CODE : "defined for"
+    COMPANY_CODE ||--o{ FIXED_ASSET : "assigned to"
+    
+    %% GL Account is central to many objects
+    GL_ACCOUNT ||--o{ TAX_CODE : "tax posting account"
+    GL_ACCOUNT ||--o{ PRIMARY_COST_ELEMENT : "auto-creates"
+    
+    %% CO relationships
+    PROFIT_CENTER ||--|| COST_CENTER : "mandatory assignment"
+    PROFIT_CENTER ||--o{ PROFIT_CENTER_HIERARCHY : "assigned to"
+    
+    COST_CENTER ||--o{ COST_CENTER_HIERARCHY : "assigned to"
+    COST_CENTER ||--o{ FIXED_ASSET : "assigned to"
+    
+    PRIMARY_COST_ELEMENT ||--o{ SECONDARY_COST_ELEMENT : "referenced by"
+    
+    %% Asset dependencies
+    FIXED_ASSET }o--|| GL_ACCOUNT : "asset accounts"
+    FIXED_ASSET }o--|| COST_CENTER : "assigned to"
+    FIXED_ASSET }o--|| PROFIT_CENTER : "assigned to"
+

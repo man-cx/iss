@@ -1,0 +1,154 @@
+---
+title: Supplier Info Record Data Migration - Validation Flow
+---
+flowchart TD
+    subgraph ECC_Team["ECC Extraction Team"]
+        A1[Extract data from ECC<br/>EINA, EINE, A018 tables]
+        A2[Export Master Data<br/>Vendors, Materials]
+        A3[Export Configuration<br/>Purch Groups, Plants]
+        A4[Provide extracted files<br/>to Validation Team]
+        A5{Fix issues<br/>in ECC?}
+        A6[Re-extract data<br/>with corrections]
+    end
+
+    subgraph Validation_Team["Data Validation Team"]
+        B1[Receive extracted files<br/>SupplierInfo_Combined_YYYYMMDD.xlsx]
+        B2[Run Stage 1 Validations<br/>1.1-1.9]
+        B3{Critical<br/>errors?}
+        B4[Document all issues<br/>Create issue reports]
+        B5[Transform data to<br/>Public Cloud template]
+        B6[Run Stage 2 Validations<br/>Template checks]
+        B7{Template<br/>valid?}
+        B8[Upload to Public Cloud<br/>Test system]
+        B9[Run Stage 3 Validations<br/>Post-import checks]
+        B10{Import<br/>successful?}
+        B11[Run Stage 4 Reconciliation<br/>Source vs Target]
+        B12{Reconciliation<br/>passed?}
+        B13[Prepare final reports<br/>and documentation]
+    end
+
+    subgraph Business_Team["Business/Purchasing Team"]
+        C1[Review validation issues<br/>Zero prices, duplicates]
+        C2{Approve<br/>exceptions?}
+        C3[Review critical records<br/>High-value vendors]
+        C4{UAT<br/>passed?}
+        C5[Sign off migration<br/>Go-live approval]
+    end
+
+    subgraph PublicCloud_Team["Public Cloud Configuration Team"]
+        D1[Configure master data<br/>Vendors, Materials]
+        D2[Configure settings<br/>Purch Groups, Tax Codes]
+        D3{Configuration<br/>complete?}
+        D4[Monitor import process<br/>Review logs]
+    end
+
+    subgraph PublicCloud_System["Public Cloud System"]
+        E1[Receive import file<br/>CSV/Excel template]
+        E2[Execute import<br/>Data migration tool]
+        E3[Generate import log<br/>Success/Failure records]
+        E4[Store imported records<br/>I_PurchasingInfoRecord]
+    end
+
+    %% Stage 1: Post-Extraction Validation
+    A1 --> A2
+    A2 --> A3
+    A3 --> A4
+    A4 --> B1
+    B1 --> B2
+    
+    B2 -->|Validation 1.1:<br/>Header Quality| B3
+    B2 -->|Validation 1.2:<br/>Purch Org Quality| B3
+    B2 -->|Validation 1.3:<br/>Master Data Exists| B3
+    B2 -->|Validation 1.4:<br/>Orphaned Records| B3
+    B2 -->|Validation 1.5:<br/>Duplicates| B3
+    B2 -->|Validation 1.6:<br/>Invalid Purch Groups| B3
+    B2 -->|Validation 1.7:<br/>Tax Codes Inventory| B3
+    B2 -->|Validation 1.8:<br/>Price Date Issues| B3
+    B2 -->|Validation 1.9:<br/>Tolerance Settings| B3
+    
+    B3 -->|Yes| B4
+    B4 --> A5
+    A5 -->|Yes| A6
+    A6 --> A4
+    A5 -->|No - Exclude| B5
+    
+    B3 -->|No| C1
+    C1 --> C2
+    C2 -->|Reject| A5
+    C2 -->|Approve| B5
+    
+    %% Stage 2: Template Validation
+    B5 --> B6
+    B6 -->|Validation 2.1:<br/>Required Fields| B7
+    B6 -->|Validation 2.2:<br/>Data Format| B7
+    B6 -->|Validation 2.3:<br/>Duplicates| B7
+    B6 -->|Validation 2.4:<br/>Master Data Exists| B7
+    B6 -->|Validation 2.5:<br/>Business Logic| B7
+    B6 -->|Validation 2.6:<br/>Currency Codes| B7
+    B6 -->|Validation 2.7:<br/>Units of Measure| B7
+    B6 -->|Validation 2.8:<br/>Record Count| B7
+    
+    B7 -->|No| B5
+    B7 -->|Yes| D1
+    
+    %% Public Cloud Preparation
+    D1 --> D2
+    D2 --> D3
+    D3 -->|No| D2
+    D3 -->|Yes| B8
+    
+    %% Stage 3: Post-Import Validation
+    B8 --> E1
+    E1 --> E2
+    E2 --> E3
+    E3 --> B9
+    E2 --> E4
+    
+    B9 -->|Validation 3.1:<br/>Import Success Rate| B10
+    B9 -->|Validation 3.2:<br/>Record Count| B10
+    B9 -->|Validation 3.3:<br/>Price Accuracy| B10
+    B9 -->|Validation 3.4:<br/>Vendor-Material Links| B10
+    B9 -->|Validation 3.5:<br/>Critical Records| B10
+    B9 -->|Validation 3.6:<br/>Pricing Completeness| B10
+    B9 -->|Validation 3.7:<br/>Purch Org Assignment| B10
+    B9 -->|Validation 3.8:<br/>Delivery Times| B10
+    
+    B10 -->|No| D4
+    D4 --> B5
+    
+    B10 -->|Yes| B11
+    
+    %% Stage 4: Reconciliation
+    B11 -->|Reconciliation 4.1:<br/>Record Count Comparison| B12
+    B11 -->|Reconciliation 4.2:<br/>Sample Record Check| B12
+    B11 -->|Reconciliation 4.3:<br/>Price Comparison| B12
+    B11 -->|Reconciliation 4.4:<br/>Missing Records| B12
+    B11 -->|Reconciliation 4.5:<br/>Extra Records| B12
+    
+    B12 -->|No| C3
+    B12 -->|Yes| C3
+    
+    C3 --> C4
+    C4 -->|No| B5
+    C4 -->|Yes| C5
+    
+    C5 --> B13
+    
+    B13 --> F[Migration Complete<br/>Go-Live]
+    
+    style A1 fill:#e1f5ff
+    style A4 fill:#e1f5ff
+    style B2 fill:#fff4e1
+    style B6 fill:#fff4e1
+    style B9 fill:#fff4e1
+    style B11 fill:#fff4e1
+    style B3 fill:#ffe1e1
+    style B7 fill:#ffe1e1
+    style B10 fill:#ffe1e1
+    style B12 fill:#ffe1e1
+    style C2 fill:#e1ffe1
+    style C4 fill:#e1ffe1
+    style C5 fill:#e1ffe1
+    style E2 fill:#f0e1ff
+    style F fill:#90EE90
+

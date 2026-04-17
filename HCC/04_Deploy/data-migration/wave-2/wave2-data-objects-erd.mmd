@@ -1,0 +1,210 @@
+%% Wave 2 Data Objects - Entity Relationship Diagram
+%% SAP ECC to S/4HANA - Home Control
+%% Business Partner & Material Master - 10 Objects
+
+erDiagram
+
+    %% ========================================
+    %% DEPENDENCIES FROM WAVE 1 (Reference Only)
+    %% ========================================
+    
+    GL_ACCOUNT {
+        string SAKNR PK "GL Account Number"
+        string TXT50 "Short Text"
+    }
+    
+    PROFIT_CENTER {
+        string PRCTR PK "Profit Center"
+        string KTEXT "Description"
+    }
+    
+    PAYMENT_TERMS {
+        string ZTERM PK "Payment Term Key"
+        string TEXT1 "Description"
+    }
+    
+    BANK_MASTER {
+        string BANKS PK "Bank Country"
+        string BANKL PK "Bank Key"
+    }
+    
+    %% ========================================
+    %% 2.1 BUSINESS PARTNERS
+    %% ========================================
+    
+    VENDOR {
+        string LIFNR PK "Vendor Number"
+        string NAME1 "Name"
+        string KTOKK "Vendor Account Group"
+        string AKONT FK "Reconciliation Account"
+        string ZTERM FK "Payment Terms"
+        string BANKS FK "Bank Country"
+        string BANKL FK "Bank Key"
+        string PRCTR FK "Profit Center"
+        string EKORG "Purchasing Organization"
+        string KTGKD "Account Assignment Group"
+    }
+    
+    CUSTOMER {
+        string KUNNR PK "Customer Number"
+        string NAME1 "Name"
+        string KTOKD "Customer Account Group"
+        string AKONT FK "Reconciliation Account"
+        string ZTERM FK "Payment Terms"
+        string PRCTR FK "Profit Center"
+        string VKORG "Sales Organization"
+        string KTGRD "Account Assignment Group"
+    }
+    
+    %% ========================================
+    %% 2.2 MATERIAL MASTER
+    %% ========================================
+    
+    MATERIAL_MASTER {
+        string MATNR PK "Material Number"
+        string MAKTX "Material Description"
+        string MTART "Material Type"
+        string MEINS "Base Unit"
+        string MATKL "Material Group"
+        string PRCTR FK "Profit Center"
+        string HKONT FK "Valuation Account"
+        string WERKS "Plant"
+        string LGORT "Storage Location"
+        string DISPO "MRP Controller"
+    }
+    
+    %% ========================================
+    %% 2.3 PROCUREMENT MASTER DATA
+    %% ========================================
+    
+    INFO_RECORD {
+        string INFNR PK "Info Record Number"
+        string LIFNR FK "Vendor"
+        string MATNR FK "Material"
+        string WERKS "Plant"
+        string EKORG "Purchasing Org"
+        decimal NETPR "Net Price"
+        string WAERS "Currency"
+        integer APLFZ "Planned Delivery Time"
+        date DATAB "Valid From"
+        date DATBI "Valid To"
+    }
+    
+    SOURCE_LIST {
+        string MATNR PK,FK "Material"
+        string WERKS PK "Plant"
+        integer ZEILE PK "Item"
+        string LIFNR FK "Vendor"
+        string INFNR FK "Info Record"
+        date DATAB "Valid From"
+        date DATBI "Valid To"
+        string EBELN "Purchase Order"
+    }
+    
+    QUOTA_ARRANGEMENT {
+        string MATNR PK,FK "Material"
+        string WERKS PK "Plant"
+        integer ZEILE PK "Item"
+        string LIFNR FK "Vendor"
+        decimal QUOTA "Quota Percentage"
+        date DATAB "Valid From"
+        date DATBI "Valid To"
+    }
+    
+    %% ========================================
+    %% 2.4 PRODUCTION MASTER DATA
+    %% ========================================
+    
+    BOM {
+        string STLNR PK "BOM Number"
+        string STLAL PK "Alternative BOM"
+        string MATNR FK "Header Material"
+        string WERKS "Plant"
+        string IDNRK FK "Component Material"
+        decimal MENGE "Quantity"
+        string MEINS "Unit of Measure"
+        integer POSNR "Item Number"
+        date DATUV "Valid From"
+    }
+    
+    %% ========================================
+    %% 2.5 SALES MASTER DATA
+    %% ========================================
+    
+    CUSTOMER_PRICING {
+        string KNUMH PK "Condition Record Number"
+        string KUNNR FK "Customer"
+        string MATNR FK "Material"
+        string KSCHL "Condition Type"
+        decimal KBETR "Condition Value"
+        string KONWA "Currency"
+        date DATAB "Valid From"
+        date DATBI "Valid To"
+    }
+    
+    CREDIT_ACCOUNT {
+        string KKBER PK "Credit Control Area"
+        string KUNNR PK,FK "Customer"
+        decimal KLIMK "Credit Limit"
+        string WAERS "Currency"
+        string CTLPC "Credit Limit Used"
+    }
+    
+    CUSTOMER_MATERIAL_INFO {
+        string KUNNR PK,FK "Customer"
+        string MATNR PK,FK "Material"
+        string VKORG PK "Sales Organization"
+        string KDMAT "Customer Material Number"
+        string KDMAT_TXT "Customer Material Text"
+    }
+    
+    %% ========================================
+    %% WAVE 2 RELATIONSHIPS
+    %% ========================================
+    
+    %% Dependencies from Wave 1
+    GL_ACCOUNT ||--o{ VENDOR : "reconciliation account"
+    GL_ACCOUNT ||--o{ CUSTOMER : "reconciliation account"
+    GL_ACCOUNT ||--o{ MATERIAL_MASTER : "valuation account"
+    
+    PROFIT_CENTER ||--o{ VENDOR : "assigned to"
+    PROFIT_CENTER ||--o{ CUSTOMER : "assigned to"
+    PROFIT_CENTER ||--o{ MATERIAL_MASTER : "assigned to"
+    
+    PAYMENT_TERMS ||--o{ VENDOR : "default terms"
+    PAYMENT_TERMS ||--o{ CUSTOMER : "default terms"
+    
+    BANK_MASTER ||--o{ VENDOR : "bank details"
+    
+    %% Vendor relationships
+    VENDOR ||--o{ INFO_RECORD : "supplies"
+    VENDOR ||--o{ SOURCE_LIST : "listed in"
+    VENDOR ||--o{ QUOTA_ARRANGEMENT : "quota for"
+    
+    %% Customer relationships
+    CUSTOMER ||--o{ CUSTOMER_PRICING : "pricing for"
+    CUSTOMER ||--o{ CREDIT_ACCOUNT : "credit limit"
+    CUSTOMER ||--o{ CUSTOMER_MATERIAL_INFO : "material info"
+    
+    %% Material Master relationships
+    MATERIAL_MASTER ||--o{ INFO_RECORD : "purchased"
+    MATERIAL_MASTER ||--o{ SOURCE_LIST : "sourced"
+    MATERIAL_MASTER ||--o{ QUOTA_ARRANGEMENT : "quota split"
+    MATERIAL_MASTER ||--o{ BOM : "header material"
+    MATERIAL_MASTER ||--o{ BOM : "component material"
+    MATERIAL_MASTER ||--o{ CUSTOMER_PRICING : "priced"
+    MATERIAL_MASTER ||--o{ CUSTOMER_MATERIAL_INFO : "mapped"
+    
+    %% Info Record relationships
+    INFO_RECORD ||--o{ SOURCE_LIST : "referenced"
+    INFO_RECORD }o--|| VENDOR : "created for"
+    INFO_RECORD }o--|| MATERIAL_MASTER : "created for"
+    
+    %% Source List dependencies
+    SOURCE_LIST }o--|| VENDOR : "preferred vendor"
+    SOURCE_LIST }o--|| MATERIAL_MASTER : "for material"
+    
+    %% Quota Arrangement dependencies
+    QUOTA_ARRANGEMENT }o--|| VENDOR : "quota vendor"
+    QUOTA_ARRANGEMENT }o--|| MATERIAL_MASTER : "for material"
+

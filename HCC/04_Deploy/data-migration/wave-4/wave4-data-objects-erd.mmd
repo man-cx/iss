@@ -1,0 +1,117 @@
+%% Wave 4 Data Objects - Entity Relationship Diagram
+%% SAP ECC to S/4HANA - Home Control
+%% Cost & Planning Data - 3 Objects
+
+erDiagram
+
+    %% ========================================
+    %% DEPENDENCIES FROM WAVE 1, 2, 3 (Reference Only)
+    %% ========================================
+    
+    COST_CENTER {
+        string KOKRS FK "Controlling Area"
+        string KOSTL PK "Cost Center"
+    }
+    
+    PROFIT_CENTER {
+        string KOKRS FK "Controlling Area"
+        string PRCTR PK "Profit Center"
+    }
+    
+    PRIMARY_COST_ELEMENT {
+        string KOKRS FK "Controlling Area"
+        string KSTAR PK "Cost Element"
+    }
+    
+    SECONDARY_COST_ELEMENT {
+        string KOKRS FK "Controlling Area"
+        string KSTAR PK "Cost Element"
+    }
+    
+    CUSTOMER {
+        string KUNNR PK "Customer Number"
+    }
+    
+    MATERIAL_MASTER {
+        string MATNR PK "Material Number"
+    }
+    
+    %% ========================================
+    %% 4.1 PLANNING DATA
+    %% ========================================
+    
+    CO_PLANNING {
+        string KOKRS PK,FK "Controlling Area"
+        string VERSN PK "Version"
+        integer GJAHR PK "Fiscal Year"
+        integer POPER PK "Period"
+        string KOSTL FK "Cost Center"
+        string KSTAR FK "Cost Element"
+        decimal WTGBTR "Plan Amount Total"
+        decimal WTFBTR "Plan Amount Fixed"
+        decimal WTVBTR "Plan Amount Variable"
+        string WAERS "Currency"
+        string OBJNR "Object Number"
+    }
+    
+    PROJECT_MASTER {
+        string PSPNR PK "WBS Element"
+        string PSPHI "WBS Element Number"
+        string POST1 "Project Description"
+        string PBUKR FK "Project Company Code"
+        string PRCTR FK "Profit Center"
+        string KOSTL FK "Cost Center"
+        decimal BUDGET "Budget Amount"
+        string WAERS "Currency"
+        date PLFAZ "Start Date"
+        date PLSEZ "End Date"
+        string OBJNR "Object Number"
+        string STUFE "Level"
+    }
+    
+    COPA_CHARACTERISTICS {
+        string KNDNR FK "Customer Number"
+        string ARTNR FK "Material Number"
+        string PRCTR FK "Profit Center"
+        string KNDGR "Customer Group"
+        string MATKL "Material Group"
+        string VKORG "Sales Organization"
+        string VTWEG "Distribution Channel"
+        string SPART "Division"
+        integer GJAHR "Fiscal Year"
+        integer POPER "Period"
+        decimal VV010 "Revenue"
+        decimal VV020 "Cost of Goods Sold"
+        string PALEDGER "Profitability Ledger"
+    }
+    
+    %% ========================================
+    %% WAVE 4 RELATIONSHIPS
+    %% ========================================
+    
+    %% CO Planning dependencies
+    COST_CENTER ||--o{ CO_PLANNING : "planned for"
+    PRIMARY_COST_ELEMENT ||--o{ CO_PLANNING : "planned cost"
+    SECONDARY_COST_ELEMENT ||--o{ CO_PLANNING : "planned allocation"
+    
+    %% Project Master dependencies
+    PROFIT_CENTER ||--o{ PROJECT_MASTER : "assigned to"
+    COST_CENTER ||--o{ PROJECT_MASTER : "default cost center"
+    
+    %% COPA dependencies
+    CUSTOMER ||--o{ COPA_CHARACTERISTICS : "profitability by"
+    MATERIAL_MASTER ||--o{ COPA_CHARACTERISTICS : "profitability by"
+    PROFIT_CENTER ||--o{ COPA_CHARACTERISTICS : "reported in"
+    
+    %% Cross-relationships
+    CO_PLANNING }o--|| COST_CENTER : "plans for"
+    CO_PLANNING }o--|| PRIMARY_COST_ELEMENT : "cost element"
+    CO_PLANNING }o--|| SECONDARY_COST_ELEMENT : "allocation element"
+    
+    PROJECT_MASTER }o--|| PROFIT_CENTER : "reports to"
+    PROJECT_MASTER }o--|| COST_CENTER : "default posting"
+    
+    COPA_CHARACTERISTICS }o--|| CUSTOMER : "customer dimension"
+    COPA_CHARACTERISTICS }o--|| MATERIAL_MASTER : "product dimension"
+    COPA_CHARACTERISTICS }o--|| PROFIT_CENTER : "organizational dimension"
+

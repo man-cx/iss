@@ -1,0 +1,80 @@
+flowchart TD
+    Start([BOM Data Validation Process]) --> ReceiveData[Receive Extracted Data Files from ECC Team]
+    
+    ReceiveData --> CheckFiles{Files Received?}
+    CheckFiles -->|No| RequestFiles[Request Required Files:<br/>- BOM Headers<br/>- BOM Items<br/>- Material Master List<br/>- Count Summary]
+    RequestFiles --> ReceiveData
+    CheckFiles -->|Yes| Stage1[Stage 1: Pre-Extraction Validation]
+    
+    Stage1 --> Val1_1[1.1: BOM Header Data Quality<br/>Check Base Quantity & Unit]
+    Val1_1 --> Val1_2[1.2: BOM Item Data Quality<br/>Check Component, Quantity, Unit]
+    Val1_2 --> Val1_3[1.3: Component Material Existence<br/>Verify against Material Master]
+    Val1_3 --> Val1_4[1.4: Duplicate BOM Item Numbers<br/>Check for duplicates within BOMs]
+    Val1_4 --> Val1_5[1.5: Circular Reference Check<br/>Detect parent = component]
+    Val1_5 --> Val1_6[1.6: Generate Overall Quality Report]
+    
+    Val1_6 --> Stage1Pass{Stage 1<br/>PASS?}
+    Stage1Pass -->|Fail| FixSource[Send Issue List to ECC Team<br/>Request Data Correction]
+    FixSource --> ReceiveData
+    Stage1Pass -->|Pass| Stage2[Stage 2: Template Validation]
+    
+    Stage2 --> Transform[Transform Extracted Data<br/>to Public Cloud Template Format]
+    Transform --> Val2_1[2.1: Template Structure Check<br/>Verify columns and format]
+    Val2_1 --> Val2_2[2.2: Required Fields Populated<br/>Check mandatory fields]
+    Val2_2 --> Val2_3[2.3: Data Format Validation<br/>Verify dates, numbers, text formats]
+    Val2_3 --> Val2_4[2.4: Business Logic Validation<br/>Check header-item match, rules]
+    Val2_4 --> Val2_5[2.5: Record Count Validation<br/>Reconcile with extraction counts]
+    
+    Val2_5 --> Stage2Pass{Stage 2<br/>PASS?}
+    Stage2Pass -->|Fail| FixTemplate[Fix Template Issues:<br/>- Populate missing fields<br/>- Correct formats<br/>- Resolve logic errors]
+    FixTemplate --> Val2_1
+    Stage2Pass -->|Pass| TestImport[Test Migration to<br/>Sandbox/Test System]
+    
+    TestImport --> ImportTest{Test Import<br/>Success?}
+    ImportTest -->|Fail| TroubleshootImport[Review Import Errors<br/>Adjust Template<br/>Fix Issues]
+    TroubleshootImport --> Val2_1
+    ImportTest -->|Success| Stage3[Stage 3: Post-Import Validation]
+    
+    Stage3 --> Val3_1[3.1: Import Success Confirmation<br/>Check import logs and counts]
+    Val3_1 --> Val3_2[3.2: BOM Header Reconciliation<br/>Verify all headers imported]
+    Val3_2 --> Val3_3[3.3: BOM Item Reconciliation<br/>Verify all items imported]
+    Val3_3 --> Val3_4[3.4: BOM Structure Integrity<br/>Sample and compare BOMs]
+    Val3_4 --> Val3_5[3.5: Field-Level Data Accuracy<br/>Random sample validation]
+    
+    Val3_5 --> Stage3Pass{Stage 3<br/>PASS?<br/>Success Rate >= 95%}
+    Stage3Pass -->|Fail| ReImport[Identify Missing/Incorrect BOMs<br/>Re-import Failed Records]
+    ReImport --> Stage3
+    Stage3Pass -->|Pass| ProdReady{Ready for<br/>Production?}
+    
+    ProdReady -->|No - More Testing| TestImport
+    ProdReady -->|Yes| ProdImport[Production Migration]
+    
+    ProdImport --> Stage4[Stage 4: Reconciliation & Final Checks]
+    
+    Stage4 --> Val4_1[4.1: Volume Reconciliation<br/>Compare source vs target counts]
+    Val4_1 --> Val4_2[4.2: Critical BOMs Validation<br/>Verify high-priority BOMs 100%]
+    Val4_2 --> Val4_3[4.3: Multi-Level BOM Testing<br/>Test complex assemblies]
+    Val4_3 --> Val4_4[4.4: User Acceptance Testing<br/>End users verify usability]
+    
+    Val4_4 --> FinalPass{Final<br/>Validation<br/>PASS?}
+    FinalPass -->|Fail| FixProd[Document Issues<br/>Plan Corrective Actions<br/>Fix Critical Items]
+    FixProd --> Val4_1
+    FinalPass -->|Pass| GoLive[Go-Live Approved]
+    
+    GoLive --> Monitor[Post Go-Live Monitoring<br/>Track issues for 1 week]
+    Monitor --> CloseOut[Project Close-Out<br/>Final Documentation]
+    CloseOut --> End([Validation Complete])
+    
+    style Start fill:#e1f5e1
+    style End fill:#e1f5e1
+    style Stage1 fill:#fff4e6
+    style Stage2 fill:#fff4e6
+    style Stage3 fill:#fff4e6
+    style Stage4 fill:#fff4e6
+    style Stage1Pass fill:#ffe6e6
+    style Stage2Pass fill:#ffe6e6
+    style Stage3Pass fill:#ffe6e6
+    style FinalPass fill:#ffe6e6
+    style GoLive fill:#e1f5e1
+
+

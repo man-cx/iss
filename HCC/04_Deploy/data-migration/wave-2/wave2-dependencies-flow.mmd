@@ -1,0 +1,214 @@
+%% Wave 2: Business Partner & Material Master - Dependencies Flow Diagram
+%% SAP ECC to S/4HANA Data Migration - Home Control Project
+
+graph TB
+    %% ============================================================================
+    %% WAVE 1 PREREQUISITES (shown as inputs)
+    %% ============================================================================
+    subgraph WAVE1[" WAVE 1 PREREQUISITES (Must be Complete)"]
+        W1_GL[GL Accounts<br/>Wave 1]
+        W1_PAYMENT[Payment Terms<br/>Wave 1]
+        W1_BANK[Bank Master<br/>Wave 1]
+        W1_MATGRP[Material Groups<br/>Wave 1]
+    end
+
+    %% ============================================================================
+    %% PHASE 1: BUSINESS PARTNERS
+    %% ============================================================================
+    subgraph PHASE1[" PHASE 1: BUSINESS PARTNERS (Day 1-2)"]
+        VENDOR[15. BP - Vendors<br/>BP_VENDOR template<br/>6-8 hours<br/>Volume: &lt;1,200]
+        CUSTOMER[16. BP - Customers<br/>BP_CUSTOMER template<br/>4-6 hours<br/>Volume: TBD]
+    end
+
+    %% ============================================================================
+    %% PHASE 2: MATERIAL MASTER
+    %% ============================================================================
+    subgraph PHASE2[" PHASE 2: MATERIAL MASTER (Day 2-3)"]
+        MATERIAL[17. Material Master<br/>MM_MATERIAL_MASTER / API<br/>8-12 hours<br/>Volume: Hundreds<br/>Types: ZFER, ZH01-ZH44, ZHL1-ZHL2]
+    end
+
+    %% ============================================================================
+    %% PHASE 3: PROCUREMENT MASTER DATA
+    %% ============================================================================
+    subgraph PHASE3[" PHASE 3: PROCUREMENT MASTER DATA (Day 3-4)"]
+        INFO_REC[18. Purchasing Info Records<br/>MM_INFO_RECORD template<br/>4-6 hours<br/>Volume: None in legacy - new]
+        SOURCE_LIST[19. Source Lists<br/>MM_SOURCE_LIST template<br/>2-3 hours<br/>Volume: None in legacy - new]
+        QUOTA[20. Quota Arrangements<br/>Manual / API<br/>2-3 hours<br/>Volume: TBD]
+    end
+
+    %% ============================================================================
+    %% PHASE 4: PRODUCTION MASTER DATA
+    %% ============================================================================
+    subgraph PHASE4[" PHASE 4: PRODUCTION MASTER DATA (Day 4-5)"]
+        BOM[21. Bill of Materials<br/>BOM API / Upload Program<br/>6-10 hours<br/>Volume: TBD<br/>Special: UOM ZPC with 3 decimals]
+    end
+
+    %% ============================================================================
+    %% PHASE 5: SALES MASTER DATA
+    %% ============================================================================
+    subgraph PHASE5[" PHASE 5: SALES MASTER DATA (Day 5-6)"]
+        PRICING[22. Customer Pricing<br/>SD_PRICING template<br/>3-4 hours<br/>Volume: TBD]
+        CREDIT[23. Credit Accounts<br/>Manual Configuration<br/>2-3 hours<br/>Volume: TBD]
+        CUST_MAT[24. Customer Material Info<br/>SD_CUST_MATERIAL template<br/>2-3 hours<br/>Volume: TBD]
+    end
+
+    %% ============================================================================
+    %% DEPENDENCIES FROM WAVE 1 TO PHASE 1
+    %% ============================================================================
+    W1_GL -->|Required| VENDOR
+    W1_PAYMENT -->|Required| VENDOR
+    W1_BANK -->|Required| VENDOR
+    W1_GL -->|Required| CUSTOMER
+    W1_PAYMENT -->|Required| CUSTOMER
+
+    %% ============================================================================
+    %% DEPENDENCIES FROM WAVE 1 TO PHASE 2
+    %% ============================================================================
+    W1_GL -->|Required| MATERIAL
+    W1_MATGRP -->|Required| MATERIAL
+
+    %% ============================================================================
+    %% PARALLEL PROCESSING IN PHASE 1
+    %% ============================================================================
+    W1_GL -.->|Can run in parallel| CUSTOMER
+
+    %% ============================================================================
+    %% DEPENDENCIES FROM PHASE 1 & 2 TO PHASE 3
+    %% ============================================================================
+    VENDOR -->|Must complete first| INFO_REC
+    MATERIAL -->|Must complete first| INFO_REC
+    INFO_REC -->|Must complete first| SOURCE_LIST
+    SOURCE_LIST -->|Must complete first| QUOTA
+
+    %% ============================================================================
+    %% DEPENDENCIES FROM PHASE 2 TO PHASE 4
+    %% ============================================================================
+    MATERIAL -->|Must complete first| BOM
+
+    %% ============================================================================
+    %% DEPENDENCIES FROM PHASE 1 & 2 TO PHASE 5
+    %% ============================================================================
+    CUSTOMER -->|Must complete first| PRICING
+    MATERIAL -->|Must complete first| PRICING
+    CUSTOMER -->|Must complete first| CREDIT
+    CUSTOMER -->|Must complete first| CUST_MAT
+    MATERIAL -->|Must complete first| CUST_MAT
+
+    %% ============================================================================
+    %% PARALLEL PROCESSING OPPORTUNITIES
+    %% ============================================================================
+    MATERIAL -.->|Can run in parallel| INFO_REC
+    BOM -.->|Can run in parallel| PRICING
+    BOM -.->|Can run in parallel| CREDIT
+    BOM -.->|Can run in parallel| CUST_MAT
+
+    %% ============================================================================
+    %% OUTPUT TO WAVE 3
+    %% ============================================================================
+    VENDOR -->|Enables| WAVE3_AP[WAVE 3:<br/>AP Open Items<br/>Open POs]
+    CUSTOMER -->|Enables| WAVE3_AR[WAVE 3:<br/>AR Open Items<br/>Open SOs]
+    MATERIAL -->|Enables| WAVE3_INV[WAVE 3:<br/>Inventory Balances<br/>Stock Data]
+    INFO_REC -->|Enables| WAVE3_AP
+    PRICING -->|Enables| WAVE3_AR
+    BOM -->|Enables| WAVE3_PROD[WAVE 3:<br/>Production Planning<br/>MRP]
+
+    %% ============================================================================
+    %% STYLING
+    %% ============================================================================
+    
+    %% Wave 1 Prerequisites (Light Blue)
+    classDef wave1Style fill:#E3F2FD,stroke:#1976D2,stroke-width:2px,color:#000
+    class W1_GL,W1_PAYMENT,W1_BANK,W1_MATGRP wave1Style
+
+    %% Business Partners (Green)
+    classDef bpStyle fill:#C8E6C9,stroke:#388E3C,stroke-width:3px,color:#000
+    class VENDOR,CUSTOMER bpStyle
+
+    %% Material Master (Orange) - Critical Path
+    classDef materialStyle fill:#FFE0B2,stroke:#E65100,stroke-width:4px,color:#000
+    class MATERIAL materialStyle
+
+    %% Procurement Master Data (Light Green)
+    classDef procurementStyle fill:#DCEDC8,stroke:#689F38,stroke-width:2px,color:#000
+    class INFO_REC,SOURCE_LIST,QUOTA procurementStyle
+
+    %% Production Master Data (Purple) - Critical Path
+    classDef productionStyle fill:#E1BEE7,stroke:#7B1FA2,stroke-width:4px,color:#000
+    class BOM productionStyle
+
+    %% Sales Master Data (Light Orange)
+    classDef salesStyle fill:#FFCCBC,stroke:#D84315,stroke-width:2px,color:#000
+    class PRICING,CREDIT,CUST_MAT salesStyle
+
+    %% Wave 3 Output (Gray)
+    classDef wave3Style fill:#F5F5F5,stroke:#616161,stroke-width:2px,color:#000
+    class WAVE3_AP,WAVE3_AR,WAVE3_INV,WAVE3_PROD wave3Style
+
+    %% Subgraph Styling
+    style WAVE1 fill:#FAFAFA,stroke:#1976D2,stroke-width:2px
+    style PHASE1 fill:#FAFAFA,stroke:#388E3C,stroke-width:2px
+    style PHASE2 fill:#FAFAFA,stroke:#E65100,stroke-width:3px
+    style PHASE3 fill:#FAFAFA,stroke:#689F38,stroke-width:2px
+    style PHASE4 fill:#FAFAFA,stroke:#7B1FA2,stroke-width:3px
+    style PHASE5 fill:#FAFAFA,stroke:#D84315,stroke-width:2px
+
+%% ============================================================================
+%% NOTES SECTION
+%% ============================================================================
+
+%% CRITICAL PATH OBJECTS (marked with thicker borders):
+%% - Material Master (17): Required by most downstream objects
+%% - Bill of Materials (21): Required for production planning in Wave 3
+
+%% PARALLEL PROCESSING OPPORTUNITIES:
+%% 1. Vendor and Customer can load in parallel (both depend only on Wave 1)
+%% 2. Material Master can start while BP loading completes
+%% 3. Info Record loading can overlap with BOM preparation (after Material completes)
+%% 4. Phase 5 (Sales Master Data) can run in parallel with BOM loading
+%% 5. Pricing, Credit, and Customer Material Info can all run in parallel
+
+%% PREREQUISITES:
+%% - Wave 1 must be 100% complete and validated before starting Wave 2
+%% - All GL Accounts, Payment Terms, Bank Master, Material Groups configured
+%% - System readiness confirmed (Migration Cockpit, templates, access)
+
+%% SUCCESS CRITERIA:
+%% - All 10 Wave 2 objects loaded successfully
+%% - No duplicate Business Partner records
+%% - Material master 100% complete for active materials (all views)
+%% - Info record coverage: 95%+ for regular procurement materials
+%% - BOMs validated for all manufactured items (multi-level structures tested)
+%% - All reconciliation reports reviewed and signed off
+%% - Integration with Smart-Fulfillment System tested and operational
+%% - No critical errors remaining
+
+%% LEGEND:
+%% - Solid arrows (-->) = Sequential dependency (must wait for completion)
+%% - Dotted arrows (-..->) = Parallel processing possible (can overlap)
+%% - Thick borders = Critical path objects (delays impact timeline)
+%% - Colors:
+%%   * Light Blue = Wave 1 Prerequisites
+%%   * Green = Business Partners
+%%   * Orange = Material Master (Critical)
+%%   * Light Green = Procurement Master Data
+%%   * Purple = Production Master Data (Critical)
+%%   * Light Orange = Sales Master Data
+%%   * Gray = Wave 3 Outputs
+
+%% SPECIAL CONSIDERATIONS:
+%% - Material Master: Integration with Smart-Fulfillment System required
+%% - Vendor Master: Number ranges Z001 (BOM/NPR), Z002 (IC), ZEMP (Employee), ZCPD (One-time)
+%% - Info Records: Use BTP App for PPCA approval workflow
+%% - BOMs: Special UOM "ZPC" with 3 decimal places required
+%% - Multi-level BOMs: Create in bottom-up sequence (components → sub-assemblies → finished goods)
+
+%% TIMING:
+%% - Wave 2 Timing: T-3 weeks before Go-Live
+%% - Total Duration: 5-7 days
+%% - Phase 1 (BP): Day 1-2
+%% - Phase 2 (Material): Day 2-3
+%% - Phase 3 (Procurement): Day 3-4
+%% - Phase 4 (Production): Day 4-5
+%% - Phase 5 (Sales): Day 5-6
+%% - Phase 6 (Validation): Day 6-7
+

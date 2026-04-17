@@ -1,0 +1,8 @@
+PLACEHOLDER: KDD Log Master
+
+This file is a placeholder for:
+- 2.2_KDD_Log_Master.xlsx (Excel version)
+- 2.2_KDD_Log_Master.csv (CSV version for AI/vector search)
+
+Status: To be created after filing and content analysis
+Purpose: Master log of Key Design Decisions (KDDs) including pricing logic, organizational structure, and other critical design decisions

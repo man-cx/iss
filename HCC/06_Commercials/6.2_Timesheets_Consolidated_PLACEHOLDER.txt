@@ -1,0 +1,8 @@
+PLACEHOLDER: Timesheets Consolidated
+
+This file is a placeholder for:
+- 6.2_Timesheets_Consolidated.csv
+
+Status: To be located during filing
+Purpose: Manday usage data for "Budget vs Actual" analysis
+Note: CSV format for AI/vector search

@@ -1,0 +1,139 @@
+%% Wave 1 Data Migration - Dependencies & Load Sequence
+%% SAP ECC to S/4HANA - Home Control
+%% Foundation Master Data - 14 Objects
+
+flowchart TD
+    %% Styling
+    classDef org fill:#E3F2FD,stroke:#1976D2,stroke-width:3px,color:#000
+    classDef fi fill:#FFF3E0,stroke:#F57C00,stroke-width:3px,color:#000
+    classDef co fill:#FFEBEE,stroke:#C62828,stroke-width:3px,color:#000
+    classDef asset fill:#F3E5F5,stroke:#7B1FA2,stroke-width:3px,color:#000
+    classDef critical fill:#FF6B6B,stroke:#C92A2A,stroke-width:4px,color:#fff
+    classDef config fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#000
+
+    %% ========================================
+    %% PHASE 1: ORGANIZATIONAL FOUNDATION
+    %% ========================================
+    START([Wave 1 Start<br/>T-4 Weeks]):::critical
+    
+    CoA["1. Chart of Accounts<br/>YCOA<br/><br/>Tool: Manual (OB13)<br/>Duration: 15 min"]:::org
+    CompCode["2. Company Code Structure<br/>7 entities<br/>(SG21, CN13, CN17, US10,<br/>BE10, HCIL, BR10)<br/><br/>Tool: Migration Cockpit<br/>Duration: 1 hour"]:::org
+
+    %% ========================================
+    %% PHASE 2: FI FOUNDATION
+    %% ========================================
+    GL["3. GL Account Master<br/>~1,000 accounts<br/><br/>Tool: FI_GL_ACCOUNT<br/>Duration: 4-6 hours"]:::fi
+    Bank["4. Bank Master Data<br/>~50 banks<br/><br/>Tool: FI_BANK<br/>Duration: 2 hours"]:::fi
+
+    %% ========================================
+    %% PHASE 3: FI CONFIGURATION
+    %% ========================================
+    Tax["5. Tax Codes<br/>~40 codes<br/><br/>Tool: Manual (FTXP/SPRO)<br/>Duration: 2-3 hours"]:::config
+    PayTerms["6. Payment Terms<br/><br/>Tool: Manual (OBB8)<br/>Duration: 1 hour"]:::config
+
+    %% ========================================
+    %% PHASE 4: CO FOUNDATION
+    %% ========================================
+    CostCenter["7. Cost Center Master<br/><br/>Tool: CO_COST_CENTER<br/>Duration: 2-3 hours"]:::co
+    ProfitCenter["8. Profit Center Master<br/><br/>Tool: CO_PROFIT_CENTER<br/>Duration: 2-3 hours"]:::co
+
+    %% ========================================
+    %% PHASE 5: CO HIERARCHIES
+    %% ========================================
+    CCHier["9. Cost Center Hierarchy<br/>HC01<br/><br/>Tool: Manual (OKEON)<br/>Duration: 1-2 hours"]:::co
+    PCHier["10. Profit Center Hierarchy<br/>HC01<br/><br/>Tool: Manual (KCH1)<br/>Duration: 1-2 hours"]:::co
+
+    %% ========================================
+    %% PHASE 6: CO ELEMENTS
+    %% ========================================
+    PrimaryCE["11. Primary Cost Elements<br/>Auto-created from GL<br/><br/>Tool: Automatic<br/>Duration: 30 min"]:::co
+    SecondaryCE["12. Secondary Cost Elements<br/><br/>Tool: Manual (KA01)<br/>Duration: 1-2 hours"]:::co
+    SKF["13. Statistical Key Figures<br/><br/>Tool: Manual (KK01)<br/>Duration: 1 hour"]:::co
+
+    %% ========================================
+    %% PHASE 7: ASSET ACCOUNTING
+    %% ========================================
+    Asset["14. Fixed Asset Master<br/><br/>Tool: FI_ASSET_MASTER<br/>Duration: 6-8 hours"]:::asset
+
+    %% ========================================
+    %% COMPLETION
+    %% ========================================
+    END([Wave 1 Complete<br/>Ready for Wave 2]):::critical
+
+    %% ========================================
+    %% DEPENDENCIES - SEQUENTIAL
+    %% ========================================
+    START ==> CoA
+    CoA ==>|"Foundation for<br/>all FI/CO"| CompCode
+    CompCode ==> GL
+    
+    GL ==>|"Required for<br/>tax posting"| Tax
+    GL ==>|"Required for<br/>cost elements"| PrimaryCE
+    GL ==>|"Required for<br/>CO assignments"| CostCenter
+
+    CostCenter ==> CCHier
+    ProfitCenter ==> PCHier
+    
+    PrimaryCE ==> SecondaryCE
+    
+    CCHier & PCHier & SecondaryCE & SKF ==>|"All CO objects<br/>complete"| Asset
+
+    %% ========================================
+    %% DEPENDENCIES - PARALLEL PATHS
+    %% ========================================
+    CompCode -.->|"Parallel"| Bank
+    Bank --> Asset
+    
+    Tax -.->|"Can run<br/>in parallel"| PayTerms
+    PayTerms --> Asset
+
+    CompCode -.->|"Parallel with<br/>GL load"| ProfitCenter
+    ProfitCenter -.->|"Required for<br/>cost center"| CostCenter
+
+    CostCenter -.->|"Parallel"| SKF
+
+    %% ========================================
+    %% FINAL CONVERGENCE
+    %% ========================================
+    Asset ==> END
+
+    %% ========================================
+    %% CRITICAL PATH HIGHLIGHTING
+    %% ========================================
+    subgraph CRITICAL [" CRITICAL PATH "]
+        direction LR
+        CP1["CoA → CompCode → GL → Cost Centers → Asset"]:::critical
+    end
+
+    %% ========================================
+    %% PARALLEL OPPORTUNITIES
+    %% ========================================
+    subgraph PARALLEL [" PARALLEL PROCESSING "]
+        direction TB
+        P1["Phase 2: GL Accounts + Bank Master"]:::org
+        P2["Phase 3: Tax Codes + Payment Terms"]:::org
+        P3["Phase 4: Cost Centers + Profit Centers"]:::org
+        P4["Phase 5: CC Hierarchy + PC Hierarchy"]:::org
+        P5["Phase 6: Secondary CE + SKF"]:::org
+    end
+
+    %% ========================================
+    %% NOTES
+    %% ========================================
+    NOTE1["PREREQUISITES:<br/>✓ S/4HANA system ready<br/>✓ Migration Cockpit access<br/>✓ ECC data extracted<br/><br/>SUCCESS CRITERIA:<br/>✓ All 14 objects loaded<br/>✓ Zero critical errors<br/>✓ Validations passed<br/><br/>TIMELINE: 3-5 Days"]:::critical
+
+    START -.-> NOTE1
+
+    %% ========================================
+    %% LEGEND
+    %% ========================================
+    subgraph LEGEND [" LEGEND "]
+        direction TB
+        L1["Organizational Structure"]:::org
+        L2["FI Foundation"]:::fi
+        L3["CO Foundation"]:::co
+        L4["Asset Accounting"]:::asset
+        L5["Configuration"]:::config
+        L6["Critical Milestone"]:::critical
+    end
+

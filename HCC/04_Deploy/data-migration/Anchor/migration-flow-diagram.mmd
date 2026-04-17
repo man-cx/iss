@@ -1,0 +1,70 @@
+%% SAP ECC to S/4HANA Data Migration Flow - Simplified
+%% Home Control - Critical Path & Dependencies
+%% Focus: Key data objects and migration sequence
+
+flowchart TD
+    %% Styling
+    classDef wave1 fill:#E3F2FD,stroke:#1976D2,stroke-width:3px,color:#000
+    classDef wave2 fill:#FFF3E0,stroke:#F57C00,stroke-width:3px,color:#000
+    classDef wave3 fill:#FFEBEE,stroke:#C62828,stroke-width:3px,color:#000
+    classDef wave4 fill:#F1F8E9,stroke:#558B2F,stroke-width:3px,color:#000
+    classDef critical fill:#FF6B6B,stroke:#C92A2A,stroke-width:4px,color:#fff
+
+    %% ========================================
+    %% WAVE 1: FOUNDATION (T-4 weeks)
+    %% ========================================
+    W1["<b>WAVE 1: Foundation</b><br/>T-4 weeks<br/><br/>• Chart of Accounts<br/>• Company Codes (7)<br/>• GL Accounts (~1000)<br/>• Cost Centers<br/>• Profit Centers<br/>• Fixed Assets"]:::wave1
+
+    %% ========================================
+    %% WAVE 2: MASTER DATA (T-3 weeks)
+    %% ========================================
+    W2A["<b>Business Partners</b><br/><br/>• Vendors (<1200)<br/>• Customers"]:::wave2
+    W2B["<b>Material Master</b><br/><br/>• Materials (all types)<br/>• BOMs<br/>• Info Records<br/>• Source Lists"]:::wave2
+    W2C["<b>Sales Data</b><br/><br/>• Pricing<br/>• Credit Mgmt"]:::wave2
+
+    %% ========================================
+    %% WAVE 3: TRANSACTIONAL (T-1 week & Go-Live)
+    %% ========================================
+    W3A["<b>FI Balances</b><br/><br/>• GL Balances<br/>• AP Open Items<br/>• AR Open Items<br/>• Asset Balances"]:::wave3
+    W3B["<b>Inventory</b><br/><br/>• Stock Balances<br/>• Subcon Stock"]:::wave3
+    W3C["<b>Open Documents</b><br/><br/>• Open POs<br/>• Open SOs<br/>• Contracts"]:::wave3
+
+    %% ========================================
+    %% WAVE 4: PLANNING (Post Go-Live)
+    %% ========================================
+    W4["<b>WAVE 4: Planning</b><br/>Post Go-Live<br/><br/>• CO Planning<br/>• Projects & Budgets<br/>• COPA"]:::wave4
+
+    %% ========================================
+    %% CRITICAL PATH - Simplified Dependencies
+    %% ========================================
+    W1 ==>|"Foundation<br/>Complete"| W2A
+    W1 ==>|"Foundation<br/>Complete"| W2B
+    
+    W2A -->|"BP Ready"| W3A
+    W2B -->|"Materials<br/>Ready"| W3B
+    W2A & W2B -->|"Master Data<br/>Complete"| W2C
+    W2C -->|"Sales Data<br/>Ready"| W3C
+    
+    W3A & W3B & W3C ==>|"Balances<br/>Loaded"| W4
+
+    %% Key Dependencies Highlighted
+    W1 -.->|"GL Accounts<br/>→ Everything"| W3A
+    W2B -.->|"Materials<br/>→ All Transactions"| W3C
+
+    %% ========================================
+    %% NOTES
+    %% ========================================
+    Note1["<b>📌 CRITICAL PATH:</b><br/>GL Accounts → Materials → Inventory<br/><br/><b>⏱️ TIMELINE:</b><br/>4 weeks total preparation<br/><br/><b>✓ SUCCESS:</b><br/>Zero balance discrepancies<br/>100% master data complete"]:::critical
+
+    W1 -.-> Note1
+    
+    %% ========================================
+    %% LEGEND
+    %% ========================================
+    subgraph Legend [" "]
+        L1["Wave 1: Foundation<br/>(3-5 days)"]:::wave1
+        L2["Wave 2: Master Data<br/>(5-7 days)"]:::wave2
+        L3["Wave 3: Transactional<br/>(8-12 hours)"]:::wave3
+        L4["Wave 4: Planning<br/>(2-3 days)"]:::wave4
+    end
+

@@ -1,0 +1,181 @@
+%% Wave 3A Data Objects - Entity Relationship Diagram
+%% SAP ECC to S/4HANA - Home Control
+%% Financial Balances & Open Items - 5 Objects
+
+erDiagram
+
+    %% ========================================
+    %% DEPENDENCIES FROM WAVE 1 & 2 (Reference Only)
+    %% ========================================
+    
+    COMPANY_CODE {
+        string BUKRS PK "Company Code"
+    }
+    
+    GL_ACCOUNT {
+        string SAKNR PK "GL Account Number"
+    }
+    
+    COST_CENTER {
+        string KOSTL PK "Cost Center"
+    }
+    
+    PROFIT_CENTER {
+        string PRCTR PK "Profit Center"
+    }
+    
+    FIXED_ASSET {
+        string ANLN1 PK "Asset Number"
+    }
+    
+    VENDOR {
+        string LIFNR PK "Vendor Number"
+    }
+    
+    CUSTOMER {
+        string KUNNR PK "Customer Number"
+    }
+    
+    PAYMENT_TERMS {
+        string ZTERM PK "Payment Term Key"
+    }
+    
+    %% ========================================
+    %% 3.1 FINANCIAL BALANCES & OPEN ITEMS
+    %% ========================================
+    
+    GL_BALANCE {
+        string BUKRS PK,FK "Company Code"
+        string SAKNR PK,FK "GL Account"
+        string KOSTL FK "Cost Center"
+        string PRCTR FK "Profit Center"
+        integer GJAHR PK "Fiscal Year"
+        integer POPER "Posting Period"
+        decimal HSL "Local Currency Amount"
+        decimal KSL "Group Currency Amount"
+        string WAERS "Currency"
+        string DRCRK "Debit/Credit Indicator"
+    }
+    
+    GL_OPEN_ITEMS {
+        string BELNR PK "Document Number"
+        string BUKRS PK,FK "Company Code"
+        integer GJAHR PK "Fiscal Year"
+        integer BUZEI PK "Line Item"
+        string SAKNR FK "GL Account"
+        string KOSTL FK "Cost Center"
+        string PRCTR FK "Profit Center"
+        decimal WRBTR "Amount"
+        string WAERS "Currency"
+        date BUDAT "Posting Date"
+        date BLDAT "Document Date"
+        string XBLNR "Reference Document"
+        string AUGDT "Clearing Date"
+        string AUGBL "Clearing Document"
+    }
+    
+    AP_OPEN_ITEMS {
+        string BELNR PK "Document Number"
+        string BUKRS PK,FK "Company Code"
+        integer GJAHR PK "Fiscal Year"
+        integer BUZEI PK "Line Item"
+        string LIFNR FK "Vendor"
+        string SAKNR FK "GL Account"
+        decimal WRBTR "Amount"
+        decimal DMBTR "Local Currency Amount"
+        string WAERS "Currency"
+        date BUDAT "Posting Date"
+        date BLDAT "Document Date"
+        date ZFBDT "Baseline Date"
+        string ZTERM FK "Payment Terms"
+        string REBZG "Invoice Reference"
+        string SHKZG "Debit/Credit"
+        date NETDT "Net Due Date"
+        string BSCHL "Posting Key"
+    }
+    
+    AR_OPEN_ITEMS {
+        string BELNR PK "Document Number"
+        string BUKRS PK,FK "Company Code"
+        integer GJAHR PK "Fiscal Year"
+        integer BUZEI PK "Line Item"
+        string KUNNR FK "Customer"
+        string SAKNR FK "GL Account"
+        decimal WRBTR "Amount"
+        decimal DMBTR "Local Currency Amount"
+        string WAERS "Currency"
+        date BUDAT "Posting Date"
+        date BLDAT "Document Date"
+        date ZFBDT "Baseline Date"
+        string ZTERM FK "Payment Terms"
+        string REBZG "Invoice Reference"
+        string SHKZG "Debit/Credit"
+        date NETDT "Net Due Date"
+        string BSCHL "Posting Key"
+    }
+    
+    ASSET_BALANCE {
+        string BUKRS PK,FK "Company Code"
+        string ANLN1 PK,FK "Asset Number"
+        string AFABE PK "Depreciation Area"
+        integer GJAHR PK "Fiscal Year"
+        decimal KANSW "Acquisition Value"
+        decimal KNAFA "Accumulated Depreciation"
+        decimal ANSWL "Net Book Value"
+        decimal NAFAG "Posted Depreciation"
+        date ZUGDT "Capitalization Date"
+        string WAERS "Currency"
+        string KTOGR "Asset Class"
+    }
+    
+    %% ========================================
+    %% WAVE 3A RELATIONSHIPS
+    %% ========================================
+    
+    %% Company Code is the foundation for all financial data
+    COMPANY_CODE ||--o{ GL_BALANCE : "balances for"
+    COMPANY_CODE ||--o{ GL_OPEN_ITEMS : "open items in"
+    COMPANY_CODE ||--o{ AP_OPEN_ITEMS : "AP in"
+    COMPANY_CODE ||--o{ AR_OPEN_ITEMS : "AR in"
+    COMPANY_CODE ||--o{ ASSET_BALANCE : "assets in"
+    
+    %% GL Account relationships
+    GL_ACCOUNT ||--o{ GL_BALANCE : "balance for"
+    GL_ACCOUNT ||--o{ GL_OPEN_ITEMS : "open item"
+    GL_ACCOUNT ||--o{ AP_OPEN_ITEMS : "posted to"
+    GL_ACCOUNT ||--o{ AR_OPEN_ITEMS : "posted to"
+    
+    %% Cost Objects relationships
+    COST_CENTER ||--o{ GL_BALANCE : "posted to"
+    COST_CENTER ||--o{ GL_OPEN_ITEMS : "posted to"
+    
+    PROFIT_CENTER ||--o{ GL_BALANCE : "posted to"
+    PROFIT_CENTER ||--o{ GL_OPEN_ITEMS : "posted to"
+    
+    %% Business Partner relationships
+    VENDOR ||--o{ AP_OPEN_ITEMS : "owes to"
+    CUSTOMER ||--o{ AR_OPEN_ITEMS : "owes"
+    
+    %% Payment Terms relationships
+    PAYMENT_TERMS ||--o{ AP_OPEN_ITEMS : "payment terms"
+    PAYMENT_TERMS ||--o{ AR_OPEN_ITEMS : "payment terms"
+    
+    %% Asset relationships
+    FIXED_ASSET ||--o{ ASSET_BALANCE : "balance for"
+    
+    %% Reconciliation - Many-to-One relationships
+    AP_OPEN_ITEMS }o--|| VENDOR : "posted to vendor"
+    AP_OPEN_ITEMS }o--|| GL_ACCOUNT : "reconciliation account"
+    
+    AR_OPEN_ITEMS }o--|| CUSTOMER : "posted to customer"
+    AR_OPEN_ITEMS }o--|| GL_ACCOUNT : "reconciliation account"
+    
+    ASSET_BALANCE }o--|| FIXED_ASSET : "balance of asset"
+    ASSET_BALANCE }o--|| COMPANY_CODE : "company code"
+    
+    GL_BALANCE }o--|| GL_ACCOUNT : "account balance"
+    GL_BALANCE }o--|| COMPANY_CODE : "company code"
+    
+    GL_OPEN_ITEMS }o--|| GL_ACCOUNT : "account open item"
+    GL_OPEN_ITEMS }o--|| COMPANY_CODE : "company code"
+

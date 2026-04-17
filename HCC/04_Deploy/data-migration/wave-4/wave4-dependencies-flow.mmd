@@ -1,0 +1,226 @@
+%% Wave 4: Cost & Planning Data - Dependencies Flow Diagram
+%% SAP ECC to S/4HANA Data Migration - Home Control Project
+
+graph TB
+    %% ============================================================================
+    %% WAVE 1, 2, 3 PREREQUISITES (shown as inputs)
+    %% ============================================================================
+    subgraph WAVE1_3[" WAVES 1-3 PREREQUISITES (Must be Complete)"]
+        W1_COSTCTR[Cost Centers<br/>Wave 1]
+        W1_PROFITCTR[Profit Centers<br/>Wave 1]
+        W1_COST_ELEM[Cost Elements<br/>Primary & Secondary<br/>Wave 1]
+        W2_CUSTOMER[Customers<br/>Wave 2]
+        W2_MATERIAL[Materials<br/>Wave 2]
+        W3_STABLE[System Stable<br/>Wave 3 Complete<br/>Operational]
+    end
+
+    %% ============================================================================
+    %% PHASE 1: CO PLANNING DATA
+    %% ============================================================================
+    subgraph PHASE1[" PHASE 1: CO PLANNING DATA (Day 1)"]
+        CO_PLAN[37. CO Planning Data<br/>CO_PLAN template<br/>3-4 hours<br/>Volume: TBD Current FY<br/>Version: 0 Current Plan]
+    end
+
+    %% ============================================================================
+    %% PHASE 2: PROJECT MASTER & BUDGETS
+    %% ============================================================================
+    subgraph PHASE2[" PHASE 2: PROJECT MASTER & BUDGETS (Day 1-2)"]
+        PROJECT[38. Project Master & Budgets<br/>PS_PROJECT template<br/>4-6 hours<br/>Volume: TBD Active Projects<br/>Focus: R&D & Tooling]
+    end
+
+    %% ============================================================================
+    %% PHASE 3: COPA CHARACTERISTICS
+    %% ============================================================================
+    subgraph PHASE3[" PHASE 3: COPA CHARACTERISTICS (Day 2-3)"]
+        COPA[39. COPA Characteristics<br/>Manual Config KEA0/KEA5/KEA6<br/>2-3 hours<br/>Volume: TBD Config Setup<br/>Note: Config not data]
+    end
+
+    %% ============================================================================
+    %% DEPENDENCIES FROM WAVES 1-3 TO PHASE 1
+    %% ============================================================================
+    W1_COSTCTR -->|Required| CO_PLAN
+    W1_COST_ELEM -->|Required| CO_PLAN
+    W3_STABLE -.->|Recommended| CO_PLAN
+
+    %% ============================================================================
+    %% DEPENDENCIES FROM WAVES 1-3 TO PHASE 2
+    %% ============================================================================
+    W1_PROFITCTR -->|Required| PROJECT
+    W1_COSTCTR -->|Optional| PROJECT
+    W1_COST_ELEM -->|Required for postings| PROJECT
+    W3_STABLE -.->|Recommended| PROJECT
+
+    %% ============================================================================
+    %% DEPENDENCIES FROM WAVES 1-3 TO PHASE 3
+    %% ============================================================================
+    W2_CUSTOMER -->|Required| COPA
+    W2_MATERIAL -->|Required| COPA
+    W1_PROFITCTR -->|Required| COPA
+    W3_STABLE -.->|Recommended| COPA
+
+    %% ============================================================================
+    %% PARALLEL PROCESSING OPPORTUNITIES
+    %% ============================================================================
+    CO_PLAN -.->|Can run in parallel| PROJECT
+    PROJECT -.->|Can run in parallel| COPA
+
+    %% ============================================================================
+    %% OUTPUT TO OPERATIONS & REPORTING
+    %% ============================================================================
+    CO_PLAN -->|Enables| OPS_BUDGET[OPERATIONS:<br/>Budget Control<br/>Plan/Actual Reporting<br/>Variance Analysis]
+    PROJECT -->|Enables| OPS_PROJECT[OPERATIONS:<br/>Project Accounting<br/>Budget Monitoring<br/>WBS Postings]
+    COPA -->|Enables| OPS_REPORTING[OPERATIONS:<br/>Profitability Analysis<br/>Margin Reporting<br/>Business Intelligence]
+    
+    CO_PLAN -->|Feeds| REPORTING[REPORTING:<br/>Management Reports<br/>Cost Analysis<br/>Dashboards]
+    PROJECT -->|Feeds| REPORTING
+    COPA -->|Feeds| REPORTING
+
+    %% ============================================================================
+    %% STYLING
+    %% ============================================================================
+    
+    %% Wave 1-3 Prerequisites (Light Blue)
+    classDef wave1_3Style fill:#E3F2FD,stroke:#1976D2,stroke-width:2px,color:#000
+    class W1_COSTCTR,W1_PROFITCTR,W1_COST_ELEM,W2_CUSTOMER,W2_MATERIAL,W3_STABLE wave1_3Style
+
+    %% CO Planning (Light Green) - Low Priority
+    classDef planningStyle fill:#C8E6C9,stroke:#388E3C,stroke-width:2px,color:#000
+    class CO_PLAN planningStyle
+
+    %% Project Master (Orange) - Medium Priority
+    classDef projectStyle fill:#FFE0B2,stroke:#F57C00,stroke-width:3px,color:#000
+    class PROJECT projectStyle
+
+    %% COPA (Purple) - Low Priority
+    classDef copaStyle fill:#E1BEE7,stroke:#7B1FA2,stroke-width:2px,color:#000
+    class COPA copaStyle
+
+    %% Operations Output (Light Gray)
+    classDef opsStyle fill:#F5F5F5,stroke:#616161,stroke-width:2px,color:#000
+    class OPS_BUDGET,OPS_PROJECT,OPS_REPORTING opsStyle
+
+    %% Reporting Output (Light Yellow)
+    classDef reportStyle fill:#FFF9C4,stroke:#F57F17,stroke-width:2px,color:#000
+    class REPORTING reportStyle
+
+    %% Subgraph Styling
+    style WAVE1_3 fill:#FAFAFA,stroke:#1976D2,stroke-width:2px
+    style PHASE1 fill:#FAFAFA,stroke:#388E3C,stroke-width:2px
+    style PHASE2 fill:#FAFAFA,stroke:#F57C00,stroke-width:3px
+    style PHASE3 fill:#FAFAFA,stroke:#7B1FA2,stroke-width:2px
+
+%% ============================================================================
+%% NOTES SECTION
+%% ============================================================================
+
+%% CRITICAL PATH OBJECTS:
+%% - Project Master & Budgets (38): Medium priority - required if project accounting needed from Day 1
+%% - CO Planning Data (37): Low priority - can be loaded post Go-Live if not critical
+%% - COPA Characteristics (39): Low priority - configuration setup, actual data generated post Go-Live
+
+%% PARALLEL PROCESSING OPPORTUNITIES:
+%% 1. All three Wave 4 objects can run in parallel with each other (no dependencies between them)
+%% 2. CO Planning can run while Project Master loads
+%% 3. COPA configuration can run while planning and project data loads
+%% 4. All objects can be deferred to post Go-Live if system stability is priority
+
+%% PREREQUISITES:
+%% - Wave 1 complete: Cost Centers, Profit Centers, Cost Elements configured
+%% - Wave 2 complete: Customers and Materials loaded (for COPA)
+%% - Wave 3 complete: System stable and operational (if post Go-Live)
+%% - All master data validated and reconciled
+%% - CO and PS modules configured and tested
+%% - COPA activated and configured
+
+%% SUCCESS CRITERIA:
+%% - All 3 Wave 4 objects loaded/configured successfully
+%% - CO Planning: Current fiscal year planning data available for reporting
+%% - Project Master: Active R&D and tooling projects with budgets accessible
+%% - COPA: Operating concern activated, characteristics defined, data flow configured
+%% - Budget control operational (if activated)
+%% - Project postings functional
+%% - Profitability reports accessible
+%% - No critical errors remaining
+
+%% LEGEND:
+%% - Solid arrows (-->) = Sequential dependency (must complete before starting)
+%% - Dotted arrows (-..->) = Parallel processing possible (can overlap) or recommended
+%% - Thick borders = Higher priority objects (Project Master = Medium priority)
+%% - Thin borders = Lower priority objects (CO Planning, COPA = Low priority)
+%% - Colors:
+%%   * Light Blue = Waves 1-3 Prerequisites
+%%   * Light Green = CO Planning Data (Low Priority)
+%%   * Orange = Project Master & Budgets (Medium Priority)
+%%   * Purple = COPA Characteristics (Low Priority)
+%%   * Light Gray = Operations Enablement
+%%   * Light Yellow = Reporting & Analytics
+
+%% SPECIAL CONSIDERATIONS:
+%% - Wave 4 Timing: Can be executed pre-Go-Live (T-2 weeks) OR post Go-Live (Week 1-2)
+%% - Current Year Only: Migrate current fiscal year planning data only
+%% - Projects: Focus on active R&D and tooling projects with remaining budget
+%% - COPA: Configuration setup (not historical data migration)
+%% - COPA Data: Actual profitability data generated post Go-Live from SD/FI transactions
+%% - Budget Control: Test thoroughly if activated for Day 1
+%% - Historical Data: Prior year planning/project data typically not migrated
+
+%% TIMING DECISION:
+%% Option A - Pre-Go-Live (T-2 weeks):
+%% - Choose if planning data critical for Day 1 reporting
+%% - Choose if budget control must be active from Go-Live
+%% - Choose if profitability analysis needed immediately
+%% - Resources available before Go-Live window
+
+%% Option B - Post Go-Live (Week 1-2):
+%% - Choose if system stability is top priority
+%% - Choose if planning data can wait for historical reporting
+%% - Choose if users need time to familiarize with basic transactions
+%% - Choose if resources limited during Go-Live
+%% - Recommended approach for most implementations
+
+%% TIMING:
+%% - Wave 4 Timing: T-2 weeks (Pre-Go-Live) OR Post Go-Live (Week 1-2)
+%% - Total Duration: 2-3 days
+%% - Phase 1 (CO Planning): Day 1 (3-4 hours)
+%% - Phase 2 (Project Master): Day 1-2 (4-6 hours)
+%% - Phase 3 (COPA): Day 2-3 (2-3 hours)
+%% - Phase 4 (Validation): Day 3 (final validation and sign-off)
+
+%% EXECUTION ORDER:
+%% Recommended sequence (but can run in parallel):
+%% 1. CO Planning Data - Provides budget baseline
+%% 2. Project Master & Budgets - Enables project accounting
+%% 3. COPA Characteristics - Enables profitability reporting
+%% 4. Integration testing - Verify all planning and reporting functional
+
+%% VALIDATION FOCUS:
+%% - Planning data matches ECC planning reports
+%% - Project budgets reconcile to source system
+%% - COPA configuration matches ECC structure
+%% - Budget control works correctly (if activated)
+%% - Project postings successful
+%% - Profitability reports accessible
+%% - Integration with FI/CO/SD operational
+
+%% RISK MITIGATION:
+%% - Low Risk Wave: Planning data not critical for basic operations
+%% - Can be deferred: If issues arise, postpone to post Go-Live
+%% - No impact on transactions: Wave 4 data used for reporting/control only
+%% - Rollback not needed: Can be re-loaded or adjusted post Go-Live
+%% - Testing focus: Reporting and analysis functionality
+
+%% OPTIONAL WAVE:
+%% Wave 4 is marked as OPTIONAL in the migration plan. It may be executed:
+%% - Post Go-Live if planning data not critical for Day 1
+%% - Pre-Go-Live if budget control and planning required from Day 1
+%% - In phases (e.g., CO Planning in Wave 4a, Projects in Wave 4b, COPA later)
+%% - Deferred completely if not needed for initial operations
+
+%% GO/NO-GO CRITERIA:
+%% Wave 4 is NOT a Go/No-Go criterion for Go-Live
+%% - System can go live without Wave 4 data
+%% - Planning data can be entered manually post Go-Live
+%% - Projects can be created fresh in S/4HANA
+%% - COPA will generate data from post Go-Live transactions
+%% - Migration of historical planning/project data is optional
+

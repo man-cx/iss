@@ -1,0 +1,8 @@
+PLACEHOLDER: UAT Signoff Evidence
+
+This file is a placeholder for:
+- 3.1_UAT_Signoff_Evidence.pdf (consolidated PDF of sign-off emails/sheets)
+- 3.1_UAT_Transcripts.txt (AI-ready raw text of approvals)
+
+Status: To be located during filing
+Purpose: Evidence of User Acceptance Testing sign-off

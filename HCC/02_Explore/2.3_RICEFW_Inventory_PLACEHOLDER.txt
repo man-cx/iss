@@ -1,0 +1,8 @@
+PLACEHOLDER: RICEFW Inventory
+
+This file is a placeholder for:
+- 2.3_RICEFW_Inventory.csv
+
+Status: To be created after filing and content analysis
+Purpose: Inventory of all custom development objects (Reports, Interfaces, Conversions, Enhancements, Forms, Workflows)
+Examples: P005, P006 (PPCA), etc.

@@ -1,0 +1,216 @@
+%% Wave 3B Data Objects - Entity Relationship Diagram
+%% SAP ECC to S/4HANA - Home Control
+%% Inventory & Open Documents - 7 Objects
+
+erDiagram
+
+    %% ========================================
+    %% DEPENDENCIES FROM WAVE 1 & 2 (Reference Only)
+    %% ========================================
+    
+    COMPANY_CODE {
+        string BUKRS PK "Company Code"
+    }
+    
+    VENDOR {
+        string LIFNR PK "Vendor Number"
+    }
+    
+    CUSTOMER {
+        string KUNNR PK "Customer Number"
+    }
+    
+    MATERIAL_MASTER {
+        string MATNR PK "Material Number"
+    }
+    
+    INFO_RECORD {
+        string INFNR PK "Info Record Number"
+    }
+    
+    %% ========================================
+    %% 3.2 INVENTORY & STOCK
+    %% ========================================
+    
+    INVENTORY_STOCK {
+        string MATNR PK,FK "Material"
+        string WERKS PK "Plant"
+        string LGORT PK "Storage Location"
+        string CHARG "Batch"
+        string SOBKZ "Special Stock Indicator"
+        decimal LABST "Unrestricted Stock"
+        decimal INSME "Quality Inspection Stock"
+        decimal SPEME "Blocked Stock"
+        decimal SALK3 "Stock Value"
+        string WAERS "Currency"
+        string MEINS "Unit of Measure"
+        date LBKUM_DATE "Last Movement Date"
+    }
+    
+    SUBCONTRACTOR_STOCK {
+        string MATNR PK,FK "Material"
+        string WERKS PK "Plant"
+        string LIFNR PK,FK "Vendor"
+        string LGORT "Storage Location"
+        string CHARG "Batch"
+        decimal LBKUM "Stock Quantity"
+        decimal SALK3 "Stock Value"
+        string MEINS "Unit of Measure"
+        string WAERS "Currency"
+        date AEDAT "Last Change Date"
+    }
+    
+    PHYSICAL_INVENTORY {
+        string IBLNR PK "Physical Inventory Document"
+        integer GJAHR PK "Fiscal Year"
+        integer ZEILE PK "Item Number"
+        string MATNR FK "Material"
+        string WERKS "Plant"
+        string LGORT "Storage Location"
+        string CHARG "Batch"
+        decimal MENGE "Counted Quantity"
+        decimal BUCHA "Book Quantity"
+        decimal DIFF "Difference Quantity"
+        string MEINS "Unit of Measure"
+        date BLDAT "Document Date"
+        date BUDAT "Posting Date"
+        string BELNR "Material Document"
+    }
+    
+    %% ========================================
+    %% 3.3 OPEN PROCUREMENT DOCUMENTS
+    %% ========================================
+    
+    OPEN_PURCHASE_ORDER {
+        string EBELN PK "Purchase Order Number"
+        integer EBELP PK "Item Number"
+        string BUKRS FK "Company Code"
+        string LIFNR FK "Vendor"
+        string MATNR FK "Material"
+        string WERKS "Plant"
+        string LGORT "Storage Location"
+        decimal MENGE "Order Quantity"
+        decimal WEMNG "Goods Received Quantity"
+        decimal OPEN_QTY "Open Quantity"
+        decimal NETPR "Net Price"
+        decimal NETWR "Net Value"
+        string WAERS "Currency"
+        string MEINS "Unit of Measure"
+        date BEDAT "PO Date"
+        date EINDT "Delivery Date"
+        string BSART "Document Type"
+        string ELIKZ "Delivery Completed"
+        string EREKZ "Final Invoice"
+    }
+    
+    OPEN_PURCHASE_REQ {
+        string BANFN PK "Purchase Requisition"
+        integer BNFPO PK "Item Number"
+        string MATNR FK "Material"
+        string WERKS "Plant"
+        string LGORT "Storage Location"
+        decimal MENGE "Quantity"
+        decimal OPEN_QTY "Open Quantity"
+        string MEINS "Unit of Measure"
+        date LFDAT "Delivery Date"
+        date BADAT "Requisition Date"
+        string BSART "Document Type"
+        string EKGRP "Purchasing Group"
+        string EBELN "Assigned PO"
+        string EBELP "Assigned PO Item"
+        string FRGKZ "Release Status"
+    }
+    
+    %% ========================================
+    %% 3.4 OPEN SALES DOCUMENTS
+    %% ========================================
+    
+    OPEN_SALES_ORDER {
+        string VBELN PK "Sales Order Number"
+        integer POSNR PK "Item Number"
+        string KUNNR FK "Customer"
+        string MATNR FK "Material"
+        string WERKS "Plant"
+        string LGORT "Storage Location"
+        decimal KWMENG "Order Quantity"
+        decimal LFIMG "Delivered Quantity"
+        decimal OPEN_QTY "Open Quantity"
+        decimal NETWR "Net Value"
+        string WAERK "Currency"
+        string VRKME "Sales Unit"
+        date ERDAT "Creation Date"
+        date EDATU "Requested Delivery Date"
+        string AUART "Order Type"
+        string GBSTA "Overall Status"
+        string LFSTA "Delivery Status"
+    }
+    
+    SALES_CONTRACT {
+        string VBELN PK "Contract Number"
+        integer POSNR PK "Item Number"
+        string KUNNR FK "Customer"
+        string MATNR FK "Material"
+        string WERKS "Plant"
+        decimal KWMENG "Target Quantity"
+        decimal KBMENG "Cumulative Order Quantity"
+        decimal KLMENG "Cumulative Delivery Quantity"
+        decimal OPEN_QTY "Open Quantity"
+        decimal NETWR "Net Value"
+        string WAERK "Currency"
+        string VRKME "Sales Unit"
+        date GUEBG "Valid From"
+        date GUEEN "Valid To"
+        string AUART "Contract Type"
+        string GBSTA "Overall Status"
+    }
+    
+    %% ========================================
+    %% WAVE 3B RELATIONSHIPS
+    %% ========================================
+    
+    %% Material Master is central to all inventory and documents
+    MATERIAL_MASTER ||--o{ INVENTORY_STOCK : "stocked"
+    MATERIAL_MASTER ||--o{ SUBCONTRACTOR_STOCK : "subcon stock"
+    MATERIAL_MASTER ||--o{ PHYSICAL_INVENTORY : "counted"
+    MATERIAL_MASTER ||--o{ OPEN_PURCHASE_ORDER : "ordered"
+    MATERIAL_MASTER ||--o{ OPEN_PURCHASE_REQ : "requisitioned"
+    MATERIAL_MASTER ||--o{ OPEN_SALES_ORDER : "sold"
+    MATERIAL_MASTER ||--o{ SALES_CONTRACT : "contracted"
+    
+    %% Vendor relationships
+    VENDOR ||--o{ SUBCONTRACTOR_STOCK : "holds stock"
+    VENDOR ||--o{ OPEN_PURCHASE_ORDER : "receives PO"
+    
+    %% Customer relationships
+    CUSTOMER ||--o{ OPEN_SALES_ORDER : "places order"
+    CUSTOMER ||--o{ SALES_CONTRACT : "contracts"
+    
+    %% Company Code relationships
+    COMPANY_CODE ||--o{ OPEN_PURCHASE_ORDER : "PO for"
+    
+    %% Info Record reference for PO pricing
+    INFO_RECORD ||--o{ OPEN_PURCHASE_ORDER : "price reference"
+    
+    %% Many-to-One relationships
+    INVENTORY_STOCK }o--|| MATERIAL_MASTER : "stock of material"
+    
+    SUBCONTRACTOR_STOCK }o--|| MATERIAL_MASTER : "subcon stock of"
+    SUBCONTRACTOR_STOCK }o--|| VENDOR : "at vendor"
+    
+    PHYSICAL_INVENTORY }o--|| MATERIAL_MASTER : "inventory count"
+    
+    OPEN_PURCHASE_ORDER }o--|| VENDOR : "ordered from"
+    OPEN_PURCHASE_ORDER }o--|| MATERIAL_MASTER : "material ordered"
+    OPEN_PURCHASE_ORDER }o--|| COMPANY_CODE : "company code"
+    
+    OPEN_PURCHASE_REQ }o--|| MATERIAL_MASTER : "material requested"
+    
+    OPEN_SALES_ORDER }o--|| CUSTOMER : "ordered by"
+    OPEN_SALES_ORDER }o--|| MATERIAL_MASTER : "material sold"
+    
+    SALES_CONTRACT }o--|| CUSTOMER : "contracted with"
+    SALES_CONTRACT }o--|| MATERIAL_MASTER : "material contracted"
+    
+    %% Purchase Requisition to Purchase Order link
+    OPEN_PURCHASE_REQ }o--o| OPEN_PURCHASE_ORDER : "converted to"
+
