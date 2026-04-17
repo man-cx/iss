@@ -1,0 +1,22 @@
+---
+description: ISS — QA verification habits and where to file findings.
+globs: *
+alwaysApply: false
+---
+
+# QA context (ISS)
+
+Use this rule set when you are **testing, reviewing, or verifying** changes (manual or automated).
+
+## Where findings go
+
+- File **QA results, regressions, and sign-off questions** under `handover/` using the required filename pattern in `project-doc-rules.mdc`.
+- Do **not** rely on chat alone for outcomes that the team must audit later.
+
+## Registry
+
+- If a QA outcome becomes a **project decision**, capture it as an **ADR** under `adr/` and add a row to `registry/adr-registry.md`.
+
+## Approved materials
+
+- Treat `HCC/` documents that are clearly **signed-off or approved** as protected: do not edit without explicit human confirmation (see `global-rules.mdc`).

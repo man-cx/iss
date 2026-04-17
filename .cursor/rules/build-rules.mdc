@@ -1,0 +1,19 @@
+---
+description: ISS — context before implementation work (read paths, handover habits).
+globs: *
+alwaysApply: false
+---
+
+# Build / implementation context (ISS)
+
+Use this rule set when you are **writing code, scripts, or automation** for this repo, or changing repo layout.
+
+## Before you change behavior or structure
+
+1. Check **recent handover** under `handover/` for blockers or decisions (newest files sort last alphabetically when names follow the timestamp pattern).
+2. Check **ADRs** under `adr/` and `registry/adr-registry.md` for decisions that constrain the work.
+3. Product and delivery docs live under **`HCC/`** — read what is relevant; do not treat random markdown outside these areas as authoritative unless the user points you there.
+
+## After significant work
+
+- If the next person (or future you) needs context, add a **handover** file under `handover/` using the naming rule in `project-doc-rules.mdc` (one topic per file).

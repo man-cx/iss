@@ -1,0 +1,50 @@
+---
+description: ISS — where handover, ADR, and registry files go; naming patterns; ADR folder at repo root.
+globs: *
+alwaysApply: true
+---
+
+# Project document rules (ISS)
+
+Applies whenever you **create, move, rename, or reference** handover notes, ADRs, or registry files.
+
+## 1) Locations (repo root)
+
+| Kind | Path |
+| --- | --- |
+| Handover, QA notes, async questions | `handover/` |
+| Architecture Decision Records (ADR) | **`adr/`** (at repository root — not under `design-book/`) |
+| Canonical indexes (pointers only) | `registry/` |
+
+## 2) One ADR index
+
+- **Only** `registry/adr-registry.md` lists ADRs for humans and agents.
+- When you add an ADR file, **update that registry** in the same change (or immediately after).
+
+## 3) Naming — `handover/`
+
+Pattern (required for every new file):
+
+`YYYYMMDD-HHMMSS-<ROLE>-<short-slug>.md`
+
+- Date and time: **UTC+8**, 24-hour clock, **include seconds** (`HHMMSS`).
+- `<ROLE>`: `QAC`, `Dev`, `UXI`, `PDM`, `ARC` (extend only if the team agrees).
+- `<short-slug>`: kebab-case, short, no spaces.
+
+Example: `20260417-143022-QAC-login-flow-regression.md`
+
+## 4) Naming — `adr/`
+
+Same pattern as handover:
+
+`YYYYMMDD-HHMMSS-<ROLE>-<short-slug>.md`
+
+Example: `20260416-153000-ARC-use-root-adr-folder.md`
+
+## 5) Naming — `registry/`
+
+Use **stable** filenames (no timestamps in the name), e.g. `adr-registry.md`, so links stay valid.
+
+## 6) Approved docs
+
+- Do not edit or delete **approved** specs without explicit user confirmation (see `global-rules.mdc`).
