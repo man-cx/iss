@@ -13,7 +13,7 @@ Use this rule set when you are **writing code, scripts, or automation** for this
 1. Check **recent handover** under `handover/` for blockers or decisions (newest files sort last alphabetically when names follow the timestamp pattern).
 2. Check **ADRs** under `adr/` and `registry/adr-registry.md` for decisions that constrain the work.
 3. Check **tickets** under `tickets/` and `registry/ticket-registry.md` when work is ticket-driven.
-4. Product and delivery docs live under **`HCC/`** — read what is relevant; do not treat random markdown outside these areas as authoritative unless the user points you there.
+4. Product and delivery docs live under **`docs/`** — read what is relevant; do not treat random markdown outside these areas as authoritative unless the user points you there.
 
 ## After significant work
 

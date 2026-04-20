@@ -5,7 +5,7 @@ Do not maintain a second ticket list elsewhere.
 
 | ticket-id | title | requester | status | priority | handover-count | ticket-file |
 | --- | --- | --- | --- | --- | --- | --- |
-| TKT-001 | CPI cost — Golden Tax app | Chakriya | new | B | 0 | tickets/20260417-142958-TKT-001-cpi-cost-chakriya.md |
+| TKT-001 | CPI cost — Golden Tax app | Alex Chua | new | B | 0 | tickets/20260417-142958-TKT-001-cpi-cost-alex-chua.md |
 
 ## Allowed values
 

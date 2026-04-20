@@ -1,0 +1,1551 @@
+Received: from TYDPR03CU002.outbound.protection.outlook.com (unknown [52.101.127.101])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3b163d7fb;
+	Fri, 17 Apr 2026 12:40:26 +0800 (GMT+08:00)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DW0vZU4l6uQSHqI6FqfAfam+Mcs4F1GvS2bMu9bGW13NwFUFSsKpplRhFoMjgB6ExG1hiM9ivj1nQ5c8II+M58fYoj7UZ0Cn3L4iZhygAZa2LH1uQwGqwpgyT7Hu4lvROmyuSosJw0hsz14/2/OhcBWTXXPbzMaVE3pw7nnKvC7V7+FN9ZsikdhtEOI0cMXpjDFSyx3M08EIzlq+30vZfOR18IeBJirXx1hpcLjzv6X2qmFuSWcRC40LwrEQDahNi+Q+BKtfwGUsYNSBGCSrIMRDPDZW5P6S/1ifqkkCPvcao2iRwe8Gbs8Yv3ceyxfB3t0rHrUHdqDSJC3WgZ/dKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OMMEj8nKC/cAf/i5Ix6PKNDXN31ZLVy/j+YBSPF/gqs=;
+ b=vvIdYU/qE4wUFg8gqffiScGrGljbhuEPGBskUB9Au9MKC3Xi7s9+rg7l4FZ6io7pt269lxrIvEqcCNZ/PleGVvRS+dU9h0f/p3sBJichZ1bE4EOqepgrUudPvrnYSYyGc0c8bvEKqgWv37ezTXkzF4J6R2koSkg+M8wLWaq+3JpFgeF5RhplCoUvL4ZFjTVVjV6l0CuLKfsRTm9BEj1Zxn11swy4etGVIxK5l7lts0PNCBH0gw8FL3EhWKb7sFoSTwM2/S/FkQaGKmVRKgBxv+fNJeNSJH6mX5iekwrNuvm9BrU2ZgyAjHLeEMd7Rc3eMqfJd/G1R+e65eqwtEX4ow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=iss-data.com; dmarc=pass action=none header.from=iss-data.com;
+ dkim=pass header.d=iss-data.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=NETORGFT2607935.onmicrosoft.com;
+ s=selector2-NETORGFT2607935-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OMMEj8nKC/cAf/i5Ix6PKNDXN31ZLVy/j+YBSPF/gqs=;
+ b=flyj1/ut92jQh2pzAgSaR0/x371bDbyGM7tKLu1YKESZsJZlRQkrzenvJS4KdoIJhUFTtR9K4X0XMnIrLGRyg4VCIF8MoJu6ZinhAQRpjcSh0/lm8EryZk23ZhNMiRjv/+LYwz5rFB8tFh7GIepss9XpqkFCljaYJFBXfuBCiEc=
+Received: from SEZPR01MB4304.apcprd01.prod.exchangelabs.com
+ (2603:1096:101:4b::8) by SEZPR01MB4256.apcprd01.prod.exchangelabs.com
+ (2603:1096:101:3b::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Fri, 17 Apr
+ 2026 04:40:22 +0000
+Received: from SEZPR01MB4304.apcprd01.prod.exchangelabs.com
+ ([fe80::837c:f253:7571:8f45]) by SEZPR01MB4304.apcprd01.prod.exchangelabs.com
+ ([fe80::837c:f253:7571:8f45%5]) with mapi id 15.20.9818.017; Fri, 17 Apr 2026
+ 04:40:22 +0000
+From: Chakriya Phokintorn <chakriya@iss-data.com>
+To: Man Li <man.li@acloudear.com>
+CC: =?big5?B?VG9ueSBZYW5nILeos3Glzg==?= <tony.yang@acloudear.com>, Coco Wang
+	<cocowang@iss-data.com>, "coco.wang@acloudear.com" <coco.wang@acloudear.com>,
+	Alex Chua <alexchua@iss-data.com>, Tankler Wang <tankler.wang@acloudear.com>,
+	Janarthanan Ramamoorthy <janarthanan@iss-data.com>
+Subject: Re: Urgent: integration suite and application stuido causing extra
+ charge
+Thread-Topic: Urgent: integration suite and application stuido causing extra
+ charge
+Thread-Index: AQHczYYZAYw7X51TOkyM61TboPsAKrXhfPiAgABYBgCAAKqqcIAAE/MAgAAT2tU=
+Date: Fri, 17 Apr 2026 04:40:21 +0000
+Message-ID:
+ <SEZPR01MB43041DFEA19724994158FB62E3202@SEZPR01MB4304.apcprd01.prod.exchangelabs.com>
+References:
+ <SEZPR01MB4304964BA83A598CBDDE9462E3232@SEZPR01MB4304.apcprd01.prod.exchangelabs.com>
+ <04248E37-4382-4F7B-B1DC-9134EDA7F1E8@acloudear.com>
+ <5703A206-3A21-46E2-8914-5B8B400A80D3@acloudear.com>
+ <PUZPR01MB4617CFFBDD6263F2394B87A98B202@PUZPR01MB4617.apcprd01.prod.exchangelabs.com>
+ <8CFB1A7C-86B1-4784-A866-C110E39D9AFB@acloudear.com>
+In-Reply-To: <8CFB1A7C-86B1-4784-A866-C110E39D9AFB@acloudear.com>
+Accept-Language: en-GB, th-TH, en-US
+Content-Language: en-GB
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=iss-data.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SEZPR01MB4304:EE_|SEZPR01MB4256:EE_
+x-ms-office365-filtering-correlation-id: 270d590d-7f4a-4fd3-dc18-08de9c3b6f63
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|10070799003|1800799024|366016|376014|6049299003|38070700021|4013099003|4053099003|8096899003|56012099003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ ncfDXAJHN/VMJ2DzygphWXJyeZu8UQ4IGCe4t4aBG2RDOtKU/8HgVRb6XptVkq7UjMw+L4ev+PCNN4oq93H9vF0CANE516P0uxYxzAiei6vCqNLM5AZNJ9XNf7D9SATujr+Q6AIyxUOsQGt+OjLvQ7mI7BAgsozhySmmlcB002D99iS2jos0r3G9Jo4f4n400/yebDcIjUklZEOQNUAfcbGIGPHczOTkosEZ8/gXghxGaxT3GEN5t+kQA+mZp/wNO7IPvlrWVam8tbLJYbNuGg0if93naBlQSwgsNzvXi4GNGOzl1NO7s9bfnsbaU3pJFxaf6ekaaaGyASBFo+U8gduNpBB8HrR2nmDyuBeh3J3wFnIM8nDwF700VdQr2DF1iT0fKk2aulYQHJUEqXTGmmLAH1+kcDd2joDMJka6obgA4hgNHmWZ6PyNqAIqiwWkJgPEStQIjqFZbe/BRUK+vI/s3gXiR89F1BZohENid/eTgzA4GS0KxKDHm8QzI3fRd+EM8uGkz1j2QKuy3r8VDNo2fMaav5fItVKYAppyTTYp194IoTjBuasSeYssYlZ2WFzHa87SS9ppoddfGdbp9WJP5yy3u+WnzKzV7lmpyakg2P0sCbRotYtgVk1VNUQP52428Bni62pehjfv1DrEe2hbvY+iRjCpEXcv4jodEFKuiPlTK6WBgqjLynn/BDlX5Pi324Hs6WXXNC37fEPRod157hr7/Q25771QpAY1cPY=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEZPR01MB4304.apcprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(366016)(376014)(6049299003)(38070700021)(4013099003)(4053099003)(8096899003)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0:
+ =?big5?B?azZXTWRzcG01R2ZpSnE2OE05WG55VldRcEZVeXJ2MkNiZTA2OEc0V09lRi9UazVV?=
+ =?big5?B?YS9IenF5K1RRbTd3eFhWK21kVHRpUmUyN3dmQ3ZzbFBDREJlekM4RDBidmYzNXdt?=
+ =?big5?B?NDQrUG5yb2p2TUpRano4cGp1dCtnc2FyR2MwclUrblpsc2dwczB0a0d0MC94S2ky?=
+ =?big5?B?d2MxTk1MWldpYy9EZVdsdjhlQkpURXcxME96U1JHazg0YzBGL3FYYVV2SE53MG1v?=
+ =?big5?B?YTl2VEwxeDJOZmhDaEhkYlZmelh3ZjBkOWc2bzk3T042cTArU1ZIYkxGZW9lMm1s?=
+ =?big5?B?M2l4WHRLcmlTSU44NGNuNHRzU2VRb2p4UDBOL3hydjZTQVNhTElMWXNIQzhqd2RR?=
+ =?big5?B?NzRqbFhhZFBUZi8yRHZSZDdCMmpCTUprYlVsV0x5c08ySDUwam9oUk12eENJaWYr?=
+ =?big5?B?aWN1MDBUSlFCcFA2bHhQUXhRZWZ1UGdNWnVXYjAzQi9UNlM5d0JtTU1TUnp0Z3Bk?=
+ =?big5?B?c1NtZHhFdnN5MU5LblVHZCtVMjNYMWUvM3pLc2Y4dStJaFBIV0tnQy82cEUrc2NW?=
+ =?big5?B?VWpabkRKNlk2QjExdnNscGh3ejVPOENFMXJmZFFmVnFDVVNaRXFBS2RKS1VXdklQ?=
+ =?big5?B?Um9memFDYXdRWnVwUWxpTE5TSWpUSWsveWx1TE8va210Y04yYUVtWElSenhpeUor?=
+ =?big5?B?M2w4YUZWYU8rMENLWDNPRk9EajQ0MmI1aVZCbXlQdzVneit4b3pYNlZBZTJqdGJp?=
+ =?big5?B?cGFTb0YySGdua3pKR0luUVYrcVhvMTdraFVqZmQ5SmVaSTJpUS9uQ3o3TkdJeTY3?=
+ =?big5?B?cG52ajZVU2hVMTc2UkFDWTFTWHlob2hWRGwzSkcrYlE4VVVhQ0FCc0J6ZThTcmRQ?=
+ =?big5?B?bnZJZU1GbnFCRy9penVTTzUzNzdqa2lJSlNjb1lkaElkVHBNNEpQck5IUC8rSEJB?=
+ =?big5?B?eEdxYVlNUVpvdkNrclptQlpIcjhqcWltaWs0aG9Kak5OWUUzZVVMcGlFQmZKR3Iw?=
+ =?big5?B?d0NZbXVHWHdvaTkzc2NnYjBKcTltaDFZeVpabFNiOTh4STNWVnNJY0tiQnNXYTlC?=
+ =?big5?B?OXdtQW00TVg4M0JsZitoQW5kTjlxRkx4cTBoN0VWWE0rWDJJc0FsZ2VmWHEybEsy?=
+ =?big5?B?eElMMWNrNGlJZE1EQ2xmUDZmVVB1U2VyaHhXc0Jvby9nTGhLYkw2Rk9VSExidnRq?=
+ =?big5?B?aFZuNVh2bEZZd0krVmtIa0tJNDBzcW9vVURvbmFDdUUzb0RuYWIzem94ZHFvZDl4?=
+ =?big5?B?d3B2S1lmdi90VGFzd29PYXZqRUlWNEhXTERqT1NPTld5bithL0dIMWtMSHhIbGMz?=
+ =?big5?B?MG9mdGg5RzhtcDVNYWNWanZ3cnErS1c3VCtlTWlrUkx4ZDlWVTBGaERFalJyZkZC?=
+ =?big5?B?WDFrVCs4NGJQM09SMEJUSGN5SllKWnBpMklGczJyOUxzNlVWcy8xQkFsVUNmYUVs?=
+ =?big5?B?b1JYekNRTDNlZVdXTHpONW1mV3ozcHpEN0hTTTN0ZVVjM0srcmlTRlZIakhWUzlQ?=
+ =?big5?B?V1hRMXZ2SzRjMkJ4Rm9DdTRxZ3N5bUluRFZaQW5rLzFjMXowYVpzdVlSNHp3UHlH?=
+ =?big5?B?WTdWMEhlUUFiTXFjSkR0RURaWW01Z2VHSHZTUXNYN0pMb2FDbGJFUDBmT1FYREw4?=
+ =?big5?B?TVVpeDB5ZXEvbmsxZko2eFlHSU9kaU9ma1NVWkwxaEhpMXN1b1pLQWUzN0RraGJl?=
+ =?big5?B?dWJ1eXlCZWQ1RFZaQlp6cmRub0tFUnI0RHI1aUJKWSs3dkQvQ2VpQVBCbGZIY0hz?=
+ =?big5?B?U2tNeDNLTHZrcEM2SFBXVHdLaTZTWDNFZkMwMklkREpDVWMvOWhPcm84a1NaWE5s?=
+ =?big5?B?c1JQM1RrQlliVTFVZ0hUbDVuRHZSSU9CWVFiT0NNREFIaUtGeUlUWFMvUk5vbmhM?=
+ =?big5?B?NWNWcjlYaUJOa1c5NTBFOWpkSGR1Z0IzSEFVTGtQSjAwNjl1VGhqM2o5SU1ZbFIx?=
+ =?big5?B?RTl0TXAvb2svdVpUVTU0Ymdxa3Nwa2pIWHV3azNoeWN6b0VJdDZPRElFNmlYQlVp?=
+ =?big5?B?dnpYd25yM1ZPOHR2VXE2NVNjd0p3TnBybVJML09LTnBMTk1tWk1Nb0pCSzFjbkVj?=
+ =?big5?B?ZHNwSk4rMXh5bmoyR2p0V0cyWUo0Umo3Q1cxUEV1L0FwVFpmSURZbU42MndsUzdR?=
+ =?big5?B?ZzUwajdsWkxrRDhtdzRXZElBS2NraFB5NHQ1aXFOQzlFNnRZdVFnUGl3OVVsNnlk?=
+ =?big5?B?SG0zMzVjYWY4M3FpNnJCSHF2UEVWUDlwOWNxdkZ1elR0ZXVVTldQbHdCTUtndmlp?=
+ =?big5?B?eitwUEZ0blNoUHdTTzdLYkhJa2tPa2F0dnlqZituR0Q4cStYZnZYVktZOWtVSDht?=
+ =?big5?Q?sMCqf1xtJQGjcpD+UR9yDTEw?=
+x-ms-exchange-antispam-messagedata-1: QXPlafbYbgeMeQ==
+Content-Type: multipart/mixed;
+	boundary="_004_SEZPR01MB43041DFEA19724994158FB62E3202SEZPR01MB4304apcp_"
+MIME-Version: 1.0
+X-OriginatorOrg: iss-data.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SEZPR01MB4304.apcprd01.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 270d590d-7f4a-4fd3-dc18-08de9c3b6f63
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Apr 2026 04:40:21.8970
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 9773dc26-b192-4604-b3a7-81c83c10c547
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: qWbLqedtgbeNgm7atLG/wWUI8xjGJLT23WUkuqqlSoUJuj8KP0Izkt7M8h30c93G+zHaNlgKDovOvXYia5co4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR01MB4256
+X-HM-Tid: 0a9d99bd7e7607abkunm2e2665305e486e
+X-HM-MType: 1
+Received-SPF:pass (spfCheck: domain of iss-data.com designates 52.101.127.101 as permitted sender) client-ip=52.101.127.101; envelope-from=chakriya@iss-data.com; helo=TYDPR03CU002.outbound.protection.outlook.com;
+
+--_004_SEZPR01MB43041DFEA19724994158FB62E3202SEZPR01MB4304apcp_
+Content-Type: multipart/alternative;
+	boundary="_000_SEZPR01MB43041DFEA19724994158FB62E3202SEZPR01MB4304apcp_"
+
+--_000_SEZPR01MB43041DFEA19724994158FB62E3202SEZPR01MB4304apcp_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
+
+RGVhciBNYW4sDQpJIHdvdWxkIGxpa2UgdG8gY2xhcmlmeSB0aGF0IEhvbWUgQ29udHJvbCBpcyBh
+bHJlYWR5IHVuZGVyIEJUUEVBOyB0aGVyZWZvcmUsIHRoZSBjdXJyZW50IGNoYXJnZXMgcmVwcmVz
+ZW50IHRoZSBleGNlc3MgdXNhZ2UuDQpXZSB3b3VsZCBsaWtlIHRvIHVuZGVyc3RhbmQgd2h5IGp1
+c3Qgbm93IHRoZSBzZXJ2aWNlcyBjYW5ub3QgYmUgZGVhY3RpdmF0ZWQgYW5kIGNvbnRpbnVlIHRv
+IGluY3VyIG1vbnRobHkgY2hhcmdlcywgd2hpbGUgaXQgd2FzIHByZXZpb3VzbHkgY29uZmlybWVk
+IHRoYXQgdGhlIGFzc29jaWF0ZWQgVVNEIDYsNTA2IHdvdWxkIG5vdCBiZSBjaGFyZ2VkIHVuZGVy
+IHRoaXMgYXBwcm9hY2guIFNlZSBhdHRhY2hlZCBlbWFpbC4NCklmIHRoZSBvbmdvaW5nIG1vbnRo
+bHkgY29zdCBoYWQgYmVlbiBjbGVhcmx5IGNvbW11bmljYXRlZCBlYXJsaWVyLCB3ZSB3b3VsZCBo
+YXZlIGJlZW4gYWJsZSB0byBpbmZvcm0gdGhlIGNsaWVudCBmb3IgZGVjaXNpb24tbWFraW5nIGFu
+ZCBwb3RlbnRpYWxseSBvYnRhaW4gdGhlaXIgYWdyZWVtZW50IHRvIGNoYXJnZSB0aGVzZSBjb3N0
+cyBiYWNrLg0KQXQgdGhpcyBwb2ludCwgdGhlIGNoYXJnZXMgaGF2ZSBiZWVuIGFjY3VtdWxhdGlu
+ZyBmb3IgYXBwcm94aW1hdGVseSBmaXZlIG1vbnRocywgdG90YWxpbmcgb3ZlciBTR0QgMzAsMDAw
+LiBXZSBiZWxpZXZlIGl0IGlzIGltcG9ydGFudCB0byBkaXNjdXNzIGJvdGggLSBIb3cgdG8gc3Rv
+cCB0aGVzZSByZWN1cnJpbmcgY2hhcmdlcywgYW5kIGhvdyB0aGUgaW5jdXJyZWQgY29zdHMgY2Fu
+IGJlIHN0b3BwZWQgb3IgYWxsb2NhdGVkDQpBZGRpdGlvbmFsbHksIHdlIHdvdWxkIGFwcHJlY2lh
+dGUgeW91ciBpbnNpZ2h0IGludG8gaG93IG90aGVyIGN1c3RvbWVycyBpbiBDaGluYSBtYW5hZ2Ug
+R29sZGVuIFRheKFYYXJlIHRoZXkgYWxzbyBpbmN1cnJpbmcgc2ltaWxhciBtb250aGx5IGNoYXJn
+ZXM/DQpXZSBsb29rIGZvcndhcmQgdG8geW91ciBjbGFyaWZpY2F0aW9uIGFuZCBndWlkYW5jZS4N
+Cg0KDQpSZWdhcmRzLA0KDQoNCg0KQ2hha3JpeWEgUGhva2ludG9ybg0KDQpQcm9qZWN0IE1hbmFn
+ZW1lbnQNCg0KSVNTIERBVEEgfCBERUxJVkVSSU5HIFNBUCBDTE9VRCBJTk5PVkFUSU9OUyBTSU5D
+RSAyMDA4DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQpGcm9tOiBNYW4gTGkg
+PG1hbi5saUBhY2xvdWRlYXIuY29tPg0KU2VudDogMTcgQXByaWwgMjAyNiAxMDowNyBBTQ0KVG86
+IEphbmFydGhhbmFuIFJhbWFtb29ydGh5IDxqYW5hcnRoYW5hbkBpc3MtZGF0YS5jb20+DQpDYzog
+Q2hha3JpeWEgUGhva2ludG9ybiA8Y2hha3JpeWFAaXNzLWRhdGEuY29tPjsgVG9ueSBZYW5nILeo
+s3GlziA8dG9ueS55YW5nQGFjbG91ZGVhci5jb20+OyBDb2NvIFdhbmcgPGNvY293YW5nQGlzcy1k
+YXRhLmNvbT47IGNvY28ud2FuZ0BhY2xvdWRlYXIuY29tIDxjb2NvLndhbmdAYWNsb3VkZWFyLmNv
+bT47IEFsZXggQ2h1YSA8YWxleGNodWFAaXNzLWRhdGEuY29tPjsgVGFua2xlciBXYW5nIDx0YW5r
+bGVyLndhbmdAYWNsb3VkZWFyLmNvbT4NClN1YmplY3Q6IFJlOiBVcmdlbnQ6IGludGVncmF0aW9u
+IHN1aXRlIGFuZCBhcHBsaWNhdGlvbiBzdHVpZG8gY2F1c2luZyBleHRyYSBjaGFyZ2UNCg0KSGkg
+SmFuYXJ0aGFuYW4sDQoNClRvIG9wdGltaXplIEJUUCBsaWNlbnNpbmcgY29zdHMsIHdlIGNvbnNv
+bGlkYXRlZCB0aGUgYXJjaGl0ZWN0dXJlLiBXZSBhcmUgdXNpbmcgdGhpcyBzaW5nbGUgc3ViYWNj
+b3VudCB0byBob3N0IHRoZSBTQVAgSW50ZWdyYXRpb24gU3VpdGUgKENQSSkgYW5kIFNBUCBCdXNp
+bmVzcyBBcHBsaWNhdGlvbiBTdHVkaW8gZm9yIGJvdGggdGhlIFRlc3QgYW5kIFByb2R1Y3Rpb24g
+ZW52aXJvbm1lbnRzLg0KDQpJZiB3ZSBkZWFjdGl2YXRlIG9yIHJlbW92ZSB0aGlzIHN1YmFjY291
+bnQsIGl0IHdpbGwgaW1tZWRpYXRlbHkgYnJpbmcgZG93biB0aGUgbGl2ZSBQcm9kdWN0aW9uIEdv
+bGRlbiBUYXggaW50ZWdyYXRpb24uDQoNClJlZ2FyZHMsDQpNYW4uDQoNCk9uIDE3IEFwciAyMDI2
+LCBhdCAwOTo1OSwgSmFuYXJ0aGFuYW4gUmFtYW1vb3J0aHkgPGphbmFydGhhbmFuQGlzcy1kYXRh
+LmNvbT4gd3JvdGU6DQoNCkhpIE1hbiwNCg0KVGhpcyBpcyBzdWJhY2NvdW50IGlzIG5vdCBkZXBs
+b3llZCBpbnRvIHByb2R1Y3Rpb24sIEl0IGlzIHN0aWxsIHVzZWQgYnkgdGVzdCBzeXN0ZW0uIFNv
+IGNhbiB3ZSByZW1vdmUgaXQ/DQoNCjxpbWFnZTAwMS5wbmc+DQoNClJlZ2FyZHMNCkphbmFydGhh
+bmFuIFJhbWFtb29ydGh5DQpTZW5pb3IgU0FQIENvbnN1bHRhbnQNCklTUyBEQVRBIHwgREVMSVZF
+UklORyBTQVAgQ0xPVUQgSU5OT1ZBVElPTlMgU0lOQ0UgMjAwOA0KDQpGcm9tOiBNYW4gTGkgPG1h
+bi5saUBhY2xvdWRlYXIuY29tPg0KU2VudDogMTYgQXByaWwgMjAyNiAxMTo0NSBQTQ0KVG86IENo
+YWtyaXlhIFBob2tpbnRvcm4gPGNoYWtyaXlhQGlzcy1kYXRhLmNvbT4NCkNjOiBUb255IFlhbmcg
+t6izcaXOIDx0b255LnlhbmdAYWNsb3VkZWFyLmNvbT47IENvY28gV2FuZyA8Y29jb3dhbmdAaXNz
+LWRhdGEuY29tPjsgY29jby53YW5nQGFjbG91ZGVhci5jb207IEphbmFydGhhbmFuIFJhbWFtb29y
+dGh5IDxqYW5hcnRoYW5hbkBpc3MtZGF0YS5jb20+OyBBbGV4IENodWEgPGFsZXhjaHVhQGlzcy1k
+YXRhLmNvbT47IFRhbmtsZXIgV2FuZyA8dGFua2xlci53YW5nQGFjbG91ZGVhci5jb20+DQpTdWJq
+ZWN0OiBSZTogVXJnZW50OiBpbnRlZ3JhdGlvbiBzdWl0ZSBhbmQgYXBwbGljYXRpb24gc3R1aWRv
+IGNhdXNpbmcgZXh0cmEgY2hhcmdlDQpJbXBvcnRhbmNlOiBIaWdoDQoNCkhpIENoYWtyaXlhLA0K
+DQpJdKGmcyBjb25maXJtZWQgdGhhdCBHb2xkZW4gVGF4IGlzIHJ1bm5pbmcgb24gaXQuICBJZiB0
+aGlzIHNlcnZpY2UgaXMgc3VzcGVuZGVkLCBHb2xkZW4gdGF4IHdpbGwgbm90IGJlIGZ1bmN0aW9u
+aW5nLg0KDQpSZWdhcmRzLA0KTWFuLg0KDQoNCk9uIDE2IEFwciAyMDI2LCBhdCAxODozMCwgTWFu
+IExpIDxtYW4ubGlAYWNsb3VkZWFyLmNvbTxtYWlsdG86bWFuLmxpQGFjbG91ZGVhci5jb20+PiB3
+cm90ZToNCg0KSGkgVG9ueSwNCg0KQ291bGQgeW91IHBsZWFzZSBhZHZpY2UgaWYgdGhlIGNhcHRp
+b25lZCBzZXJ2aWNlcyBieSBzdG9wcGVkPw0KDQpUaGFua3MsDQpNYW4uDQoNCg0KT24gMTYgQXBy
+IDIwMjYsIGF0IDE4OjA4LCBDaGFrcml5YSBQaG9raW50b3JuIDxjaGFrcml5YUBpc3MtZGF0YS5j
+b208bWFpbHRvOmNoYWtyaXlhQGlzcy1kYXRhLmNvbT4+IHdyb3RlOg0KDQpEZWFyIE1hbiwNCkND
+OiBDb2NvDQpXZSBoYXZlIGJlZW4gaW5jdXJyaW5nIG1vbnRobHkgY2hhcmdlcyBmb3IgdGhlIGJl
+bG93IHNlcnZpY2VzLCB3aGljaCB3ZSB1bmRlcnN0YW5kIGFyZSByZWxhdGVkIHRvIEdvbGRlbiBU
+YXggZGV2ZWxvcG1lbnQ6DQoNCiAgKiAgIEludGVncmF0aW9uIFN1aXRlDQogICogICBBcHBsaWNh
+dGlvbiBTdHVkaW8NCg0KVGhlcmUncyBzdWJhY2NvdW50IHVzZWQgZm9yIGdvbGRlbiB0YXgNClRo
+ZSBzdWJhY2NvdW50IE5hbWU6IEhvbWUgQ29udHJvbCBURVNUDQpTdWJhY2NvdW50IElEOiBmYjE2
+Yzc4Yy1jZjBlLTRjZjAtOTMzOS1mODAxZDQ3ZWUxOWUNCg0KQ291bGQgeW91IHBsZWFzZSBoZWxw
+IHJldmlldyB3aGV0aGVyIHRoZXNlIHNlcnZpY2VzIGNhbiBiZSBzdG9wcGVkIG9yIGRlYWN0aXZh
+dGVkIGltbWlkaWF0ZWx5PyBBZGRpdGlvbmFsbHksIGtpbmRseSBhZHZpc2UgaWYgZG9pbmcgc28g
+d291bGQgaGF2ZSBhbnkgaW1wYWN0IG9uIHRoZSBjbGllbnShpnMgY3VycmVudCB1c2FnZS4NCg0K
+DQo8aW1hZ2UucG5nPg0KPGltYWdlLnBuZz4NCg0KPGltYWdlLnBuZz4NCg0KUmVnYXJkcywNCg0K
+Q2hha3JpeWEgUGhva2ludG9ybg0KUHJvamVjdCBNYW5hZ2VtZW50DQpJU1MgREFUQSB8IERFTElW
+RVJJTkcgU0FQIENMT1VEIElOTk9WQVRJT05TIFNJTkNFIDIwMDgNCg0KVGhpcyBlbWFpbCBhbmQg
+YW55IGZpbGVzIGF0dGFjaGVkIG1heSBjb250YWluIGluZm9ybWF0aW9uLCB3aGljaCBpcyBjb25m
+aWRlbnRpYWwsIHByaXZpbGVnZWQgYW5kL29yIHNlbnNpdGl2ZS4gSWYgeW91IGhhdmUgcmVjZWl2
+ZWQgdGhpcyBlbWFpbCBpbiBlcnJvciwgcGxlYXNlIG5vdGlmeSB0aGUgc2VuZGVyIGFuZCBkZWxl
+dGUgdGhpcyBlbWFpbCBpbW1lZGlhdGVseS4gVGhlIGVtYWlsIGlzIGludGVuZGVkIGZvciB0aGUg
+ZXhjbHVzaXZlIHVzZSBvZiB0aGUgYWRkcmVzc2VlIG9ubHkgYW5kIHNoYXJpbmcgdGhpcyBlbWFp
+bCB3aGV0aGVyIGluIHBhcnQgb3IgaW4gZnVsbCB3aXRoIGFueSB0aGlyZCBwYXJ0eSB3aXRob3V0
+IHRoZSBwcmlvciB3cml0dGVuIGNvbnNlbnQgb2YgdGhlIHNlbmRlciBpcyBzdHJpY3RseSBwcm9o
+aWJpdGVkLg0KDQo=
+
+--_000_SEZPR01MB43041DFEA19724994158FB62E3202SEZPR01MB4304apcp_
+Content-Type: text/html; charset="big5"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div class=3D"elementToProof" style=3D"margin-top: 1em; margin-bottom: 1em;=
+ font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helv=
+etica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Dear Man,</div>
+<div class=3D"elementToProof" style=3D"margin-top: 1em; margin-bottom: 1em;=
+ font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helv=
+etica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+I would like to clarify that Home Control is already under BTPEA; therefore=
+, the current charges represent the excess usage.</div>
+<div class=3D"elementToProof" style=3D"margin-top: 1em; margin-bottom: 1em;=
+ font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helv=
+etica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+We would like to understand why just now the services cannot be deactivated=
+ and continue to incur monthly charges, while it was previously confirmed t=
+hat the associated
+<b>USD 6,506</b>&nbsp;would not be charged under this approach. See attache=
+d email.</div>
+<div class=3D"elementToProof" style=3D"margin-top: 1em; margin-bottom: 1em;=
+ font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helv=
+etica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+If the ongoing monthly cost had been clearly communicated earlier, we would=
+ have been able to inform the client for decision-making and potentially ob=
+tain their agreement to charge these costs back.</div>
+<div class=3D"elementToProof" style=3D"margin-top: 1em; margin-bottom: 1em;=
+ font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helv=
+etica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+At this point, the charges have been accumulating for approximately five mo=
+nths, totaling over
+<b>SGD 30,000</b>. We believe it is important to discuss both - How to stop=
+ these recurring charges, and how the incurred costs can be stopped or allo=
+cated</div>
+<div class=3D"elementToProof" style=3D"margin-top: 1em; margin-bottom: 1em;=
+ font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helv=
+etica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Additionally, we would appreciate your insight into how other customers in =
+China manage Golden Tax=A1Xare they also incurring similar monthly charges?=
+</div>
+<div class=3D"elementToProof" style=3D"margin-top: 1em; margin-bottom: 1em;=
+ font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helv=
+etica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+We look forward to your clarification and guidance.</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"Signature" class=3D"elementToProof">
+<p class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; li=
+ne-height: normal; background-color: rgb(255, 255, 255); margin: 0cm;">
+<span style=3D"font-family: &quot;Franklin Gothic Book&quot;, sans-serif; f=
+ont-size: 10pt; color: rgb(36, 36, 36);">Regards,</span></p>
+<p class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; ba=
+ckground-color: rgb(255, 255, 255); margin: 0cm;">
+<span style=3D"font-family: &quot;Calibri Light&quot;, sans-serif; font-siz=
+e: 10pt; color: rgb(36, 36, 36);">&nbsp;</span></p>
+<p class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; ba=
+ckground-color: rgb(255, 255, 255); margin: 0cm;">
+<span style=3D"font-family: &quot;Calibri Light&quot;, sans-serif; font-siz=
+e: 10pt; color: rgb(36, 36, 36);">Chakriya Phokintorn</span></p>
+<p class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; ba=
+ckground-color: rgb(255, 255, 255); margin: 0cm;">
+<span style=3D"font-family: &quot;Calibri Light&quot;, sans-serif; font-siz=
+e: 10pt; color: rgb(36, 36, 36);">Project Management</span></p>
+<p class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; ba=
+ckground-color: rgb(255, 255, 255); margin: 0cm;">
+<span style=3D"font-family: &quot;Calibri Light&quot;, sans-serif; font-siz=
+e: 10pt; color: rgb(85, 187, 221);"><b>ISS DATA</b></span><span style=3D"fo=
+nt-family: &quot;Calibri Light&quot;, sans-serif; font-size: 10pt; color: r=
+gb(89, 89, 89);">&nbsp;| DELIVERING</span><span style=3D"font-family: &quot=
+;Calibri Light&quot;, sans-serif; font-size: 10pt; color: rgb(36, 36, 36);"=
+>&nbsp;</span><span style=3D"font-family: &quot;Calibri Light&quot;, sans-s=
+erif; font-size: 10pt; color: rgb(111, 49, 152);">SAP
+ CLOUD INNOVATIONS</span><span style=3D"font-family: &quot;Calibri Light&qu=
+ot;, sans-serif; font-size: 10pt; color: rgb(36, 36, 36);">&nbsp;</span><sp=
+an style=3D"font-family: &quot;Calibri Light&quot;, sans-serif; font-size: =
+10pt; color: rgb(89, 89, 89);">SINCE 2008</span></p>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Man Li &lt;man.li@acl=
+oudear.com&gt;<br>
+<b>Sent:</b> 17 April 2026 10:07 AM<br>
+<b>To:</b> Janarthanan Ramamoorthy &lt;janarthanan@iss-data.com&gt;<br>
+<b>Cc:</b> Chakriya Phokintorn &lt;chakriya@iss-data.com&gt;; Tony Yang =B7=
+=A8=B3q=A5=CE &lt;tony.yang@acloudear.com&gt;; Coco Wang &lt;cocowang@iss-d=
+ata.com&gt;; coco.wang@acloudear.com &lt;coco.wang@acloudear.com&gt;; Alex =
+Chua &lt;alexchua@iss-data.com&gt;; Tankler Wang &lt;tankler.wang@acloudear=
+.com&gt;<br>
+<b>Subject:</b> Re: Urgent: integration suite and application stuido causin=
+g extra charge</font>
+<div>&nbsp;</div>
+</div>
+<div style=3D"line-break:after-white-space">Hi Janarthanan,
+<div><br>
+</div>
+<div>
+<div>To optimize BTP licensing costs, we consolidated the architecture. We =
+are using this single subaccount to host the SAP Integration Suite (CPI) an=
+d SAP Business Application Studio for
+<b>both</b> the Test and Production environments.</div>
+<div><br>
+</div>
+<div>If we deactivate or remove this subaccount, it will immediately bring =
+down the live Production Golden Tax integration.</div>
+<div><br>
+</div>
+<div>Regards,</div>
+<div>Man.</div>
+<div><br>
+<blockquote type=3D"cite">
+<div>On 17 Apr 2026, at 09:59, Janarthanan Ramamoorthy &lt;janarthanan@iss-=
+data.com&gt; wrote:</div>
+<br class=3D"x_Apple-interchange-newline">
+<div>
+<div class=3D"x_WordSection1" style=3D"font-family:Helvetica; font-size:14p=
+x; font-style:normal; font-variant-caps:normal; font-weight:400; letter-spa=
+cing:normal; orphans:2; text-align:start; text-indent:0px; text-transform:n=
+one; white-space:normal; widows:2; word-spacing:0px; text-decoration-line:n=
+one; text-decoration-style:solid">
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif"><sp=
+an style=3D"font-family:&quot;Franklin Gothic Book&quot;,sans-serif">Hi Man=
+,</span></div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif"><sp=
+an style=3D"font-family:&quot;Franklin Gothic Book&quot;,sans-serif">&nbsp;=
+</span></div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif"><sp=
+an style=3D"font-family:&quot;Franklin Gothic Book&quot;,sans-serif">This i=
+s subaccount is not deployed into production, It is still used by test syst=
+em. So can we remove it?</span></div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif"><sp=
+an style=3D"font-family:&quot;Franklin Gothic Book&quot;,sans-serif">&nbsp;=
+</span></div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif"><sp=
+an id=3D"x_cid:image001.png@01DCCE50.E2579B50">&lt;image001.png&gt;</span><=
+span style=3D"font-family:&quot;Franklin Gothic Book&quot;,sans-serif"></sp=
+an></div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif"><sp=
+an style=3D"font-family:&quot;Franklin Gothic Book&quot;,sans-serif">&nbsp;=
+</span></div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif"><sp=
+an lang=3D"EN-SG" style=3D"font-size:10pt; font-family:&quot;Calibri Light&=
+quot;,sans-serif">Regards</span></div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif"><sp=
+an lang=3D"EN-SG" style=3D"font-size:10pt; font-family:&quot;Calibri Light&=
+quot;,sans-serif">Janarthanan Ramamoorthy</span></div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif"><sp=
+an lang=3D"EN-SG" style=3D"font-size:10pt; font-family:&quot;Calibri Light&=
+quot;,sans-serif">Senior SAP Consultant</span></div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif"><b>=
+<span lang=3D"EN-US" style=3D"font-size:10pt; font-family:&quot;Calibri Lig=
+ht&quot;,sans-serif; color:rgb(85,187,221)">ISS DATA</span></b><span lang=
+=3D"EN-US" style=3D"font-size:10pt; font-family:&quot;Calibri Light&quot;,s=
+ans-serif; color:rgb(89,89,89)"><span class=3D"x_Apple-converted-space">&nb=
+sp;</span>|
+ DELIVERING</span><span lang=3D"EN-US" style=3D"font-size:10pt; font-family=
+:&quot;Calibri Light&quot;,sans-serif"><span class=3D"x_Apple-converted-spa=
+ce">&nbsp;</span><span style=3D"color:rgb(111,49,152)">SAP CLOUD INNOVATION=
+S</span><span class=3D"x_Apple-converted-space">&nbsp;</span><span style=3D=
+"color:rgb(89,89,89)">SINCE
+ 2008</span></span></div>
+</div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif"><sp=
+an style=3D"font-family:&quot;Franklin Gothic Book&quot;,sans-serif">&nbsp;=
+</span></div>
+<div>
+<div style=3D"border-width:1pt medium medium; border-style:solid none none;=
+ border-color:rgb(225,225,225) currentcolor currentcolor; padding:3pt 0cm 0=
+cm">
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif"><b>=
+<span lang=3D"EN-US" style=3D"font-size:11pt; font-family:Calibri,sans-seri=
+f">From:</span></b><span lang=3D"EN-US" style=3D"font-size:11pt; font-famil=
+y:Calibri,sans-serif"><span class=3D"x_Apple-converted-space">&nbsp;</span>=
+Man
+ Li &lt;man.li@acloudear.com&gt;<br>
+<b>Sent:</b><span class=3D"x_Apple-converted-space">&nbsp;</span>16 April 2=
+026 11:45 PM<br>
+<b>To:</b><span class=3D"x_Apple-converted-space">&nbsp;</span>Chakriya Pho=
+kintorn &lt;chakriya@iss-data.com&gt;<br>
+<b>Cc:</b><span class=3D"x_Apple-converted-space">&nbsp;</span>Tony Yang<sp=
+an class=3D"x_Apple-converted-space">&nbsp;</span></span><span style=3D"fon=
+t-size:11pt; font-family:&quot;MS Gothic&quot;">=B7=A8=B3q=A5=CE</span><spa=
+n lang=3D"EN-US" style=3D"font-size:11pt; font-family:Calibri,sans-serif"><=
+span class=3D"x_Apple-converted-space">&nbsp;</span>&lt;tony.yang@acloudear=
+.com&gt;;
+ Coco Wang &lt;cocowang@iss-data.com&gt;; coco.wang@acloudear.com; Janartha=
+nan Ramamoorthy &lt;janarthanan@iss-data.com&gt;; Alex Chua &lt;alexchua@is=
+s-data.com&gt;; Tankler Wang &lt;tankler.wang@acloudear.com&gt;<br>
+<b>Subject:</b><span class=3D"x_Apple-converted-space">&nbsp;</span>Re: Urg=
+ent: integration suite and application stuido causing extra charge<br>
+<b>Importance:</b><span class=3D"x_Apple-converted-space">&nbsp;</span>High=
+</span></div>
+</div>
+</div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">&nb=
+sp;</div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">Hi =
+Chakriya,</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">&nb=
+sp;</div>
+</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">It=
+=A1=A6s confirmed that Golden Tax is running on it. &nbsp;If this service i=
+s suspended, Golden tax will not be functioning.</div>
+</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">&nb=
+sp;</div>
+</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">Reg=
+ards,</div>
+</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">Man=
+.</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif"><br=
+>
+<br>
+</div>
+<blockquote style=3D"margin-top:5pt; margin-bottom:5pt">
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">On =
+16 Apr 2026, at 18:30, Man Li &lt;<a href=3D"mailto:man.li@acloudear.com" s=
+tyle=3D"color:rgb(70,120,134); text-decoration:underline">man.li@acloudear.=
+com</a>&gt; wrote:</div>
+</div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">&nb=
+sp;</div>
+<div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">Hi =
+Tony,</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">&nb=
+sp;</div>
+</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">Cou=
+ld you please advice if the captioned services by stopped?</div>
+</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">&nb=
+sp;</div>
+</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">Tha=
+nks,</div>
+</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">Man=
+.</div>
+<div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif"><br=
+>
+<br>
+</div>
+<blockquote style=3D"margin-top:5pt; margin-bottom:5pt">
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">On =
+16 Apr 2026, at 18:08, Chakriya Phokintorn &lt;<a href=3D"mailto:chakriya@i=
+ss-data.com" style=3D"color:rgb(70,120,134); text-decoration:underline">cha=
+kriya@iss-data.com</a>&gt; wrote:</div>
+</div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">&nb=
+sp;</div>
+<div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">Dea=
+r Man,<br>
+CC: Coco</div>
+</div>
+<div style=3D"margin-top:12pt; margin-bottom:12pt; font-variant-caps:normal=
+; orphans:2; text-align:start; widows:2; text-decoration-line:none; text-de=
+coration-style:solid; word-spacing:0px">
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">We =
+have been incurring monthly charges for the below services, which we unders=
+tand are related to Golden Tax development:</div>
+</div>
+<ul type=3D"disc" style=3D"margin-bottom:0cm">
+<li class=3D"x_MsoNormal" style=3D"margin:0cm; font-size:12pt; font-family:=
+Aptos,sans-serif">
+Integration Suite</li><li class=3D"x_MsoNormal" style=3D"margin:0cm; font-s=
+ize:12pt; font-family:Aptos,sans-serif">
+Application Studio</li></ul>
+<div style=3D"margin-top:12pt; margin-bottom:12pt; font-variant-caps:normal=
+; orphans:2; text-align:start; widows:2; text-decoration-line:none; text-de=
+coration-style:solid; word-spacing:0px">
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">The=
+re's<span class=3D"x_apple-converted-space">&nbsp;</span>subaccount used fo=
+r golden tax<span style=3D"font-family:Helvetica,sans-serif"></span></div>
+</div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif; bac=
+kground:white">
+<span style=3D"">The subaccount Name:<span class=3D"x_apple-converted-space=
+">&nbsp;</span></span><span style=3D"font-family:Arial,sans-serif; color:rg=
+b(0,100,217); background:rgb(234,236,238)">Home Control TEST</span><span st=
+yle=3D"font-family:Helvetica,sans-serif"></span></div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif; bac=
+kground:white">
+<span style=3D"font-family:Arial,sans-serif; background:rgb(234,236,238)">S=
+ubaccount ID: fb16c78c-cf0e-4cf0-9339-f801d47ee19e</span><span style=3D"fon=
+t-family:Arial,sans-serif"></span></div>
+<div style=3D"margin-top:12pt; margin-bottom:12pt; font-variant-caps:normal=
+; orphans:2; text-align:start; widows:2; text-decoration-line:none; text-de=
+coration-style:solid; word-spacing:0px">
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">&nb=
+sp;</div>
+</div>
+<div style=3D"margin-top:12pt; margin-bottom:12pt; font-variant-caps:normal=
+; orphans:2; text-align:start; widows:2; text-decoration-line:none; text-de=
+coration-style:solid; word-spacing:0px">
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">Cou=
+ld you please help review whether these services can be stopped or deactiva=
+ted immidiately? Additionally, kindly advise if doing so would have any imp=
+act on the client=A1=A6s current usage.</div>
+</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">&nb=
+sp;</div>
+</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">&nb=
+sp;</div>
+</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">&lt=
+;image.png&gt;</div>
+</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">&lt=
+;image.png&gt;</div>
+</div>
+<div id=3D"x_Signature">
+<div id=3D"x_Signature">
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">&nb=
+sp;</div>
+</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">&lt=
+;image.png&gt;</div>
+</div>
+<div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif">&nb=
+sp;</div>
+</div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif; bac=
+kground:white">
+<span style=3D"font-size:10pt; font-family:&quot;Franklin Gothic Book&quot;=
+,sans-serif; color:rgb(36,36,36)">Regards,</span><span style=3D"font-size:1=
+0.5pt; font-family:Helvetica,sans-serif"></span></div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif; bac=
+kground:white">
+<span style=3D"font-size:10pt; font-family:&quot;Calibri Light&quot;,sans-s=
+erif; color:rgb(36,36,36)">&nbsp;</span><span style=3D"font-size:10.5pt; fo=
+nt-family:Helvetica,sans-serif"></span></div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif; bac=
+kground:white">
+<span style=3D"font-size:10pt; font-family:&quot;Calibri Light&quot;,sans-s=
+erif; color:rgb(36,36,36)">Chakriya Phokintorn</span><span style=3D"font-si=
+ze:10.5pt; font-family:Helvetica,sans-serif"></span></div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif; bac=
+kground:white">
+<span style=3D"font-size:10pt; font-family:&quot;Calibri Light&quot;,sans-s=
+erif; color:rgb(36,36,36)">Project Management</span><span style=3D"font-siz=
+e:10.5pt; font-family:Helvetica,sans-serif"></span></div>
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif; bac=
+kground:white">
+<b><span style=3D"font-size:10pt; font-family:&quot;Calibri Light&quot;,san=
+s-serif; color:rgb(85,187,221)">ISS DATA</span></b><span style=3D"font-size=
+:10pt; font-family:&quot;Calibri Light&quot;,sans-serif; color:rgb(89,89,89=
+)">&nbsp;| DELIVERING</span><span style=3D"font-size:10pt; font-family:&quo=
+t;Calibri Light&quot;,sans-serif; color:rgb(36,36,36)">&nbsp;</span><span s=
+tyle=3D"font-size:10pt; font-family:&quot;Calibri Light&quot;,sans-serif; c=
+olor:rgb(111,49,152)">SAP
+ CLOUD INNOVATIONS</span><span style=3D"font-size:10pt; font-family:&quot;C=
+alibri Light&quot;,sans-serif; color:rgb(36,36,36)">&nbsp;</span><span styl=
+e=3D"font-size:10pt; font-family:&quot;Calibri Light&quot;,sans-serif; colo=
+r:rgb(89,89,89)">SINCE 2008</span><span style=3D"font-size:10.5pt; font-fam=
+ily:Helvetica,sans-serif"></span></div>
+</div>
+<table class=3D"x_MsoNormalTable" border=3D"0" cellspacing=3D"0" cellpaddin=
+g=3D"0" width=3D"595" style=3D"width:446.25pt; orphans:2; widows:2; text-de=
+coration-line:none; text-decoration-style:solid; word-spacing:0px">
+<tbody>
+<tr>
+<td width=3D"400" style=3D"width:300pt; padding:0cm">
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif"><sp=
+an style=3D"font-size:9pt; font-family:Arial,sans-serif">&nbsp;</span></div=
+>
+</td>
+</tr>
+<tr>
+<td width=3D"400" style=3D"width:300pt; padding:0cm">
+<div style=3D"margin:0cm; font-size:12pt; font-family:Aptos,sans-serif; tex=
+t-align:justify">
+<span style=3D"font-size:8pt; font-family:Arial,sans-serif; color:rgb(135,1=
+35,135)">This email and any files attached may contain information, which i=
+s confidential, privileged and/or sensitive. If you have received this emai=
+l in error, please notify the sender
+ and delete this email immediately. The email is intended for the exclusive=
+ use of the addressee only and sharing this email whether in part or in ful=
+l with any third party without the prior written consent of the sender is s=
+trictly prohibited.</span></div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+</blockquote>
+</div>
+<br>
+</div>
+</div>
+</body>
+</html>
+
+--_000_SEZPR01MB43041DFEA19724994158FB62E3202SEZPR01MB4304apcp_--
+
+--_004_SEZPR01MB43041DFEA19724994158FB62E3202SEZPR01MB4304apcp_
+Content-Type: message/rfc822
+Content-Disposition: attachment;
+	creation-date="Fri, 17 Apr 2026 04:19:06 GMT";
+	modification-date="Fri, 17 Apr 2026 04:19:34 GMT"
+
+Received: from PUZPR01MB5042.apcprd01.prod.exchangelabs.com
+ (2603:1096:301:e2::11) by KL1PR01MB4685.apcprd01.prod.exchangelabs.com with
+ HTTPS; Wed, 3 Dec 2025 06:06:44 +0000
+Received: from PS2PR02CA0076.apcprd02.prod.outlook.com (2603:1096:300:5c::16)
+ by PUZPR01MB5042.apcprd01.prod.exchangelabs.com (2603:1096:301:e2::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9388.9; Wed, 3 Dec
+ 2025 06:06:43 +0000
+Received: from TY2PEPF0000AB85.apcprd03.prod.outlook.com
+ (2603:1096:300:5c:cafe::d5) by PS2PR02CA0076.outlook.office365.com
+ (2603:1096:300:5c::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9366.17 via Frontend Transport; Wed,
+ 3 Dec 2025 06:06:42 +0000
+Authentication-Results: spf=pass (sender IP is 101.71.155.99)
+ smtp.mailfrom=acloudear.com; dkim=pass (signature was verified)
+ header.d=acloudear.com;dmarc=pass action=none
+ header.from=acloudear.com;compauth=pass reason=100
+Received-SPF: Pass (protection.outlook.com: domain of acloudear.com designates
+ 101.71.155.99 as permitted sender) receiver=protection.outlook.com;
+ client-ip=101.71.155.99; helo=mail-m15599.qiye.163.com; pr=C
+Received: from mail-m15599.qiye.163.com (101.71.155.99) by
+ TY2PEPF0000AB85.mail.protection.outlook.com (10.167.253.5) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9388.8
+ via Frontend Transport; Wed, 3 Dec 2025 06:06:41 +0000
+Received: from smtpclient.apple (unknown [20.189.123.238])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 2bcb9f441;
+	Wed, 3 Dec 2025 14:06:36 +0800 (GMT+08:00)
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_F195E5A0-5419-46FF-BAC8-D4C22242586C"
+Subject: Re: HCC - Golden Tax Service Subscription
+From: Man Li <man.li@acloudear.com>
+In-Reply-To: <6743DD29-0791-46F7-83F7-AD71EAC74598@iss-data.com>
+Date: Wed, 3 Dec 2025 14:06:24 +0800
+Cc: Chakriya Phokintorn <chakriya@iss-data.com>,
+ "criss.zhuang@acloudear.com" <criss.zhuang@acloudear.com>,
+ Shawn Huang <shawn.huang@acloudear.com>,
+ Tankler Wang <tankler.wang@acloudear.com>,
+ Weslin Lv <weslin.lv@acloudear.com>,
+ "tony.yang" <tony.yang@acloudear.com>
+Message-Id: <1BB5D572-1474-4250-AE90-96AC3C5AEC64@acloudear.com>
+References: <6743DD29-0791-46F7-83F7-AD71EAC74598@iss-data.com>
+To: Alex Chua <alexchua@iss-data.com>
+X-Mailer: Apple Mail (2.3864.200.81.1.6)
+X-HM-Tid: 0a9ae2d1dfaa03a3kunm41ce1b176f3fdb
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWS1ZQUlXWQ8JGhUIEh9ZQVkZSUgfVhoaS0gdT0lNTBgYQ1YVFAkWGhdVEwETFh
+	oSFyQUDg9ZV1kYEgtZQVlJS1VKQ0JVSklIVUlIQ1lXWRYaDxIVHRRZQVlPS0hVQkJJTktVSktLVU
+	pCS0JZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=UOWNrNk53zcdfD6b6c30DdZokgdZ1vkbnP82g0n7r6N3tMfNxA54Jzea+zx2UhYgkGAWie8lubh4MPhn15n0SR31+ChXhBxRNcKqnIjcEmqXL+ZXDvMAsFIsg/QsztyPwHm2hjJekRqsBf4Rv2CAVlwJDgziGHPG00cxib0HZRc=; s=default; c=relaxed/relaxed; d=acloudear.com; v=1;
+	bh=gJy7g0mB1Dw7bCDnKeL0lP8iGre8oF7xJsa5XYGe0/8=;
+	h=date:mime-version:subject:message-id:from;
+X-MS-Exchange-Organization-ExpirationStartTime: 03 Dec 2025 06:06:42.0092
+ (UTC)
+X-MS-Exchange-Organization-ExpirationStartTimeReason: OriginalSubmit
+X-MS-Exchange-Organization-ExpirationInterval: 1:00:00:00.0000000
+X-MS-Exchange-Organization-ExpirationIntervalReason: OriginalSubmit
+X-MS-Exchange-Organization-Network-Message-Id:
+ eaa4089a-2313-4f41-6e69-08de32322135
+X-EOPAttributedMessage: 0
+X-EOPTenantAttributedMessage: 9773dc26-b192-4604-b3a7-81c83c10c547:0
+X-MS-Exchange-Organization-MessageDirectionality: Incoming
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic:
+ TY2PEPF0000AB85:EE_|PUZPR01MB5042:EE_|KL1PR01MB4685:EE_
+X-MS-Exchange-Organization-AuthSource:
+ TY2PEPF0000AB85.apcprd03.prod.outlook.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+X-MS-Office365-Filtering-Correlation-Id: eaa4089a-2313-4f41-6e69-08de32322135
+X-MS-Exchange-Organization-SCL: 1
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7053199007|13003099007|8096899003;
+X-Forefront-Antispam-Report:
+ CIP:101.71.155.99;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail-m15599.qiye.163.com;PTR:mail-m15599.qiye.163.com;CAT:NONE;SFS:(13230040)(7053199007)(13003099007)(8096899003);DIR:INB;
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2025 06:06:41.2601
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eaa4089a-2313-4f41-6e69-08de32322135
+X-MS-Exchange-CrossTenant-Id: 9773dc26-b192-4604-b3a7-81c83c10c547
+X-MS-Exchange-CrossTenant-AuthSource:
+ TY2PEPF0000AB85.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR01MB5042
+X-MS-Exchange-Transport-EndToEndLatency: 00:00:03.5201501
+X-MS-Exchange-Processed-By-BccFoldering: 15.20.9366.012
+X-Microsoft-Antispam-Mailbox-Delivery:
+ ucf:0;jmr:0;auth:0;dest:I;ENG:(910005)(944506478)(944626604)(920097)(930097)(140003);
+X-Microsoft-Antispam-Message-Info:
+ =?utf-8?B?ZzE5S29jOTlEc2UyRldoN3JmSldVSTJ5Q25JYzlOQ3R0N3g1VUpId3llQVdY?=
+ =?utf-8?B?cWcxbFhxNzA4Qit0alQ4eWF6UTRTZytDYW85N1hZNmx2enlpTEF2N1czTWdw?=
+ =?utf-8?B?OWpqY2FPeHBzS1pxWjVGQ05JbStKTVdHZmJ2MmFtdGpwdWtMMjAwM1h6aTZH?=
+ =?utf-8?B?YXBVc3hpaGw2OXFHUFRBOFdDRUlCNXhSdTdBaGFaZCt2bjYzQzJXL3R4M29Q?=
+ =?utf-8?B?ckNmTW4yUXNRRUc0OHVYaUxuZDBSbVpJZ256N1M1Mm1RekdXTFhIV2J2QnI1?=
+ =?utf-8?B?OVN2N0J4SkhmdkFLWXA1aVREa0x3TUw0YmZYb016bUc5RFlNREdrUmt3anhM?=
+ =?utf-8?B?cTFlRXYrVGh2enMwbTFDSzNDb2NZNlo3M2xTMzRTbXdqTmdkZ3BvWExHNEhj?=
+ =?utf-8?B?VFprRnVpYWFxQ095QVVLMGFTYm5HVVFha3Rma3NmYytsNFd0WHowY0t1bDJr?=
+ =?utf-8?B?QmxRQjBpQjJ5c2RUcng0bnBZWGhRbTRQN0xybGkrV0duTDkxSSs0ZzRMaWxW?=
+ =?utf-8?B?ZDBPOVM0Qi91YzlXZG5RMGxJM3dKeG1ydDltUUJFc2pmcTZlelB4R1l4cTRy?=
+ =?utf-8?B?M04xb3pWRU5Ec0Q3RUtEbjdNQmI1cEhWSDUvNHF3LzRCd2cxRlgxN3E2bjlW?=
+ =?utf-8?B?ekF5OFArdDZvemM2WDhQRVFmZGNwaGxJQXlMc1Qrbnd1eW82L1FGT2Myb0ZS?=
+ =?utf-8?B?ZHRHOENiOGJkZ1hzUEovcmxIRzEwOUFnSFNUOVlsMjJycUVObVJPV2oxK3BS?=
+ =?utf-8?B?NWZWTjNTYUJLK2xtOEM4NldVR1kxOW5DRFVpMHRVK0lNYXlkY3hkWGpld2Yy?=
+ =?utf-8?B?ZzlwOStpTFVBTFZ6b2hTOVlaajRnKzdQV2VxOEt3RnloMkFmL3B5UHBRck9V?=
+ =?utf-8?B?T1hIZXVobHMwYUZzeUtkRVhsY1VDNG9BWGxQd0J6akRkbFMxS1NpcGJDbDNH?=
+ =?utf-8?B?VzJsV083emFjNmpjRlFWc1AyTWc1ZTdrUndVcEhFYlF1a0xjSzhHRk9nZ3Qw?=
+ =?utf-8?B?SzF4enRiWUlLWTFMZkpBTXpKRDBxM2hkSUcwU1lkUEM0QjVpaHlrWUc4Q0dY?=
+ =?utf-8?B?a0NvMklDblh4b0Erdk1ZVldHT3RWZ0trVk15dFNjbW9kWEtSTzJqVVhmNGY2?=
+ =?utf-8?B?aldmOENPZGN1S1FQa1pLdEsrNkx6S2haWE5TMDBvVUZMR1NGU3pCZTNJOW5G?=
+ =?utf-8?B?QTRheFZ6ZndlL1dVNkxMR1prRXMxWmE5K1JWSFBUaWJKUGhOdW5BWHB6SFpE?=
+ =?utf-8?B?OXl5SE0veWN1VVR3ZTlsNDlhTFBXYkQzK0xWUjd4SnkxREFhSGdjSjRsUGEx?=
+ =?utf-8?B?UjE0a2tMTjZxd3llbk53SFlzM2xCcWpxZXJFOTljV1kvQTlFVnBuOWRJZXg3?=
+ =?utf-8?B?MFpnMlFuMkhtV2pjajJXbnNBc252MUZySDB5MDJFeWFmejFwaXFPOXBBelJi?=
+ =?utf-8?B?RGd5Zm1FaGQ3ZnJHMGtQejBMN2MxbkUvem1NdEY2ZEZ2NjBlQlI4YmJhRXNG?=
+ =?utf-8?B?L1BLSm5SbnQzRFFWSXhtNkJoK3lId1hJamlqTUR0TGpnL28rSWNrcENiNEYy?=
+ =?utf-8?B?UlNhazc0SDZsSWI3K2FtTzRGQW1TM0hOcXN6ZzRPaHhqWWFteUpMZlFKeitL?=
+ =?utf-8?B?d0RacTJieFFjeVVuU2FIUTBkbjRudUN1K2JXaU9jQVVHSWR4ZS9iM1B6N3V3?=
+ =?utf-8?B?djRBaHBNWEc0VmhJWWNrVVQzM3NBdThCeTNwNnFXZjlJUXZzb3A5UjM5YzBk?=
+ =?utf-8?B?TllPRWFPODJTNURLN2RBRkRIdWxlejF3Ung1UGtYUW10OU1TTGZ2R1hXRnBy?=
+ =?utf-8?B?VDNqQ0dNNVF4ajNOeG4zNnhBUzMvWG1mNm5xVDQzWEoyeGNSMGF0QWtoZEd4?=
+ =?utf-8?B?VjNzOXpIdmxmZFJoK2ZST2hyMjFPWkluRU9oaGcvNWp4ekFVS2J3dC9Lb2o2?=
+ =?utf-8?B?Tk0vd0ZFSm94MGVTdTZOYkNvRWJnM21CQ3ZwMnRaUVA5TG1kUU0zOUlqT3ND?=
+ =?utf-8?B?V3pwUkdnT2hldHBNdUtMbzV1SFZRTGc5bng3TG1qT0I5MFk0VXEyWGt6YVll?=
+ =?utf-8?B?Mmd1c2RyZmgzYkd4QkR5ZFIvcytUTUVqL2VFZXRBZVY1TkY5VWNzUGh1L0t2?=
+ =?utf-8?B?RkE1ckhPZnI3SDdadWVQUEp2Z3pBaURNeWY1eVVwL2tib1BjbWd4ME1Va1E0?=
+ =?utf-8?B?WGVsOCtKYVZwdjVrUzZFUzNuQVNEY0pBaDIvVnJJZnpHalgxeHhUeEROQ2lM?=
+ =?utf-8?B?Nm9tZ044ODI0cFlLd1JzSGJ4bno2eVhwRTJ2bFY3YmhuSDF6YUFQL2hPa1BP?=
+ =?utf-8?B?MzhPUHZ6K282YmJhOWF4YTkwejNDT1ZRaFRJNS9oZ29xVGM2TEllNEFKUUVk?=
+ =?utf-8?B?dklTVk5jbnB5WTdST1ltOGFiZkMzNXpZZFNCbUtoSVFFOUdMSDBlZEJQVXpW?=
+ =?utf-8?B?ckhNMVc3cEUxU253VndtcHRmckNBb2RGZnZ5VDZtdzB0SkpCNm9NeFhNQ1hk?=
+ =?utf-8?B?T0c1YlJhK3ZzM1VjTTZ0dU9TN24xcU5lMXJtb2RNRW9MQ2JTMjFkaVZmdW9v?=
+ =?utf-8?B?cXgrMjhEeldaNlB6anJUY3JUWlB0cjdWdm00bjJCbVRmUVkwK1dBUllxWlNu?=
+ =?utf-8?B?V2RsSXRCc0tJRDhzSS85Nk5WU2NGWHdkRjN2MUwvNkN1ZVZ4Z244N204K1Fm?=
+ =?utf-8?B?eDVoUmw1U3JxWk1QL3FXY1hZRTc3OENTYm1KQWo0alBERUp1cFJqTDBaTzVv?=
+ =?utf-8?B?aytwcjIrdlNUNmNIMmNVS01ReHdQQmpkS1NsTk1kUXVMYllOZU1VcEkvdnQ0?=
+ =?utf-8?B?YVg3cU9wL0tSREZCVThjWFJhd0dGQS9MeVBnTGtXUkdUSTFSemR3UVAxS084?=
+ =?utf-8?B?TWlkSHViYVErZVZVNkttcDdIdXI0eDE1NHVqREg2MUJ4OWdsMHpnYkZ1Mjh5?=
+ =?utf-8?B?cVE4TndRYzRtZkUxeDBBdG9jenI4MXdSNXNwRjRuUWNRcXIrOU5Nc1lDUVVN?=
+ =?utf-8?B?U2svVVozcG1nNWtDdiswbGw0SnVzU1JHN3luTXNnYks4Rml2SDd1dGZaKzd5?=
+ =?utf-8?B?TzMyUFk5dHBSc3lsbkhHLzMwTGN5dWRldi9aRnpCL09DVjBDcWhxN2ppclVN?=
+ =?utf-8?Q?OC/VnxXKO?=
+MIME-Version: 1.0
+
+--Apple-Mail=_F195E5A0-5419-46FF-BAC8-D4C22242586C
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
+
+Hi Alex,
+
+We originally provisioned a new IS tenant for the Golden Tax production =
+environment. However, after confirming that a single environment will =
+cover both testing and production, we de-provisioned the extra instance.
+
+I have confirmed with our technical team that the associated $6,506 will =
+not be charged.
+
+Regards,
+Man
+
+> On 2 Dec 2025, at 18:31, Alex Chua <alexchua@iss-data.com> wrote:
+>=20
+> =EF=BB=BFHi Man,
+>=20
+> While reviewing the BTP costs for Home Control, we noted a charge of =
+$6,506 for the Integration Suite. Upon further checking, this appears to =
+be linked to the Golden Tax. Could you please confirm if this is =
+correct?
+>=20
+> Thank you for your support.
+>=20
+>=20
+>=20
+> Regards,
+>=20
+> Alex Chua
+> Consulting Director =20
+> M:65 8518 5649
+> <Outlook-ao445jyh.png>
+>  SAP Business ByDesign Partner of The Year 2021
+> ISS Data Pte Ltd  |  65 6887 3418  |  www.iss-data.com =
+<http://www.iss-data.com/>  |  LinkedIn =
+<http://linkedin.com/company/issdata>  =20
+>=20
+> From: Alex Chua <alexchua@iss-data.com>
+> Sent: Friday, November 21, 2025 9:59 AM
+> To: Man Li <man.li@acloudear.com>; ISS Accounts =
+<accounts@iss-data.com>
+> Cc: Chakriya Phokintorn <chakriya@iss-data.com>; =
+criss.zhuang@acloudear.com <criss.zhuang@acloudear.com>; Shawn Huang =
+<shawn.huang@acloudear.com>; Tankler Wang <tankler.wang@acloudear.com>; =
+Weslin Lv <weslin.lv@acloudear.com>; tony.yang <tony.yang@acloudear.com>
+> Subject: Re: HCC - Golden Tax Service Subscription
+> =20
+> Hi Man,
+>=20
+> This agreement is established between Acloudear and ISS Data. The =
+associated costs will be absorbed by us and will not be recharged to =
+Home Control. All correspondence regarding this matter should be =
+directed exclusively to ISS Data and not to the customer.
+>=20
+> Thank you.
+>=20
+> Regards,
+>=20
+> Alex Chua
+> Consulting Director =20
+> M:65 8518 5649
+> <Outlook-0mtirdob.png>
+>  SAP Business ByDesign Partner of The Year 2021
+> ISS Data Pte Ltd  |  65 6887 3418  |  www.iss-data.com =
+<http://www.iss-data.com/>  |  LinkedIn =
+<http://linkedin.com/company/issdata>  =20
+>=20
+> From: Man Li <man.li@acloudear.com>
+> Sent: Tuesday, November 18, 2025 10:32 AM
+> To: ISS Accounts <accounts@iss-data.com>
+> Cc: Alex Chua <alexchua@iss-data.com>; Chakriya Phokintorn =
+<chakriya@iss-data.com>; criss.zhuang@acloudear.com =
+<criss.zhuang@acloudear.com>; Shawn Huang <shawn.huang@acloudear.com>; =
+Tankler Wang <tankler.wang@acloudear.com>; Weslin Lv =
+<weslin.lv@acloudear.com>; tony.yang <tony.yang@acloudear.com>
+> Subject: Re: HCC - Golden Tax Service Subscription
+> =20
+> Hi Finance Team,
+>=20
+> We need clarification on the correct allocation of this cost. Could =
+you please advise if HCC is aware of this cost?  I have already raised =
+this with Rocky so that they can arrange the payment to ISS asap, but he =
+didn=E2=80=99t know about it. Please advice to ensure we follow the =
+proper procedure.
+>=20
+> Additionally, this is an annual, pre-paid service that became active =
+on November 7th, 2025. It is essential for the ongoing system setup, =
+training, testing, and deployment activities. As the service is already =
+in use, we kindly request your support in processing the payment at your =
+earliest convenience to ensure there is no disruption to the project.
+>=20
+> Thank you for your help and prompt attention to this matter.
+>=20
+> Thanks & regards,
+> Man.
+>=20
+>=20
+>=20
+>> On 11 Nov 2025, at 13:19, Alex Chua <alexchua@iss-data.com> wrote:
+>>=20
+>> Hi Man,
+>>=20
+>> As mentioned before, please send invoices to ISS Accounts =
+(accounts@iss-data.com <mailto:accounts@iss-data.com>) for them to =
+process, thank you.
+>>=20
+>> Hi ISS Accounts,=20
+>>=20
+>> Please process accordingly, thank you.
+>>=20
+>> Regards,
+>>=20
+>> Alex Chua
+>> Consulting Director =20
+>> M:65 8518 5649
+>=20
+> <Outlook-1sqawxz5.png>
+>>=20
+>>  SAP Business ByDesign Partner of The Year 2021
+>> ISS Data Pte Ltd  |  65 6887 3418  |  www.iss-data.com =
+<http://www.iss-data.com/>  |  LinkedIn =
+<http://linkedin.com/company/issdata>  =20
+>>=20
+>> =20
+>> From: Man Li <man.li@acloudear.com <mailto:man.li@acloudear.com>>
+>> Sent: Tuesday, November 11, 2025 11:48 AM
+>> To: Alex Chua <alexchua@iss-data.com <mailto:alexchua@iss-data.com>>
+>> Cc: Chakriya Phokintorn <chakriya@iss-data.com =
+<mailto:chakriya@iss-data.com>>; criss.zhuang@acloudear.com =
+<mailto:criss.zhuang@acloudear.com> <criss.zhuang@acloudear.com =
+<mailto:criss.zhuang@acloudear.com>>; Shawn Huang =
+<shawn.huang@acloudear.com <mailto:shawn.huang@acloudear.com>>; Tankler =
+Wang <tankler.wang@acloudear.com <mailto:tankler.wang@acloudear.com>>; =
+Tony Yang <tony.yang@acloudear.com <mailto:tony.yang@acloudear.com>>; =
+Weslin Lv =E5=91=82=E6=96=AF=E7=B6=AD <weslin.lv@acloudear.com =
+<mailto:weslin.lv@acloudear.com>>
+>> Subject: HCC - Golden Tax Service Subscription
+>> =20
+>> Hi Alex,
+>>=20
+>> As part of our ongoing Golden Tax integration, please note that an =
+external service subscription is required and renewed annually. For your =
+reference and settlement, the detailed invoice is attached to this =
+email.
+>>=20
+>> Should you have any questions regarding the invoice or the =
+subscription process, please do not hesitate to reach out.
+>>=20
+>> Thank you for your attention.
+>>=20
+>> Best regards,
+>> Man
+>>=20
+>> =20
+>> This email and any files attached may contain information, which is =
+confidential, privileged and/or sensitive. If you have received this =
+email in error, please notify the sender and delete this email =
+immediately. The email is intended for the exclusive use of the =
+addressee only and sharing this email whether in part or in full with =
+any third party without the prior written consent of the sender is =
+strictly prohibited.
+>=20
+>=20
+
+
+--Apple-Mail=_F195E5A0-5419-46FF-BAC8-D4C22242586C
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html aria-label=3D"message body"><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"></=
+head><body style=3D"overflow-wrap: break-word; -webkit-nbsp-mode: space; li=
+ne-break: after-white-space;"><div><div>Hi Alex,</div><div><br></div><div>W=
+e originally provisioned a new IS tenant for the Golden Tax production envi=
+ronment. However, after confirming that a single environment will cover bot=
+h testing and production, we de-provisioned the extra instance.</div><div><=
+br></div><div>I have confirmed with our technical team that the associated =
+$6,506 will not be charged.</div><div><br></div><div>Regards,</div><div>Man=
+</div><div><br><blockquote type=3D"cite"><div>On 2 Dec 2025, at 18:31, Alex=
+ Chua &lt;alexchua@iss-data.com&gt; wrote:</div><br class=3D"Apple-intercha=
+nge-newline"><div>
+
+
+
+<div dir=3D"auto">
+<div dir=3D"ltr">=EF=BB=BFHi Man,</div>
+<div dir=3D"ltr"><br>
+</div>
+<div dir=3D"ltr"><p style=3D"-webkit-text-size-adjust: auto;">While reviewi=
+ng the BTP costs for Home Control, we noted a charge of&nbsp;<strong>$6,506=
+</strong>&nbsp;for the Integration Suite. Upon further checking, this appea=
+rs to be linked to the Golden Tax. Could you please confirm if
+ this is correct?</p><p style=3D"-webkit-text-size-adjust: auto;">Thank you=
+ for your support.</p>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;">
+<br>
+</div>
+<div class=3D"elementToProof" id=3D"Signature">
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt;">
+<br>
+</div><div style=3D"text-align: left; text-indent: 0px; line-height: normal=
+; background-color: rgb(255, 255, 255); margin: 0in;">
+<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
+;">Regards,</span></div><div style=3D"text-align: left; text-indent: 0px; l=
+ine-height: normal; background-color: rgb(255, 255, 255); margin: 0in;">
+<span style=3D"font-family: &quot;Franklin Gothic Book&quot;, sans-serif; f=
+ont-size: 9pt;"><br>
+</span></div>
+<table style=3D"text-align: left; background-color: rgb(255, 255, 255); col=
+or: rgb(36, 36, 36); box-sizing: border-box; border-collapse: collapse; bor=
+der-spacing: 0px;" cellpadding=3D"0" cellspacing=3D"0" id=3D"table_0">
+<tbody>
+<tr>
+<td style=3D"text-align: left; border-top: 1.5pt solid rgb(181, 224, 241); =
+border-bottom: 1pt solid rgb(191, 191, 191); padding: 0in; width: 110.875px=
+; height: 57.1146px;" colspan=3D"2"><div style=3D"text-align: left; line-he=
+ight: normal; margin: 0in; font-family: Calibri, sans-serif; font-size: 11p=
+t;">
+<span style=3D"font-family: &quot;Franklin Gothic Book&quot;, sans-serif; f=
+ont-size: 10pt;">Alex Chua</span></div><div style=3D"text-align: left; line=
+-height: normal; margin: 0in; font-family: Calibri, sans-serif; font-size: =
+11pt;">
+<span style=3D"font-family: &quot;Franklin Gothic Book&quot;, sans-serif; f=
+ont-size: 9pt;">Consulting Director
+</span><span style=3D"font-family: &quot;Franklin Gothic Book&quot;, sans-s=
+erif; font-size: 4pt;">&nbsp;</span></div><div style=3D"text-align: left; l=
+ine-height: normal; margin: 0in; font-family: Calibri, sans-serif;">
+<span style=3D"font-family: &quot;Franklin Gothic Book&quot;, sans-serif; f=
+ont-size: 8pt;">M:65 8518 5649</span></div>
+</td>
+</tr>
+<tr>
+<td style=3D"text-align: left; border-bottom: 1.5pt solid rgb(181, 224, 241=
+); padding: 0in; width: 110.875px; height: 43.6667px;"><div style=3D"text-a=
+lign: left; line-height: normal; margin: 0in;"><span style=3D"font-family: =
+&quot;Calibri Light&quot;, sans-serif; font-size: 8pt;"><span id=3D"cid:c1e=
+16967-48d4-45bd-898d-c1ad65be5160">&lt;Outlook-ao445jyh.png&gt;</span></spa=
+n></div>
+</td>
+<td style=3D"text-align: left; border-bottom: 1.5pt solid rgb(181, 224, 241=
+); padding: 0in; vertical-align: bottom; width: 309.094px; height: 43.6667p=
+x;"><div style=3D"text-align: left; line-height: normal; margin: 0in; font-=
+family: Calibri, sans-serif; font-size: 11pt;">
+<span style=3D"font-family: &quot;Calibri Light&quot;, sans-serif; font-siz=
+e: 2pt; color: rgb(41, 41, 41);"><b>&nbsp;</b></span><span style=3D"font-fa=
+mily: &quot;Franklin Gothic Book&quot;, sans-serif; font-size: 7.5pt; color=
+: rgb(41, 41, 41);">SAP Business ByDesign Partner of The Year
+ 2021</span></div><p style=3D"text-align: left; line-height: normal; margin=
+: 0in 0in 3pt; font-family: Calibri, sans-serif; font-size: 11pt;">
+<span style=3D"font-family: &quot;Franklin Gothic Book&quot;, sans-serif; f=
+ont-size: 7pt; color: rgb(41, 41, 41);">ISS Data Pte Ltd&nbsp; |&nbsp; 65 6=
+887 3418&nbsp; | &nbsp;</span><span style=3D"font-family: &quot;Franklin Go=
+thic Book&quot;, sans-serif; font-size: 7pt; color: rgb(29, 29, 29);"><a st=
+yle=3D"color: rgb(29, 29, 29); text-decoration: none; margin: 0px;" data-li=
+nkindex=3D"0" data-auth=3D"NotApplicable" title=3D"http://www.iss-data.com"=
+ class=3D"x_OWAAutoLink" id=3D"OWA534c15e2-6804-6d05-2d94-bf6d77f2a40b" hre=
+f=3D"http://www.iss-data.com/">www.iss-data.com</a></span><span style=3D"fo=
+nt-family: &quot;Franklin Gothic Book&quot;, sans-serif; font-size: 7pt; co=
+lor: rgb(41, 41, 41);">&nbsp;
+ | &nbsp;</span><span style=3D"font-family: &quot;Franklin Gothic Book&quot=
+;, sans-serif; font-size: 7pt; color: rgb(29, 29, 29);"><a style=3D"color: =
+rgb(29, 29, 29); text-decoration: none; margin: 0px;" data-linkindex=3D"1" =
+data-auth=3D"NotApplicable" title=3D"http://linkedin.com/company/issdata" c=
+lass=3D"x_OWAAutoLink" id=3D"OWAe92d16ea-c060-aeb3-8b0a-0040b0e00bd7" href=
+=3D"http://linkedin.com/company/issdata">LinkedIn</a></span><span style=3D"=
+font-family: &quot;Franklin Gothic Book&quot;, sans-serif; font-size: 7pt; =
+color: rgb(41, 41, 41);"><b>&nbsp;</b></span><span style=3D"font-family: &q=
+uot;Calibri Light&quot;, sans-serif; font-size: 7pt; color: rgb(41, 41, 41)=
+;"><b>&nbsp;&nbsp;</b></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt;">
+<br>
+</div>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt"><b>From:</b> Alex Chua &lt;alexchua@iss-data.com&gt;=
+<br>
+<b>Sent:</b> Friday, November 21, 2025 9:59 AM<br>
+<b>To:</b> Man Li &lt;man.li@acloudear.com&gt;; ISS Accounts &lt;accounts@i=
+ss-data.com&gt;<br>
+<b>Cc:</b> Chakriya Phokintorn &lt;chakriya@iss-data.com&gt;; criss.zhuang@=
+acloudear.com &lt;criss.zhuang@acloudear.com&gt;; Shawn Huang &lt;shawn.hua=
+ng@acloudear.com&gt;; Tankler Wang &lt;tankler.wang@acloudear.com&gt;; Wesl=
+in Lv &lt;weslin.lv@acloudear.com&gt;; tony.yang &lt;tony.yang@acloudear.co=
+m&gt;<br>
+<b>Subject:</b> Re: HCC - Golden Tax Service Subscription</font>
+<div>&nbsp;</div>
+</div>
+<div dir=3D"ltr">
+<div class=3D"x_elementToProof" style=3D"font-family: Aptos, Aptos_Embedded=
+Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
+">
+Hi Man,</div>
+<div class=3D"x_elementToProof" style=3D"font-family: Aptos, Aptos_Embedded=
+Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
+">
+<br>
+</div>
+<div class=3D"x_elementToProof" style=3D"font-family: Aptos, Aptos_Embedded=
+Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
+">
+This agreement is established between Acloudear and ISS Data. The associate=
+d costs will be absorbed by us and will not be recharged to Home Control. A=
+ll correspondence regarding this matter should be directed exclusively to I=
+SS Data and not to the customer.</div>
+<div class=3D"x_elementToProof" style=3D"font-family: Aptos, Aptos_Embedded=
+Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
+">
+<br>
+Thank you.</div>
+<div class=3D"x_elementToProof" id=3D"x_Signature">
+<div class=3D"x_elementToProof" style=3D"font-family: Aptos, Aptos_Embedded=
+Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
+">
+<br>
+</div><div style=3D"text-align: left; text-indent: 0px; line-height: normal=
+; background-color: rgb(255, 255, 255); margin: 0in;">
+<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
+;">Regards,</span></div><div style=3D"text-align: left; text-indent: 0px; l=
+ine-height: normal; background-color: rgb(255, 255, 255); margin: 0in;">
+<span style=3D"font-family: &quot;Franklin Gothic Book&quot;, sans-serif; f=
+ont-size: 9pt;"><br>
+</span></div>
+<table cellpadding=3D"0" cellspacing=3D"0" id=3D"x_table_0" style=3D"text-a=
+lign:left; background-color:rgb(255,255,255); color:rgb(36,36,36); box-sizi=
+ng:border-box; border-collapse:collapse; border-spacing:0px">
+<tbody>
+<tr>
+<td colspan=3D"2" style=3D"text-align:left; border-top:1.5pt solid rgb(181,=
+224,241); border-bottom:1pt solid rgb(191,191,191); padding:0in; width:110.=
+875px; height:57.1146px"><div style=3D"text-align: left; line-height: norma=
+l; margin: 0in; font-family: Calibri, sans-serif; font-size: 11pt;">
+<span style=3D"font-family: &quot;Franklin Gothic Book&quot;, sans-serif; f=
+ont-size: 10pt;">Alex Chua</span></div><div style=3D"text-align: left; line=
+-height: normal; margin: 0in; font-family: Calibri, sans-serif; font-size: =
+11pt;">
+<span style=3D"font-family: &quot;Franklin Gothic Book&quot;, sans-serif; f=
+ont-size: 9pt;">Consulting Director
+</span><span style=3D"font-family: &quot;Franklin Gothic Book&quot;, sans-s=
+erif; font-size: 4pt;">&nbsp;</span></div><div style=3D"text-align: left; l=
+ine-height: normal; margin: 0in; font-family: Calibri, sans-serif;">
+<span style=3D"font-family: &quot;Franklin Gothic Book&quot;, sans-serif; f=
+ont-size: 8pt;">M:65 8518 5649</span></div>
+</td>
+</tr>
+<tr>
+<td style=3D"text-align:left; border-bottom:1.5pt solid rgb(181,224,241); p=
+adding:0in; width:110.875px; height:43.6667px"><div style=3D"text-align: le=
+ft; line-height: normal; margin: 0in;">
+<span style=3D"font-family: &quot;Calibri Light&quot;, sans-serif; font-siz=
+e: 8pt;"><span id=3D"cid:1a9e7f53-4667-438e-ae33-168dfa717b11">&lt;Outlook-=
+0mtirdob.png&gt;</span></span></div>
+</td>
+<td style=3D"text-align:left; border-bottom:1.5pt solid rgb(181,224,241); p=
+adding:0in; vertical-align:bottom; width:309.094px; height:43.6667px"><div =
+style=3D"text-align: left; line-height: normal; margin: 0in; font-family: C=
+alibri, sans-serif; font-size: 11pt;">
+<span style=3D"font-family:&quot;Calibri Light&quot;,sans-serif; font-size:=
+2pt; color:rgb(41,41,41)"><b>&nbsp;</b></span><span style=3D"font-family:&q=
+uot;Franklin Gothic Book&quot;,sans-serif; font-size:7.5pt; color:rgb(41,41=
+,41)">SAP Business ByDesign Partner of The Year 2021</span></div><p class=
+=3D"x_elementToProof" style=3D"text-align:left; line-height:normal; margin:=
+0in 0in 3pt; font-family:Calibri,sans-serif; font-size:11pt">
+<span style=3D"font-family:&quot;Franklin Gothic Book&quot;,sans-serif; fon=
+t-size:7pt; color:rgb(41,41,41)">ISS Data Pte Ltd&nbsp; |&nbsp; 65 6887 341=
+8&nbsp; | &nbsp;</span><span style=3D"font-family:&quot;Franklin Gothic Boo=
+k&quot;,sans-serif; font-size:7pt; color:rgb(29,29,29)"><a data-linkindex=
+=3D"0" data-auth=3D"NotApplicable" title=3D"http://www.iss-data.com" class=
+=3D"x_x_OWAAutoLink" id=3D"OWA534c15e2-6804-6d05-2d94-bf6d77f2a40b" href=3D=
+"http://www.iss-data.com/" style=3D"color:rgb(29,29,29); text-decoration:no=
+ne; margin:0px">www.iss-data.com</a></span><span style=3D"font-family:&quot=
+;Franklin Gothic Book&quot;,sans-serif; font-size:7pt; color:rgb(41,41,41)"=
+>&nbsp;
+ | &nbsp;</span><span style=3D"font-family:&quot;Franklin Gothic Book&quot;=
+,sans-serif; font-size:7pt; color:rgb(29,29,29)"><a data-linkindex=3D"1" da=
+ta-auth=3D"NotApplicable" title=3D"http://linkedin.com/company/issdata" cla=
+ss=3D"x_x_OWAAutoLink" id=3D"OWAe92d16ea-c060-aeb3-8b0a-0040b0e00bd7" href=
+=3D"http://linkedin.com/company/issdata" style=3D"color:rgb(29,29,29); text=
+-decoration:none; margin:0px">LinkedIn</a></span><span style=3D"font-family=
+:&quot;Franklin Gothic Book&quot;,sans-serif; font-size:7pt; color:rgb(41,4=
+1,41)"><b>&nbsp;</b></span><span style=3D"font-family:&quot;Calibri Light&q=
+uot;,sans-serif; font-size:7pt; color:rgb(41,41,41)"><b>&nbsp;&nbsp;</b></s=
+pan></p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class=3D"x_elementToProof" style=3D"font-family: Aptos, Aptos_Embedded=
+Font, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt;=
+">
+<br>
+</div>
+</div>
+<div id=3D"x_appendonsend"></div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+style=3D"font-size:11pt"><b>From:</b> Man Li &lt;man.li@acloudear.com&gt;<b=
+r>
+<b>Sent:</b> Tuesday, November 18, 2025 10:32 AM<br>
+<b>To:</b> ISS Accounts &lt;accounts@iss-data.com&gt;<br>
+<b>Cc:</b> Alex Chua &lt;alexchua@iss-data.com&gt;; Chakriya Phokintorn &lt=
+;chakriya@iss-data.com&gt;; criss.zhuang@acloudear.com &lt;criss.zhuang@acl=
+oudear.com&gt;; Shawn Huang &lt;shawn.huang@acloudear.com&gt;; Tankler Wang=
+ &lt;tankler.wang@acloudear.com&gt;; Weslin Lv &lt;weslin.lv@acloudear.com&=
+gt;;
+ tony.yang &lt;tony.yang@acloudear.com&gt;<br>
+<b>Subject:</b> Re: HCC - Golden Tax Service Subscription</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div style=3D"line-break:after-white-space">Hi Finance Team,
+<div><br>
+</div>
+<div>We need clarification on the correct allocation of this cost. Could yo=
+u please advise if HCC is aware of this cost? &nbsp;I have already raised t=
+his with Rocky so that they can arrange the payment to ISS asap, but he did=
+n=E2=80=99t know about it. Please advice to ensure
+ we follow the proper procedure.</div>
+<div>
+<div><br>
+</div>
+<div>Additionally, this is an annual, pre-paid service that became active o=
+n November 7th, 2025. It is essential for the ongoing system setup, trainin=
+g, testing, and deployment activities. As the service is already in use, we=
+ kindly request your support in
+ processing the payment at your earliest convenience to ensure there is no =
+disruption to the project.</div>
+<div><br>
+</div>
+<div>Thank you for your help and prompt attention to this matter.</div>
+</div>
+<div><br>
+</div>
+<div>Thanks &amp; regards,</div>
+<div>Man.</div>
+<div>
+<div><br>
+</div>
+<div><br id=3D"x_x_x_lineBreakAtBeginningOfMessage">
+<div><br>
+<blockquote type=3D"cite">
+<div>On 11 Nov 2025, at 13:19, Alex Chua &lt;alexchua@iss-data.com&gt; wrot=
+e:</div>
+<br class=3D"x_x_x_Apple-interchange-newline">
+<div>
+<div class=3D"x_x_x_elementToProof" style=3D"font-style:normal; font-varian=
+t-caps:normal; font-weight:400; letter-spacing:normal; text-align:start; te=
+xt-indent:0px; text-transform:none; white-space:normal; word-spacing:0px; t=
+ext-decoration:none; font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontServi=
+ce,Calibri,Helvetica,sans-serif; font-size:12pt">
+Hi Man,</div>
+<div class=3D"x_x_x_elementToProof" style=3D"font-style:normal; font-varian=
+t-caps:normal; font-weight:400; letter-spacing:normal; text-align:start; te=
+xt-indent:0px; text-transform:none; white-space:normal; word-spacing:0px; t=
+ext-decoration:none; font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontServi=
+ce,Calibri,Helvetica,sans-serif; font-size:12pt">
+<br>
+</div>
+<div class=3D"x_x_x_elementToProof" style=3D"font-style:normal; font-varian=
+t-caps:normal; font-weight:400; letter-spacing:normal; text-align:start; te=
+xt-indent:0px; text-transform:none; white-space:normal; word-spacing:0px; t=
+ext-decoration:none; font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontServi=
+ce,Calibri,Helvetica,sans-serif; font-size:12pt">
+As mentioned before, please send invoices to ISS Accounts (<a href=3D"mailt=
+o:accounts@iss-data.com">accounts@iss-data.com</a>) for them to process, th=
+ank you.</div>
+<div class=3D"x_x_x_elementToProof" style=3D"font-style:normal; font-varian=
+t-caps:normal; font-weight:400; letter-spacing:normal; text-align:start; te=
+xt-indent:0px; text-transform:none; white-space:normal; word-spacing:0px; t=
+ext-decoration:none; font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontServi=
+ce,Calibri,Helvetica,sans-serif; font-size:12pt">
+<br>
+</div>
+<div class=3D"x_x_x_elementToProof" style=3D"font-style:normal; font-varian=
+t-caps:normal; font-weight:400; letter-spacing:normal; text-align:start; te=
+xt-indent:0px; text-transform:none; white-space:normal; word-spacing:0px; t=
+ext-decoration:none; font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontServi=
+ce,Calibri,Helvetica,sans-serif; font-size:12pt">
+Hi ISS Accounts,&nbsp;</div>
+<div class=3D"x_x_x_elementToProof" style=3D"font-style:normal; font-varian=
+t-caps:normal; font-weight:400; letter-spacing:normal; text-align:start; te=
+xt-indent:0px; text-transform:none; white-space:normal; word-spacing:0px; t=
+ext-decoration:none; font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontServi=
+ce,Calibri,Helvetica,sans-serif; font-size:12pt">
+<br>
+</div>
+<div class=3D"x_x_x_elementToProof" style=3D"font-style:normal; font-varian=
+t-caps:normal; font-weight:400; letter-spacing:normal; text-align:start; te=
+xt-indent:0px; text-transform:none; white-space:normal; word-spacing:0px; t=
+ext-decoration:none; font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontServi=
+ce,Calibri,Helvetica,sans-serif; font-size:12pt">
+Please process accordingly, thank you.</div>
+<div class=3D"x_x_x_elementToProof" id=3D"x_x_x_Signature" style=3D"font-fa=
+mily:Helvetica; font-size:14px; font-style:normal; font-variant-caps:normal=
+; font-weight:400; letter-spacing:normal; text-align:start; text-indent:0px=
+; text-transform:none; white-space:normal; word-spacing:0px; text-decoratio=
+n:none">
+<div class=3D"x_x_x_elementToProof" style=3D"font-family:Aptos,Aptos_Embedd=
+edFont,Aptos_MSFontService,Calibri,Helvetica,sans-serif; font-size:12pt">
+<br>
+</div>
+<div style=3D"margin:0in; text-align:left; text-indent:0px; line-height:nor=
+mal; background-color:rgb(255,255,255)">
+<span style=3D"font-family:Calibri,Helvetica,sans-serif; font-size:11pt">Re=
+gards,</span></div>
+<div style=3D"margin:0in; text-align:left; text-indent:0px; line-height:nor=
+mal; background-color:rgb(255,255,255)">
+<span style=3D"font-family:&quot;Franklin Gothic Book&quot;,sans-serif; fon=
+t-size:9pt"><br>
+</span></div>
+<table cellpadding=3D"0" cellspacing=3D"0" id=3D"x_x_x_table_0" style=3D"te=
+xt-align:left; background-color:rgb(255,255,255); color:rgb(36,36,36); box-=
+sizing:border-box; border-collapse:collapse; border-spacing:0px">
+<tbody>
+<tr>
+<td colspan=3D"2" style=3D"text-align:left; border-top-width:1.5pt; border-=
+top-style:solid; border-top-color:rgb(181,224,241); border-bottom-width:1pt=
+; border-bottom-style:solid; border-bottom-color:rgb(191,191,191); padding:=
+0in; width:110.875px; height:57.1146px">
+<div style=3D"margin:0in; text-align:left; line-height:normal; font-family:=
+Calibri,sans-serif; font-size:11pt">
+<span style=3D"font-family:&quot;Franklin Gothic Book&quot;,sans-serif; fon=
+t-size:10pt">Alex Chua</span></div>
+<div style=3D"margin:0in; text-align:left; line-height:normal; font-family:=
+Calibri,sans-serif; font-size:11pt">
+<span style=3D"font-family:&quot;Franklin Gothic Book&quot;,sans-serif; fon=
+t-size:9pt">Consulting Director<span class=3D"x_x_x_Apple-converted-space">=
+&nbsp;</span></span><span style=3D"font-family:&quot;Franklin Gothic Book&q=
+uot;,sans-serif; font-size:4pt">&nbsp;</span></div>
+<div style=3D"margin:0in; text-align:left; line-height:normal; font-family:=
+Calibri,sans-serif">
+<span style=3D"font-family:&quot;Franklin Gothic Book&quot;,sans-serif; fon=
+t-size:8pt">M:65 8518 5649</span></div>
+</td>
+</tr>
+<tr>
+<td style=3D"text-align:left; border-bottom-width:1.5pt; border-bottom-styl=
+e:solid; border-bottom-color:rgb(181,224,241); padding:0in; width:110.875px=
+; height:43.6667px">
+<div style=3D"margin:0in; text-align:left; line-height:normal"><span style=
+=3D"font-family:&quot;Calibri Light&quot;,sans-serif; font-size:8pt"></span=
+></div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div><span id=3D"cid:c2a3c1e0-dc93-460a-9add-9dad2f695523@apcprd01.prod.exc=
+hangelabs.com">&lt;Outlook-1sqawxz5.png&gt;</span>
+</div>
+<div style=3D"line-break:after-white-space">
+<div>
+<div>
+<div class=3D"x_x_x_AppleOriginalContents">
+<blockquote type=3D"cite">
+<div>
+<div class=3D"x_x_x_elementToProof" id=3D"x_x_x_Signature" style=3D"font-fa=
+mily:Helvetica; font-size:14px; font-style:normal; font-variant-caps:normal=
+; font-weight:400; letter-spacing:normal; text-align:start; text-indent:0px=
+; text-transform:none; white-space:normal; word-spacing:0px; text-decoratio=
+n:none">
+<table cellpadding=3D"0" cellspacing=3D"0" id=3D"x_x_x_table_0" style=3D"te=
+xt-align:left; background-color:rgb(255,255,255); color:rgb(36,36,36); box-=
+sizing:border-box; border-collapse:collapse; border-spacing:0px">
+<tbody>
+<tr>
+<td style=3D"text-align:left; border-bottom-width:1.5pt; border-bottom-styl=
+e:solid; border-bottom-color:rgb(181,224,241); padding:0in; width:110.875px=
+; height:43.6667px">
+<div style=3D"margin:0in; text-align:left; line-height:normal"><span style=
+=3D"font-family:&quot;Calibri Light&quot;,sans-serif; font-size:8pt"></span=
+></div>
+</td>
+<td style=3D"text-align:left; border-bottom-width:1.5pt; border-bottom-styl=
+e:solid; border-bottom-color:rgb(181,224,241); padding:0in; vertical-align:=
+bottom; width:309.094px; height:43.6667px">
+<div style=3D"margin:0in; text-align:left; line-height:normal; font-family:=
+Calibri,sans-serif; font-size:11pt">
+<span style=3D"font-family:&quot;Calibri Light&quot;,sans-serif; font-size:=
+2pt; color:rgb(41,41,41)"><b>&nbsp;</b></span><span style=3D"font-family:&q=
+uot;Franklin Gothic Book&quot;,sans-serif; font-size:7.5pt; color:rgb(41,41=
+,41)">SAP Business ByDesign Partner of The Year 2021</span></div><p class=
+=3D"x_x_x_elementToProof" style=3D"margin:0in 0in 3pt; text-align:left; lin=
+e-height:normal; font-family:Calibri,sans-serif; font-size:11pt">
+<span style=3D"font-family:&quot;Franklin Gothic Book&quot;,sans-serif; fon=
+t-size:7pt; color:rgb(41,41,41)">ISS Data Pte Ltd&nbsp; |&nbsp; 65 6887 341=
+8&nbsp; | &nbsp;</span><span style=3D"font-family:&quot;Franklin Gothic Boo=
+k&quot;,sans-serif; font-size:7pt; color:rgb(29,29,29)"><a title=3D"http://=
+www.iss-data.com" class=3D"x_x_x_x_OWAAutoLink" id=3D"OWA534c15e2-6804-6d05=
+-2d94-bf6d77f2a40b" href=3D"http://www.iss-data.com/" style=3D"color:rgb(29=
+,29,29); text-decoration:none; margin:0px">www.iss-data.com</a></span><span=
+ style=3D"font-family:&quot;Franklin Gothic Book&quot;,sans-serif; font-siz=
+e:7pt; color:rgb(41,41,41)">&nbsp;
+ | &nbsp;</span><span style=3D"font-family:&quot;Franklin Gothic Book&quot;=
+,sans-serif; font-size:7pt; color:rgb(29,29,29)"><a title=3D"http://linkedi=
+n.com/company/issdata" class=3D"x_x_x_x_OWAAutoLink" id=3D"OWAe92d16ea-c060=
+-aeb3-8b0a-0040b0e00bd7" href=3D"http://linkedin.com/company/issdata" style=
+=3D"color:rgb(29,29,29); text-decoration:none; margin:0px">LinkedIn</a></sp=
+an><span style=3D"font-family:&quot;Franklin Gothic Book&quot;,sans-serif; =
+font-size:7pt; color:rgb(41,41,41)"><b>&nbsp;</b></span><span style=3D"font=
+-family:&quot;Calibri Light&quot;,sans-serif; font-size:7pt; color:rgb(41,4=
+1,41)"><b>&nbsp;&nbsp;</b></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class=3D"x_x_x_elementToProof" style=3D"font-family:Aptos,Aptos_Embedd=
+edFont,Aptos_MSFontService,Calibri,Helvetica,sans-serif; font-size:12pt">
+<br>
+</div>
+</div>
+<div id=3D"x_x_x_appendonsend" style=3D"font-family:Helvetica; font-size:14=
+px; font-style:normal; font-variant-caps:normal; font-weight:400; letter-sp=
+acing:normal; text-align:start; text-indent:0px; text-transform:none; white=
+-space:normal; word-spacing:0px; text-decoration:none">
+</div>
+<hr tabindex=3D"-1" style=3D"font-family:Helvetica; font-size:14px; font-st=
+yle:normal; font-variant-caps:normal; font-weight:400; letter-spacing:norma=
+l; orphans:auto; text-align:start; text-indent:0px; text-transform:none; wh=
+ite-space:normal; widows:auto; word-spacing:0px; text-decoration:none; disp=
+lay:inline-block; width:1015.265625px">
+<span style=3D"font-family:Helvetica; font-size:14px; font-style:normal; fo=
+nt-variant-caps:normal; font-weight:400; letter-spacing:normal; text-align:=
+start; text-indent:0px; text-transform:none; white-space:normal; word-spaci=
+ng:0px; text-decoration:none; float:none; display:inline!important"></span>
+<div id=3D"x_x_x_divRplyFwdMsg" dir=3D"ltr" style=3D"font-family:Helvetica;=
+ font-size:14px; font-style:normal; font-variant-caps:normal; font-weight:4=
+00; letter-spacing:normal; text-align:start; text-indent:0px; text-transfor=
+m:none; white-space:normal; word-spacing:0px; text-decoration:none">
+<font face=3D"Calibri, sans-serif" style=3D"font-size:11pt"><b>From:</b><sp=
+an class=3D"x_x_x_Apple-converted-space">&nbsp;</span>Man Li &lt;<a href=3D=
+"mailto:man.li@acloudear.com">man.li@acloudear.com</a>&gt;<br>
+<b>Sent:</b><span class=3D"x_x_x_Apple-converted-space">&nbsp;</span>Tuesda=
+y, November 11, 2025 11:48 AM<br>
+<b>To:</b><span class=3D"x_x_x_Apple-converted-space">&nbsp;</span>Alex Chu=
+a &lt;<a href=3D"mailto:alexchua@iss-data.com">alexchua@iss-data.com</a>&gt=
+;<br>
+<b>Cc:</b><span class=3D"x_x_x_Apple-converted-space">&nbsp;</span>Chakriya=
+ Phokintorn &lt;<a href=3D"mailto:chakriya@iss-data.com">chakriya@iss-data.=
+com</a>&gt;;<span class=3D"x_x_x_Apple-converted-space">&nbsp;</span><a hre=
+f=3D"mailto:criss.zhuang@acloudear.com">criss.zhuang@acloudear.com</a><span=
+ class=3D"x_x_x_Apple-converted-space">&nbsp;</span>&lt;<a href=3D"mailto:c=
+riss.zhuang@acloudear.com">criss.zhuang@acloudear.com</a>&gt;;
+ Shawn Huang &lt;<a href=3D"mailto:shawn.huang@acloudear.com">shawn.huang@a=
+cloudear.com</a>&gt;; Tankler Wang &lt;<a href=3D"mailto:tankler.wang@aclou=
+dear.com">tankler.wang@acloudear.com</a>&gt;; Tony Yang &lt;<a href=3D"mail=
+to:tony.yang@acloudear.com">tony.yang@acloudear.com</a>&gt;;
+ Weslin Lv =E5=91=82=E6=96=AF=E7=B6=AD &lt;<a href=3D"mailto:weslin.lv@aclo=
+udear.com">weslin.lv@acloudear.com</a>&gt;<br>
+<b>Subject:</b><span class=3D"x_x_x_Apple-converted-space">&nbsp;</span>HCC=
+ - Golden Tax Service Subscription</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_x_x_BodyFragment" style=3D"font-family:Helvetica; font-size=
+:14px; font-style:normal; font-variant-caps:normal; font-weight:400; letter=
+-spacing:normal; text-align:start; text-indent:0px; text-transform:none; wh=
+ite-space:normal; word-spacing:0px; text-decoration:none">
+<font size=3D"2"><span style=3D"font-size:11pt">
+<div class=3D"x_x_x_PlainText">Hi Alex,<br>
+<br>
+As part of our ongoing Golden Tax integration, please note that an external=
+ service subscription is required and renewed annually. For your reference =
+and settlement, the detailed invoice is attached to this email.<br>
+<br>
+Should you have any questions regarding the invoice or the subscription pro=
+cess, please do not hesitate to reach out.<br>
+<br>
+Thank you for your attention.<br>
+<br>
+Best regards,<br>
+Man<br>
+<br>
+</div>
+</span></font></div>
+<table cellpadding=3D"0" cellspacing=3D"0" style=3D"letter-spacing:normal; =
+orphans:auto; text-transform:none; widows:auto; word-spacing:0px; text-deco=
+ration:none; width:595px; font-size:9pt; font-family:Arial,sans-serif">
+<tbody>
+<tr>
+<td colspan=3D"2" width=3D"400" style=3D"width:400px">&nbsp;</td>
+</tr>
+<tr>
+<td colspan=3D"2" width=3D"400" style=3D"font-size:8pt; font-family:Arial,s=
+ans-serif; color:rgb(135,135,135); width:400px; text-align:justify">
+<span style=3D"font-family:Arial,sans-serif; color:rgb(135,135,135)">This e=
+mail and any files attached may contain information, which is confidential,=
+ privileged and/or sensitive. If you have received this email in error, ple=
+ase notify the sender and delete this
+ email immediately. The email is intended for the exclusive use of the addr=
+essee only and sharing this email whether in part or in full with any third=
+ party without the prior written consent of the sender is strictly prohibit=
+ed.</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div style=3D"line-break:after-white-space">
+<div>
+<div>
+<div>
+<blockquote type=3D"cite">
+<div></div>
+</blockquote>
+</div>
+<br>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div></blockquote></div><br></div></body></html>=
+
+--Apple-Mail=_F195E5A0-5419-46FF-BAC8-D4C22242586C--
+
+--_004_SEZPR01MB43041DFEA19724994158FB62E3202SEZPR01MB4304apcp_--
+
+

@@ -22,4 +22,4 @@ Use this rule set when you are **testing, reviewing, or verifying** changes (man
 
 ## Approved materials
 
-- Treat `HCC/` documents that are clearly **signed-off or approved** as protected: do not edit without explicit human confirmation (see `global-rules.mdc`).
+- Treat `docs/` documents that are clearly **signed-off or approved** as protected: do not edit without explicit human confirmation (see `global-rules.mdc`).
