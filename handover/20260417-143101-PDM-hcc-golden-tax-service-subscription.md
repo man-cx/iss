@@ -36,6 +36,6 @@ For roles, see `registry/team-registry.md`.
 - **ISS:** Alex Chua (company owner / project director), Chakriya (project manager)
 - **Acloudear:** Tankler (company founder / project director), Man Li (project manager), Tony (chief technical director)
 
-## Related repo item
+## Related topic
 
-- Ticket **TKT-001** (CPI / Golden Tax app cost) may overlap this topic; compare notes if you work that ticket.
+- The **CPI / Golden Tax app cost** thread may overlap this topic; compare notes if you work that area.

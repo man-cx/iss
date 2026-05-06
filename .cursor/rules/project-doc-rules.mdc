@@ -1,12 +1,12 @@
 ---
-description: ISS — where handover, ADR, ticket, and registry files go; naming patterns; ADR and tickets at repo root.
+description: ISS — where handover, ADR, and registry files go; naming patterns; ADR at repo root.
 globs: *
 alwaysApply: true
 ---
 
 # Project document rules (ISS)
 
-Applies whenever you **create, move, rename, or reference** handover notes, ADRs, tickets, or registry files.
+Applies whenever you **create, move, rename, or reference** handover notes, ADRs, or registry files.
 
 ## 1) Locations (repo root)
 
@@ -14,8 +14,7 @@ Applies whenever you **create, move, rename, or reference** handover notes, ADRs
 | --- | --- |
 | Handover, QA notes, async questions | `handover/` (`.md` notes at this level) |
 | Handover supporting files (PDFs, images, exports, etc.) | `handover/sources/` |
-| Architecture Decision Records (ADR) | **`adr/`** (at repository root — not under `design-book/`) |
-| Tickets (work requests) | **`tickets/`** (at repository root) |
+| Architecture Decision Records (ADR) | **`decisions/`** (at repository root — not under `design-book/`) |
 | Canonical indexes (pointers only) | `registry/` |
 
 ## 2) One ADR index
@@ -23,12 +22,7 @@ Applies whenever you **create, move, rename, or reference** handover notes, ADRs
 - **Only** `registry/adr-registry.md` lists ADRs for humans and agents.
 - When you add an ADR file, **update that registry** in the same change (or immediately after).
 
-## 3) One ticket index
-
-- **Only** `registry/ticket-registry.md` lists tickets for humans and agents.
-- Do **not** create a second ticket index elsewhere.
-
-## 4) Naming — `handover/`
+## 3) Naming — `handover/`
 
 Pattern (required for every new file):
 
@@ -49,7 +43,7 @@ Example: `20260417-143022-QAC-login-flow-regression.md`
   - Attachments: `handover/sources/20260417-143101-PDM-example-topic/`
 - From the handover `.md`, link with a **relative** path from `handover/`, e.g. `sources/20260417-143101-PDM-example-topic/diagram.png`.
 
-## 5) Naming — `adr/`
+## 4) Naming — `decisions/`
 
 Same pattern as handover:
 
@@ -57,58 +51,10 @@ Same pattern as handover:
 
 Example: `20260416-153000-ARC-use-root-adr-folder.md`
 
-## 6) Naming — `tickets/`
-
-Pattern (required for every new ticket file):
-
-`YYYYMMDD-HHMMSS-<ticket-id>-<ticket-title>-<requester>.md`
-
-Rules:
-
-- Date and time: **UTC+8**, 24-hour clock, include seconds (`HHMMSS`).
-- `<ticket-id>`: assigned by the agent using `registry/ticket-registry.md`:
-  - Format: `TKT-` + 3-digit running number (`TKT-001`, `TKT-002`, ...).
-  - Read current IDs in `ticket-registry.md`, get the highest number, then use next number.
-  - If no ticket exists yet, start at `TKT-001`.
-  - IDs are global and never reused.
-- `<ticket-title>`: kebab-case, short, no spaces.
-- `<requester>`: requester full name, normalized to kebab-case for filename safety.
-
-## 7) Ticket registry fields and allowed values
-
-Each row in `registry/ticket-registry.md` must include:
-
-- `ticket-id`
-- `title`
-- `requester`
-- `status` (`new`, `in progress`, `blocked`, `closed`)
-- `priority` (`A`, `B`, `C`)
-- `handover-count` (number only)
-- `ticket-file` (path in `tickets/`)
-
-Defaults when creating a new ticket:
-
-- `status = new`
-- `priority = B`
-
-Priority meaning:
-
-- `A`: asap
-- `B`: do after A
-- `C`: parking
-
-Status updates are free-form by user instruction (no forced transition flow).
-
-## 8) Ticket file and handover linkage
-
-- A ticket file can reference **multiple** handover files.
-- Keep the actual handover links inside the ticket file (not in the registry row).
-- Keep `handover-count` in the registry aligned with the number of linked handover files in that ticket file.
-
-## 9) Naming — `registry/`
+## 5) Naming — `registry/`
 
 Use **stable** filenames (no timestamps in the name), e.g. `adr-registry.md`, so links stay valid.
 
-## 10) Approved docs
+## 6) Approved docs
 
 - Do not edit or delete **approved** specs without explicit user confirmation (see `global-rules.mdc`).

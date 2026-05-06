@@ -11,12 +11,9 @@ Use this rule set when you are **writing code, scripts, or automation** for this
 ## Before you change behavior or structure
 
 1. Check **recent handover** under `handover/` for blockers or decisions (newest files sort last alphabetically when names follow the timestamp pattern).
-2. Check **ADRs** under `adr/` and `registry/adr-registry.md` for decisions that constrain the work.
-3. Check **tickets** under `tickets/` and `registry/ticket-registry.md` when work is ticket-driven.
-4. Product and delivery docs live under **`docs/`** — read what is relevant; do not treat random markdown outside these areas as authoritative unless the user points you there.
+2. Check **ADRs** under `decisions/` and `registry/adr-registry.md` for decisions that constrain the work.
+3. Product and delivery docs live under **`docs/`** — read what is relevant; do not treat random markdown outside these areas as authoritative unless the user points you there.
 
 ## After significant work
 
 - If the next person (or future you) needs context, add a **handover** file under `handover/` using the naming rule in `project-doc-rules.mdc` (one topic per file).
-- If work is tied to a ticket, update the matching file in `tickets/` and keep `handover-count` in `registry/ticket-registry.md` aligned.
-- Do not change ticket status unless the user asks for a status update.

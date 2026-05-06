@@ -15,10 +15,7 @@ Use this rule set when you are **testing, reviewing, or verifying** changes (man
 
 ## Registry
 
-- If a QA outcome becomes a **project decision**, capture it as an **ADR** under `adr/` and add a row to `registry/adr-registry.md`.
-- If QA work is tied to a ticket, keep links to related handover files in the ticket file under `tickets/`.
-- Keep `handover-count` accurate in `registry/ticket-registry.md` (count of handover files linked in the ticket file).
-- Do not change ticket status unless the user asks for a status update.
+- If a QA outcome becomes a **project decision**, capture it as an **ADR** under `decisions/` and add a row to `registry/adr-registry.md`.
 
 ## Approved materials
 

@@ -1,0 +1,20 @@
+---
+description: ISS repo — do not reference paths under _archive; they are not sources of truth.
+globs: *
+alwaysApply: true
+---
+
+# Archived content (`_archive`)
+
+Paths matching `**/_archive/**` are **retired**. Treat them as historical snapshots only.
+
+## For the agent
+
+- **Do not** add new links, imports, or citations that point into `_archive`.
+- **Do not** copy requirements, decisions, or “current” wording from `_archive` into active docs, handover notes, ADRs, or registry entries without explicit human approval to restore that material.
+- When searching or suggesting file paths, **prefer non-archive** locations. If the only match is under `_archive`, say so and ask a human whether to use it or recreate content in an active path.
+- **Do not** update or “fix” files under `_archive` unless the user explicitly asks to change archive contents.
+
+## Rationale
+
+Keeps active documentation and automation aligned with maintained sources; avoids reviving superseded material by accident.
